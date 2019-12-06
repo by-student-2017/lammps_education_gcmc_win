@@ -1,0 +1,14 @@
+#!/usr/bin/gnuplot
+
+set terminal win font "Arial,12"
+set xlabel "Step"
+set mxtics 5
+set ylabel "Number of Gas / unitcell"
+set mytics 5
+plot "rho_vs_p.dat" u 1:5 w l t "N2"
+
+# pause -1
+
+#set terminal postscript color enhanced lw 2
+#set out "energy.ps"
+#replot
