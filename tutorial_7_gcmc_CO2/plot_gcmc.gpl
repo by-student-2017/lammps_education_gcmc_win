@@ -5,7 +5,7 @@ set xlabel "Step"
 set mxtics 5
 set ylabel "Number of Gas / unitcell"
 set mytics 5
-plot "rho_vs_p.dat" u 1:5 w l t "N2"
+plot "rho_vs_p.dat" u 1:5 w l t "CO2"
 
 # pause -1
 
