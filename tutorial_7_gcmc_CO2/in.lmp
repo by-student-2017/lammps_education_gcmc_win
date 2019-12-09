@@ -4,11 +4,13 @@ clear
 
 # ----- condition settings -----
 
-variable   temp index 77.0 # K
+variable   temp1 index 77.0 # K
+
+variable   temp2 index 97.5 # K
 
 variable   pres index 1.0 # 0.1 MPa (bar units)
 
-variable   mu   index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
+variable   tfac index 1.0  #
 
 # -----other settings -----
 variable   fs   index 0.0005 # 0.5 fs
@@ -18,6 +20,7 @@ variable   nstep equal ${ps}/${fs}
 variable   tdamp equal ${fs}*100
 variable   pdamp equal ${fs}*1000
 variable   disp index 0.01
+variable   mu   index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
 
 # ----- Structure settings -----
 units      metal
@@ -104,20 +107,20 @@ fix             fout1 all ave/time 1 100 100 v_energy v_temperature file out_ene
 
 # ----- Equilibriation -----
 velocity        all create 10.0 123456
-fix             f1 all npt temp 10.0 ${temp} ${tdamp} iso 0.0 ${pres} ${pdamp}
+fix             f1 all npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
 run             ${nstep} # 20 ps
 unfix           f1
 
 # ----- NVT Calculation -----
-fix             f1 all nvt temp ${temp} ${temp} ${tdamp}
+fix             f1 all nvt temp ${temp1} ${temp2} ${tdamp}
 run             ${nstep} # 20 ps
 unfix           f1
 
 # ----- GCMC Calculation-----
 group           ztc type 1:2 # 1=C, 2=H
 group           gas type 3   # 3=He
-fix             f1 all nvt temp ${temp} ${temp} ${tdamp}
-fix             f2 gas gcmc 50 50 50 3 761341 ${temp} ${mu} ${disp} pressure ${pres}
+fix             f1 all nvt temp ${temp2} ${temp2} ${tdamp}
+fix             f2 gas gcmc 50 50 50 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
 
 # ----- atom count -----
 variable        type1 atom "type==1" # C
@@ -133,10 +136,11 @@ variable        ngas equal count(type3) # Gas (e.g., He, Ar, Kr, etc)
 # ----- averaging -----
 variable        rho equal density
 variable        p equal press
+variable        t equal temp
 variable        nugget equal 1.0e-8
 variable        lambda equal 1.0
-variable        muex equal ${mu}-${temp}*ln(density*${lambda}+${nugget})
-fix             ave all ave/time 1 100 ${nfre} v_rho v_p v_muex v_ngas v_nc v_nh ave one file rho_vs_p.dat
+variable        muex equal ${mu}-${temp2}*ln(density*${lambda}+${nugget})
+fix             ave all ave/time 1 100 ${nfre} v_rho v_p v_muex v_ngas v_nc v_nh v_t ave one file rho_vs_p.dat
 variable        rhoav equal f_ave[1]
 variable        pav equal f_ave[2]
 variable        muexav equal f_ave[3]
@@ -146,7 +150,7 @@ variable        nhav equal f_ave[6] # H
 
 variable        wtav equal f_ave[4]*44/(f_ave[5]*12+f_ave[6]+f_ave[4]*44+${nugget})*100
 
-compute_modify  thermo_temp dynamic yes
+compute_modify  thermo_temp dynamic/dof yes
 thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav
 thermo          ${nfre}
 

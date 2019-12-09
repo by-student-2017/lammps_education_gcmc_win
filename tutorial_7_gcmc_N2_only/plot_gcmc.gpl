@@ -8,7 +8,7 @@ set mytics 5
 set y2label "Temperature / K"
 set y2tics
 set my2tics 5
-plot "rho_vs_p.dat" u 1:5 w l t "He", "rho_vs_p.dat" u 1:8 w l t "Temperature"
+plot "rho_vs_p.dat" u 1:5 w l t "N_2", "rho_vs_p.dat" u 1:6 w l t "Temperature"
 
 # pause -1
 

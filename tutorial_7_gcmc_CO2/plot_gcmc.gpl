@@ -5,10 +5,13 @@ set xlabel "Step"
 set mxtics 5
 set ylabel "Number of Gas / unitcell"
 set mytics 5
-plot "rho_vs_p.dat" u 1:5 w l t "CO2"
+set y2label "Temperature / K"
+set y2tics
+set my2tics 5
+plot "rho_vs_p.dat" u 1:5 w l t "CO_2", "rho_vs_p.dat" u 1:8 w l t "Temperature"
 
 # pause -1
 
 #set terminal postscript color enhanced lw 2
-#set out "energy.ps"
+#set out "gcmc.ps"
 #replot
