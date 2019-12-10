@@ -4,11 +4,11 @@ clear
 
 # ----- condition settings -----
 
-variable   temp1 index 77.0 # K
+variable   temp1 index 77.0 # K (for NPT process)
 
-variable   temp2 index 89.5 # K
+variable   temp2 index 89.5 # K (for GCMC process)
 
-variable   pres index 1.0 # 0.1 MPa (bar units)
+variable   pres index 1.0 # (bar units), 1.0 bar = 0.1 MPa 
 
 variable   tfac index 1.0  #
 
@@ -27,7 +27,7 @@ units      metal
 atom_style atomic
 dimension  3
 boundary   p p p
-read_data  data.ch
+read_data  data.ch # read initial data case
 replicate  1 1 1
 timestep   ${fs}
 
@@ -85,14 +85,17 @@ pair_coeff 3 3 lj/cut 0.003162 2.958 #  H2-H2
 # real  unit: [kcal/mol]=[K]*0.001987, [Angstrom]=[nm]*10
 # metal unit: [eV]=[K]*0.00008617, [Angstrom]=[nm]*10
 
-# ----- Relax calculation (0 K) -----
+# ----- Output setting -----
 thermo_style    custom step etotal temp lx vol press
 thermo          10
 
+# ----- Relax calculation (0 K) -----
+print "----- Relax calculation (0 K) -----"
 fix             f1 all box/relax iso 0.0
 minimize        1.0e-10 0.0 1000 100000
 unfix           f1
 
+# ----- reset timestep and dt -----
 reset_timestep  0
 timestep        ${fs}
 
@@ -101,26 +104,31 @@ dump            d1 all cfg 100 cfg/run.*.cfg mass type xs ys zs id type
 dump_modify     d1 element C H H
 
 # ----- Check equilibriation setting -----
-variable        energy equal etotal
-variable        temperature equal temp
-fix             fout1 all ave/time 1 100 100 v_energy v_temperature file out_energy.txt
+variable        Energy equal etotal
+variable        Temperature equal temp
+variable        Pressure equal press
+fix             fout1 all ave/time 1 100 100 v_Energy v_Temperature v_Pressure file out_energy.txt
 
-# ----- Equilibriation -----
+# ----- Equilibriation (NPT) -----
+print "----- Equilibriation (NPT) -----"
 velocity        all create 10.0 123456
 fix             f1 all npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
 run             ${nstep} # 20 ps
 unfix           f1
 
-# ----- NVT Calculation -----
-fix             f1 all nvt temp ${temp1} ${temp2} ${tdamp}
-run             ${nstep} # 20 ps
-unfix           f1
+# ----- Equilibriation (NVT) -----
+#print "----- Equilibriation (NVT) -----"
+#velocity        all create 10.0 123456
+#fix             f1 all nvt temp ${temp1} ${temp2} ${tdamp}
+#run             ${nstep} # 20 ps
+#unfix           f1
 
 # ----- GCMC Calculation-----
+print "----- GCMC Calculation -----"
 group           ztc type 1:2 # 1=C, 2=H
 group           gas type 3   # 3=H2
 fix             f1 all nvt temp ${temp2} ${temp2} ${tdamp}
-fix             f2 gas gcmc 50 50 50 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
+fix             f2 gas gcmc 100 100 100 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
 
 # ----- atom count -----
 variable        type1 atom "type==1" # C
@@ -161,3 +169,6 @@ dump_modify     d3 element C H H
 run             ${nstep} # 20 ps
 unfix f1
 unfix f2
+
+# ----- Output restart data -----
+write_data gcmc_restart.data

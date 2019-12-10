@@ -4,9 +4,9 @@ clear
 
 # ----- condition settings -----
 
-variable   temp index 77.0 # K
+variable   temp index 77.0 # K (for GCMC process)
 
-variable   pres index 1.0 # 0.1 MPa (bar units)
+variable   pres index 1.0 # (bar units), 1.0 bar = 0.1 MPa 
 
 variable   tfac index 1.0  #
 
@@ -79,23 +79,27 @@ dump            d1 all cfg 100 cfg/run.*.cfg mass type xs ys zs id type
 dump_modify     d1 element H
 
 # ----- Check equilibriation setting -----
-variable        energy equal etotal
-variable        temperature equal temp
-fix             fout1 all ave/time 1 100 100 v_energy v_temperature file out_energy.txt
+variable        Energy equal etotal
+variable        Temperature equal temp
+variable        Pressure equal press
+fix             fout1 all ave/time 1 100 100 v_Energy v_Temperature v_Pressure file out_energy.txt
 
-# ----- Equilibriation -----
+# ----- Equilibriation (NPT) -----
+#print "----- Equilibriation (NPT) -----"
 #velocity        all create ${temp} 123456
 #fix             f1 all npt temp ${temp} ${temp} ${tdamp} iso 0.0 ${pres} ${pdamp}
 #run             ${nstep} # 20 ps
 #unfix           f1
 
-# ----- NVT Calculation -----
+# ----- Equilibriation (NVT) -----
+print "----- Equilibriation (NVT) -----"
 velocity        all create ${temp} 123456
 fix             f1 all nvt temp ${temp} ${temp} ${tdamp}
 run             ${nstep} # 20 ps
 unfix           f1
 
 # ----- GCMC Calculation-----
+print "----- GCMC Calculation -----"
 group           gas type 1   # 1=He
 fix             f1 all nvt temp ${temp} ${temp} ${tdamp}
 fix             f2 gas gcmc 100 100 100 1 761341 ${temp} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}

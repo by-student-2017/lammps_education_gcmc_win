@@ -3,12 +3,12 @@
 set terminal win font "Arial,12"
 set xlabel "Step"
 set mxtics 5
-set ylabel "Number of Gas / unitcell"
+set ylabel "Number of Gas / unitcell, Pressure / kPa, Temperature / K"
 set mytics 5
-set y2label "Temperature / K"
+set y2label "Number of Gas / unitcell, Pressure / kPa, Temperature / K"
 set y2tics
 set my2tics 5
-plot "rho_vs_p.dat" u 1:5 w l t "H_2", "rho_vs_p.dat" u 1:6 w l t "Temperature"
+plot "rho_vs_p.dat" u 1:5 w l t "H_2", "rho_vs_p.dat" u 1:($3*0.1*1000) w l t "Pressure (kPa)", "rho_vs_p.dat" u 1:6 w l t "Temperature (K)"
 
 # pause -1
 
