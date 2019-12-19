@@ -15,11 +15,15 @@ variable   tfac index 1.0  #
 # -----other settings -----
 variable   fs   index 0.0005 # 0.5 fs
 variable   ps   index 10 # 10 ps
-variable   nfre index 100 # = Nevery * Nrepeat
+variable   ps_gcmc index 20 # 20 ps
+variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nstep equal ${ps}/${fs}
+variable   nstep_gcmc equal ${ps_gcmc}/${fs}
 variable   tdamp equal ${fs}*100
 variable   pdamp equal ${fs}*1000
 variable   disp index 0.01
+variable   natom index 10
+variable   nmove index 10
 variable   mu   index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
 
 # ----- Structure settings -----
@@ -88,7 +92,7 @@ pair_coeff 3 3 lj/cut 0.000897 6.020 #  He-He
 
 # ----- Output setting -----
 thermo_style    custom step etotal temp lx vol press
-thermo          10
+thermo          ${nfreq}
 
 # ----- Relax calculation (0 K) -----
 #print "----- Relax calculation (0 K) -----"
@@ -101,14 +105,14 @@ reset_timestep  0
 timestep        ${fs}
 
 # ----- Output setting -----
-dump            d1 all cfg 100 cfg_restart/run.*.cfg mass type xs ys zs id type
+dump            d1 all cfg ${nfreq} cfg_restart/run.*.cfg mass type xs ys zs id type
 dump_modify     d1 element C H He
 
 # ----- Check equilibriation setting -----
 variable        Energy equal etotal
 variable        Temperature equal temp
 variable        Pressure equal press
-fix             fout1 all ave/time 1 100 100 v_Energy v_Temperature v_Pressure file out_energy.txt
+fix             fout1 all ave/time 1 ${nfreq} ${nfreq} v_Energy v_Temperature v_Pressure file out_energy.txt
 
 # ----- Equilibriation (NPT) -----
 print "----- Equilibriation (NPT) -----"
@@ -128,8 +132,9 @@ unfix           f1
 print "----- GCMC Calculation -----"
 group           ztc type 1:2 # 1=C, 2=H
 group           gas type 3   # 3=He
-fix             f1 all nvt temp ${temp2} ${temp2} ${tdamp}
-fix             f2 gas gcmc 100 100 100 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
+fix             f1 ztc nvt temp ${temp2} ${temp2} ${tdamp}
+fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
+fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
 
 # ----- atom count -----
 variable        type1 atom "type==1" # C
@@ -149,7 +154,7 @@ variable        t equal temp
 variable        nugget equal 1.0e-8
 variable        lambda equal 1.0
 variable        muex equal ${mu}-${temp2}*ln(density*${lambda}+${nugget})
-fix             ave all ave/time 1 100 ${nfre} v_rho v_p v_muex v_ngas v_nc v_nh v_t ave one file rho_vs_p.dat
+fix             ave all ave/time 1 ${nfreq} ${nfreq} v_rho v_p v_muex v_ngas v_nc v_nh v_t ave one file rho_vs_p.dat
 variable        rhoav equal f_ave[1]
 variable        pav equal f_ave[2]
 variable        muexav equal f_ave[3]
@@ -161,15 +166,19 @@ variable        wtav equal f_ave[4]*4/(f_ave[5]*12+f_ave[6]+f_ave[4]*4+${nugget}
 
 compute_modify  thermo_temp dynamic/dof yes
 thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav
-thermo          ${nfre}
+thermo          ${nfreq}
 
 # ----- Output setting -----
-dump            d3 all cfg 100 cfg_restart/gcmc_run.*.cfg mass type xs ys zs id type
+dump            d3 all cfg ${nfreq} cfg_restart/gcmc_run.*.cfg mass type xs ys zs id type
 dump_modify     d3 element C H He
 
-run             ${nstep} # 10 ps
+fix_modify      f1 temp thermo_temp
+fix_modify      f2 temp thermo_temp
+
+run             ${nstep_gcmc} # 20 ps
 unfix f1
 unfix f2
+unfix f3
 
 # ----- Output restart data -----
 write_data gcmc_restart.data
