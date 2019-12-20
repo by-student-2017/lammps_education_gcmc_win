@@ -21,6 +21,7 @@ variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
 variable   tdamp equal ${fs}*100
 variable   pdamp equal ${fs}*1000
+variable   pdamp_gcmc equal ${fs}*100 # (for GCMC process)
 variable   disp index 0.01
 variable   natom index 10
 variable   nmove index 10
@@ -130,7 +131,7 @@ unfix           f1
 print "----- GCMC Calculation -----"
 group           ztc type 1:2 # 1=C, 2=H
 group           gas type 3   # 3=He
-fix             f1 ztc nvt temp ${temp2} ${temp2} ${tdamp}
+fix             f1 ztc npt temp ${temp2} ${temp2} ${tdamp} iso ${pres} ${pres} ${pdamp_gcmc}
 fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
 fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
 
