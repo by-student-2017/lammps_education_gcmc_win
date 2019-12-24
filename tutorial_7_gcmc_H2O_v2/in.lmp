@@ -10,7 +10,7 @@ variable   temp2 index 77.0 # K (for GCMC process)
 
 variable   pres index 1.0 # (bar units), 1.0 bar = 0.1 MPa 
 
-variable   tfac index 1.0  #
+variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans)
 
 # -----other settings -----
 variable   fs   index 0.0005 # 0.5 fs
@@ -24,7 +24,7 @@ variable   pdamp equal ${fs}*1000
 variable   pdamp_gcmc equal ${fs}*100 # (for GCMC process)
 variable   disp index 0.01
 variable   natom index 10
-variable   nmove index 10
+variable   nmove index 10   # shake method need 0
 variable   mu   index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
 
 # ----- Structure settings -----
@@ -131,7 +131,7 @@ unfix           f1
 print "----- GCMC Calculation -----"
 fix             f1 ztc npt temp ${temp2} ${temp2} ${tdamp} iso ${pres} ${pres} ${pdamp_gcmc}
 fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
-fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 0 761341 ${temp2} ${mu} ${disp} mol gas pressure ${pres} tfac_insert ${tfac}
+fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 0 123456 ${temp2} ${mu} ${disp} mol gas pressure ${pres} tfac_insert ${tfac}
 
 # ----- atom count -----
 variable        type1 atom "type==1" # C
