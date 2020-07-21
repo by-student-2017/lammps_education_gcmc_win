@@ -109,6 +109,7 @@
 □ MPa(input), number of Gas, (spacing)
 ----------
 ##He (77 K)
+
 	0.1 MPa,   約90/100^3 [He原子の数/Angstrom^3], 30.0
 	0.2 MPa,  約176/100^3 [He原子の数/Angstrom^3], 24.2
 	0.3 MPa,  約250/100^3 [He原子の数/Angstrom^3], 22.0
@@ -124,6 +125,7 @@
 
 
 ##H2 (77 K)
+
 	0.1 MPa,  約120/110^3 [H2分子の数/Angstrom^3], 29.0
 	0.2 MPa,  約250/110^3 [H2分子の数/Angstrom^3], 23.0
 	0.3 MPa,  約410/110^3 [H2分子の数/Angstrom^3], 19.8
