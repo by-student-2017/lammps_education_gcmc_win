@@ -157,18 +157,19 @@ H2 (298 K)
 	70.0 MPa,約12700/110^3 [He原子の数/Angstrom^3],  6.0
 	
 ----------
-※ Heは原子の個数、H2は分子の個数として記載
+Heは原子の個数、H2は分子の個数として記載
 
-※ ZTC ( 0.1 MPa,  77 K): He 22個, H2  55個, excess 1.83 wt%, absolute 3.02 wt%
-※ ZTC ( 0.5 MPa,  77 K): He 22個, H2  77個, excess 2.69 wt%, absolute 4.18 wt%
-※ ZTC ( 3.0 MPa,  77 K): He 23個, H2 116個, excess 3.07 wt%, absolute 6.17 wt%
-※ ZTC ( 5.0 MPa,  77 K): He 25個, H2 127個, excess 4.23 wt%, absolute 6.72 wt%
-
-※ ZTC ( 5.0 MPa, 298 K): He  8個, H2  17個, excess 0.21 wt%, absolute 0.95 wt%
-※ ZTC (15.0 MPa, 298 K): He 12個, H2  35個, excess 0.50 wt%, absolute 1.95 wt%
-※ ZTC (30.0 MPa, 298 K): He 15個, H2  50個, excess 0.42 wt%, absolute 2.77 wt%
-※ ZTC (50.0 MPa, 298 K): He 17個, H2  65個, excess 0.35 wt%, absolute 3.55 wt%
-※ ZTC (70.0 MPa, 298 K): He 18個, H2  75個, excess 0.38 wt%, absolute 4.10 wt%
+	ZTC ( 0.1 MPa,  77 K): He 22個, H2  55個, excess 1.83 wt.%, absolute 3.02 wt.%
+	ZTC ( 0.5 MPa,  77 K): He 22個, H2  77個, excess 2.69 wt.%, absolute 4.18 wt.%
+	ZTC ( 3.0 MPa,  77 K): He 23個, H2 116個, excess 3.07 wt.%, absolute 6.17 wt.%
+	ZTC ( 5.0 MPa,  77 K): He 25個, H2 127個, excess 4.23 wt.%, absolute 6.72 wt.%
+	
+	ZTC ( 5.0 MPa, 298 K): He  8個, H2  17個, excess 0.21 wt.%, absolute 0.95 wt.%
+	ZTC (15.0 MPa, 298 K): He 12個, H2  35個, excess 0.50 wt.%, absolute 1.95 wt.%
+	ZTC (30.0 MPa, 298 K): He 15個, H2  50個, excess 0.42 wt.%, absolute 2.77 wt.%
+	ZTC (50.0 MPa, 298 K): He 17個, H2  65個, excess 0.35 wt.%, absolute 3.55 wt.%
+	ZTC (70.0 MPa, 298 K): He 18個, H2  75個, excess 0.38 wt.%, absolute 4.10 wt.%
+	
 --------------------------------------------------
 ■ 分子を一つの球と近似しない場合
 
