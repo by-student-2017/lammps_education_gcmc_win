@@ -39,11 +39,11 @@ create_box   1 box
 create_atoms 1 box
 timestep   ${fs}
 
-mass 1 28.014 # N2
+# mass 1 28.014 # N2
 # mass 1 4.00260 # He
 # mass 1 39.95  # Ar
 # mass 1 44.01  # CO2
-# mass 1  2.016 # H2
+mass 1  2.016 # H2
 
 # ----- Potential settings -----
 pair_style lj/cut 10.2
