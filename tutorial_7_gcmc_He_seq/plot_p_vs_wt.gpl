@@ -6,7 +6,7 @@ set mxtics 5
 set ylabel "n / wt.%"
 set mytics 5
 
-plot "info.txt" u ($9*0.1):14 w l t ""
+plot "info.txt" u 2:3 w lp t ""
 
 # pause -1
 

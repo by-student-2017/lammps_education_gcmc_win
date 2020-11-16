@@ -1,10 +1,10 @@
-for /l %%i in (90000,100,100000) do (
+for /l %%i in (99000,100,100000) do (
   find " %%i " <log.lammps>> data.txt
 )
 
 gnuplot stats.gpl > stats.txt
 
-echo                        MPa                 wt.%% > meam_and_std.txt
+echo #                      MPa                 wt.%% > meam_and_std.txt
 find " Mean: " <stats.txt>> meam_and_std.txt
 find " Std Dev: " <stats.txt>> meam_and_std.txt
 
