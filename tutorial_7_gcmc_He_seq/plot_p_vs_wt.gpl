@@ -1,0 +1,15 @@
+#!/usr/bin/gnuplot
+
+set terminal win font "Arial,12"
+set xlabel "Pressure / MPa"
+set mxtics 5
+set ylabel "n / wt.%"
+set mytics 5
+
+plot "info.txt" u ($9*0.1):14 w l t ""
+
+# pause -1
+
+#set terminal postscript color enhanced lw 2
+#set out "energy.ps"
+#replot

@@ -1,0 +1,179 @@
+
+variable   tfac index 1.0 # 1 atom (e.g, He, Ar, Kr, etc)
+#variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans) for molecular (2 atoms)
+# trans = 3, rot = 2 (line), rot = 3 (non-line), vib = 3n-5 (line), vib = 3n-6 (non-line)
+# total = 3n = 3+2+3n-5 = 3+3+3n-6
+# vib = about 0.0 at R.T. for molecular (2 atoms)
+
+variable   temp2 equal ${temp1} # K (for GCMC process)
+variable   pres equal ${mpa}*10.0 # bar unit (0.1 MPa = 10.0 bar)
+
+# -----other settings -----
+variable   fs   index 0.0005 # 0.5 fs
+variable   ps   index 20 # 20 ps
+variable   ps_gcmc index 30 # 30 ps
+variable   nfreq index 100 # = Nevery * Nrepeat
+variable   nstep equal ${ps}/${fs}
+variable   nstep_gcmc equal ${ps_gcmc}/${fs}
+variable   tdamp equal ${fs}*100
+variable   pdamp equal ${fs}*1000
+variable   pdamp_gcmc equal ${fs}*100 # (for GCMC process)
+variable   disp index 0.01
+variable   natom index 10
+variable   nmove index 10
+variable   mu   index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
+
+# ----- Structure settings -----
+units      metal
+atom_style atomic
+dimension  3
+boundary   p p p
+read_data  data.ch # read initial data case
+replicate  2 2 2
+timestep   ${fs}
+
+mass 1 12.0107 # C
+mass 2 1.00794 # H
+mass 3 4.00260 # He
+# mass 3 39.95  # Ar
+# mass 3 44.01  # CO2
+# mass 3 28.014 # N2
+# mass 3  2.016 # H2
+
+# ----- Potential settings -----
+pair_style hybrid airebo 3.0 1 0 lj/cut 10.2
+pair_coeff * * airebo CH.airebo C H NULL
+
+# He case
+pair_coeff 1 3 lj/cut 0.002021 4.725 #   C-He
+pair_coeff 2 3 lj/cut 0.001308 4.295 #   H-He
+pair_coeff 3 3 lj/cut 0.000897 6.020 #  He-He
+
+# Ar case
+# pair_coeff 1 3 lj/cut 0.007454 3.390 #   C-Ar
+# pair_coeff 2 3 lj/cut 0.004825 2.960 #   H-Ar
+# pair_coeff 3 3 lj/cut 0.012202 3.350 #  Ar-Ar
+
+# CO2 case
+# pair_coeff 1 3 lj/cut 0.009810 3.596 #   C-CO2
+# pair_coeff 2 3 lj/cut 0.006350 3.166 #   H-CO2
+# pair_coeff 3 3 lj/cut 0.021138 3.762 # CO2-CO2
+
+# N2 case
+# pair_coeff 1 3 lj/cut 0.006394 3.531 #   C-N2
+# pair_coeff 2 3 lj/cut 0.004139 3.101 #   H-N2
+# pair_coeff 3 3 lj/cut 0.008979 3.632 #  N2-N2
+
+# H2 case
+# pair_coeff 1 3 lj/cut 0.003795 3.194 #   C-H2
+# pair_coeff 2 3 lj/cut 0.002456 2.764 #   H-H2
+# pair_coeff 3 3 lj/cut 0.003162 2.958 #  H2-H2
+
+# ----- Potential data -----
+# C,    52.84 [K](epsilon/K), 0.343  [nm](sigma)
+# H,    22.14 [K](epsilon/K), 0.257  [nm](sigma)
+# O,    30.20 [K](epsilon/K), 0.312  [nm](sigma)
+# He,   10.41 [K](epsilon/K), 0.602  [nm](sigma)
+# Ar,  141.6  [K](epsilon/K), 0.3350 [nm](sigma)
+# N2,  104.2  [K](epsilon/K), 0.3632 [nm](sigma)
+# H2,   36.7  [K](epsilon/K), 0.2958 [nm](sigma)
+# O2,  126.3  [K](epsilon/K), 0.3382 [nm](sigma)
+# CO2, 245.3  [K](epsilon/K), 0.3762 [nm](sigma)
+# CH4, 161.3  [K](epsilon/K), 0.3721 [nm](sigma)
+# Lorentz-Berthelot: 
+#  epsilon(ij) = sqrt(epsilon(i)*epsilon(j)) [K] (epsilon/K)
+#  sigma(ij)   = (sigma(i)+sigma(j))/2       [nm](sigma)
+# real  unit: [kcal/mol]=[K]*0.001987, [Angstrom]=[nm]*10
+# metal unit: [eV]=[K]*0.00008617, [Angstrom]=[nm]*10
+
+# ----- Output setting -----
+thermo_style    custom step etotal temp lx vol press
+thermo          ${nfreq}
+
+# ----- Relax calculation (0 K) -----
+print "----- Relax calculation (0 K) -----"
+fix             f1 all box/relax iso 0.0
+minimize        1.0e-10 0.0 1000 100000
+unfix           f1
+
+# ----- reset timestep and dt -----
+reset_timestep  0
+timestep        ${fs}
+
+# ----- Output setting -----
+#dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
+#dump_modify     d1 element C H He
+
+# ----- Check equilibriation setting -----
+variable        Energy equal etotal
+variable        Temperature equal temp
+variable        Pressure equal press
+fix             fout1 all ave/time 1 ${nfreq} ${nfreq} v_Energy v_Temperature v_Pressure file out_energy.txt
+
+# ----- Equilibriation (NPT) -----
+print "----- Equilibriation (NPT) -----"
+velocity        all create 10.0 123456
+fix             f1 all npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
+run             ${nstep} # 20 ps
+unfix           f1
+
+# ----- Equilibriation (NVT) -----
+#print "----- Equilibriation (NVT) -----"
+#fix             f1 all nvt temp ${temp1} ${temp2} ${tdamp}
+#run             ${nstep} # 20 ps
+#unfix           f1
+
+# ----- GCMC Calculation-----
+print "----- GCMC Calculation -----"
+group           ztc type 1:2 # 1=C, 2=H
+group           gas type 3   # 3=He
+fix             f1 ztc npt temp ${temp2} ${temp2} ${tdamp} iso ${pres} ${pres} ${pdamp_gcmc}
+fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
+fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
+
+# ----- atom count -----
+variable        type1 atom "type==1" # C
+variable        type2 atom "type==2" # H
+variable        type3 atom "type==3" # Gas
+group           type1 dynamic ztc var type1 # C
+group           type2 dynamic ztc var type2 # H
+group           type3 dynamic gas var type3 # Gas (e.g., He, Ar, Kr, etc)
+variable        nc  equal count(type1) # C
+variable        nh  equal count(type2) # H
+variable        ngas equal count(type3) # Gas (e.g., He, Ar, Kr, etc)
+
+# ----- averaging -----
+variable        rho equal density
+variable        p equal press
+variable        t equal temp
+variable        nugget equal 1.0e-8
+variable        lambda equal 1.0
+variable        muex equal ${mu}-${temp2}*ln(density*${lambda}+${nugget})
+fix             ave all ave/time 1 ${nfreq} ${nfreq} v_rho v_p v_muex v_ngas v_nc v_nh v_t ave one file rho_vs_p.dat
+variable        rhoav equal f_ave[1]
+variable        pav equal f_ave[2]
+variable        muexav equal f_ave[3]
+variable        ngasav equal f_ave[4] # Gas (e.g., He, Ar, Kr, etc)
+variable        ncav equal f_ave[5] # C
+variable        nhav equal f_ave[6] # H
+
+variable        wtav equal f_ave[4]*4/(f_ave[5]*12+f_ave[6]+f_ave[4]*4+${nugget})*100
+
+compute_modify  thermo_temp dynamic/dof yes
+thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav
+thermo          ${nfreq}
+
+# ----- Output setting -----
+#dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
+#dump_modify     d3 element C H He
+
+fix_modify      f1 temp thermo_temp
+fix_modify      f2 temp thermo_temp
+
+run             ${nstep_gcmc} # 30 ps
+unfix f1
+unfix f2
+unfix f3
+
+# ----- Output restart data -----
+write_data gcmc_restart.data
