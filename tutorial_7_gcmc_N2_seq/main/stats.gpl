@@ -1,6 +1,6 @@
 #!/usr/bin/gnuplot
 
-stats "data.txt" u ($9*0.1):14
+stats "data.txt" u ($9*0.1):11
 
 # pause -1
 
