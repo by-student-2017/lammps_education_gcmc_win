@@ -11,7 +11,7 @@ variable   pres equal ${mpa}*10.0 # bar unit (0.1 MPa = 10.0 bar)
 # -----other settings -----
 variable   fs   index 0.0005 # 0.5 fs
 variable   ps   index 20 # 20 ps
-variable   ps_gcmc index 50 # 50 ps
+variable   ps_gcmc index 60 # 60 ps
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
@@ -171,7 +171,7 @@ dump_modify     d3 element C H N
 fix_modify      f1 temp thermo_temp
 fix_modify      f2 temp thermo_temp
 
-run             ${nstep_gcmc} # 50 ps
+run             ${nstep_gcmc} # 60 ps
 unfix f1
 unfix f2
 unfix f3
