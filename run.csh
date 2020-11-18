@@ -14,7 +14,7 @@ foreach mpa (2.5 5.0 15.0 30.0 50.0 70.0 100.0)
   echo "variable mpa   index ${mpa}" >> in.lmp1
   cat in.lmp1 in.lmp2 > in.lmp
   cat in.lmp1 in.lmp_restart2 > in.lmp_restart
-  mpirun -np 2 --allow-run-as-root lammps < in.lmp
+  lammps < in.lmp
   set i = 990000
   while ($i =< 100000)
     find " ${i} " log.lammps >> data.txt
