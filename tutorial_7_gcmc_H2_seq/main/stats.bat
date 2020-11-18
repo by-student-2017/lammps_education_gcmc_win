@@ -1,4 +1,4 @@
-for /l %%i in (159000,100,160000) do (
+for /l %%i in (279000,100,280000) do (
   find " %%i " <log.lammps>> data.txt
 )
 
