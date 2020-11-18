@@ -12,8 +12,7 @@ foreach mpa (2.5 5.0 15.0 30.0 50.0 70.0 100.0)
   echo "clear" > in.lmp1
   echo "variable temp1 index ${t}" >> in.lmp1
   echo "variable mpa   index ${mpa}" >> in.lmp1
-  cat in.lmp1 in.lmp2 > in.lmp
-  cat in.lmp1 in.lmp_restart2 > in.lmp_restart
+  cat in.lmp1 in.lmp-linux > in.lmp
   lammps < in.lmp
   set i = 390000
   while ($i =< 400000)
