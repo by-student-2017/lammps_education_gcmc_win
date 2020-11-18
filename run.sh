@@ -15,7 +15,7 @@ do
   echo +ACI-variable mpa   index +ACQAew-mpa+AH0AIg- +AD4APg- in.lmp1
   cat in.lmp1 in.lmp2 +AD4- in.lmp
   cat in.lmp1 in.lmp+AF8-restart2 +AD4- in.lmp+AF8-restart
-  mpirun -np 2 --allow-run-as-root lmp +ADw- in.lmp
+  mpirun -np 2 --allow-run-as-root lammps +ADw- in.lmp
   for ((i+AD0-159000+ADs-i+AD0APA-160000+ADs-i+AD0-i+-100))
   do
     find +ACI- +ACQAew-i+AH0- +ACI- log.lammps +AD4APg- data.txt

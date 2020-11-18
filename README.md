@@ -252,17 +252,13 @@ Heは原子の個数、H2は分子の個数として記載
 
 ## Run
 	!apt update
-	!apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
+	!apt install -y lammps
+	
 	%cd /content
-	!wget https://lammps.sandia.gov/tars/lammps-18Jun19.tar.gz
-	!tar zxvf lammps-18Jun19.tar.gz
-	%cd lammps-18Jun19
-	!mkdir build
-	%cd build 
-	!cmake -D BUILD_MPI=on -D PKG_USER-MEAMC=on -D PKG_MANYBODY=on -D PKG_MC=on ../cmake
-	!cmake --build .
-	import os
-	os.environ['PATH'] = "/content/lammps-3Mar20/build:"+os.environ['PATH']
+	!mkdir lammps-stable
+	%cd lammps-stable
+	!cp -r /usr/share/doc/lammps-stable-doc/examples ./
+	%cd /content/lammps-stable/examples
 	
 	%cd /content
 	!apt install -y git python csh gnuplot
