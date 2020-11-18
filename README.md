@@ -250,6 +250,8 @@ Heは原子の個数、H2は分子の個数として記載
 
 ------------------------------------------------------------------------------
 
+
+# Google Colaboratory
 ## Run
 	%cd /content
 	!apt update
@@ -267,5 +269,6 @@ Heは原子の個数、H2は分子の個数として記載
 	%cd /content/lammps_education_gcmc_win/tutorial_7_gcmc_H2_seq
 	!/content/lammps_education_gcmc_win/run.csh
 	!cat info.txt
+
 
 ------------------------------------------------------------------------------
