@@ -6,7 +6,8 @@ set t=273.15
 rem "pressure, MPa"
 for %%i in (2.5 5.0 15.0 30.0 50.0 70.0 100.0) do (
   mkdir %%i
-  xcopy /y main %%i
+  REM xcopy /y main %%i
+  copy .\main\* %%i 
   cd %%i
   mkdir cfg
   echo clear > in.lmp1
