@@ -14,9 +14,9 @@ foreach mpa (YYYYY)
   echo "variable mpa   index ${mpa}" >> in.lmp1
   cat in.lmp1 in.lmp2 > in.lmp
   cat in.lmp1 in.lmp_restart2 > in.lmp_restart
-  lammps < in.lmp
-  set i = 990000
-  while (${i} =< 100000)
+  lmp_stable < in.lmp
+  set i = 319000
+  while (${i} =< 320000)
     find " ${i} " log.lammps >> data.txt
     @ i = i + 100
   end
