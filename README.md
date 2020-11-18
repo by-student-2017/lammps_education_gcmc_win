@@ -251,16 +251,9 @@ Heは原子の個数、H2は分子の個数として記載
 ------------------------------------------------------------------------------
 
 ## Run
+	%cd /content
 	!apt update
 	!apt install -y lammps
-	
-	%cd /content
-	!mkdir lammps-stable
-	%cd lammps-stable
-	!cp -r /usr/share/doc/lammps-stable-doc/examples ./
-	%cd /content/lammps-stable/examples
-	
-	%cd /content
 	!apt install -y git python csh gnuplot
 	!git clone https://github.com/by-student-2017/lammps_education_gcmc_win
 	import os
