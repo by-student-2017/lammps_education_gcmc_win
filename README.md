@@ -249,3 +249,29 @@ Heは原子の個数、H2は分子の個数として記載
 ※ 色々と試してみましたが、いまの私の実力（2019年時）では、reaxffとljのポテンシャルを混合で用いたgcmcの入力ファイルを作ることができませんでした。そのため、C-H-O用のためにCOMBポテンシャルを用いた入力ファイルの例を作成してみました。
 
 ------------------------------------------------------------------------------
+
+## Run
+	!apt update
+	!apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
+	%cd /content
+	!wget https://lammps.sandia.gov/tars/lammps-3Mar20.tar.gz
+	!tar zxvf lammps-3Mar20.tar.gz
+	%cd lammps-3Mar20
+	!mkdir build
+	%cd build 
+	!cmake -D BUILD_MPI=on -D PKG_USER-MEAMC=on -D PKG_MANYBODY=on -D PKG_MC=on ../cmake
+	!cmake --build .
+	import os
+	os.environ['PATH'] = "/content/lammps-3Mar20/build:"+os.environ['PATH']
+	
+	%cd /content
+	!git clone https://github.com/by-student-2017/lammps_education_gcmc_win
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!chmod +x run.sh
+	%cd /content/lammps_education_gcmc_win/tutorial_7_gcmc_H2_seq
+	!/content/lammps_education_gcmc_win/run.sh
+	!cat info.txt
+
+------------------------------------------------------------------------------
