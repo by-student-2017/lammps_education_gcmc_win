@@ -269,6 +269,7 @@ Heは原子の個数、H2は分子の個数として記載
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
+	%cd /content/lammps_education_gcmc_win
 	!chmod +x run.sh
 	%cd /content/lammps_education_gcmc_win/tutorial_7_gcmc_H2_seq
 	!/content/lammps_education_gcmc_win/run.sh

@@ -1,4 +1,3 @@
-+ACMAIQ- /bin/bash -f
 
 echo +ACIAIw- type                 MPa                 gas+ACI- +AD4- info.txt
 
