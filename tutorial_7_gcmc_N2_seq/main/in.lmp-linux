@@ -128,9 +128,13 @@ unfix           f1
 print "----- GCMC Calculation -----"
 group           ztc type 1:2 # 1=C, 2=H
 group           gas type 3   # 3=N2
+# case 1
 fix             f1 ztc npt temp ${temp2} ${temp2} ${tdamp} iso ${pres} ${pres} ${pdamp_gcmc}
-#fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
+fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
 fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
+# case 2
+# fix             f1 all nvt temp ${temp2} ${temp2} ${tdamp}
+# fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
 
 # ----- atom count -----
 variable        type1 atom "type==1" # C
@@ -169,11 +173,11 @@ thermo          ${nfreq}
 #dump_modify     d3 element C H N
 
 fix_modify      f1 temp thermo_temp
-#fix_modify      f2 temp thermo_temp
+fix_modify      f2 temp thermo_temp # for case 2, comment it.
 
 run             ${nstep_gcmc} # 180 ps
 unfix f1
-#unfix f2
+unfix f2 # for case 2, comment it.
 unfix f3
 
 # ----- Output restart data -----
