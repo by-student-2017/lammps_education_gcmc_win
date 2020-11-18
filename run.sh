@@ -11,7 +11,7 @@ do
   cp -r main +ACQAew-mpa+AH0-MPa
   cd +ACQAew-mpa+AH0-MPa
   echo +ACI-clear+ACI- +AD4- in.lmp1
-  echo +ACI-variable temp1 index +ACQAew-mpa+AH0AIg- +AD4APg- in.lmp1
+  echo +ACI-variable temp1 index +ACQAew-t+AH0AIg- +AD4APg- in.lmp1
   echo +ACI-variable mpa   index +ACQAew-mpa+AH0AIg- +AD4APg- in.lmp1
   cat in.lmp1 in.lmp2 +AD4- in.lmp
   cat in.lmp1 in.lmp+AF8-restart2 +AD4- in.lmp+AF8-restart
