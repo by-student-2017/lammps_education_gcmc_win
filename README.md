@@ -271,6 +271,9 @@ Heは原子の個数、H2は分子の個数として記載
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
 	%cd /content/lammps_education_gcmc_win
+	!cp runtmp.csh run.csh
+	!sed -i "s/XXXXX/273.15/g" run.csh
+	!sed -i "s/YYYYY/5.0 15.0 30.0 50.0 70.0 100.0/g" run.csh
 	!chmod +x run.csh
 	%cd /content/lammps_education_gcmc_win/tutorial_7_gcmc_H2_seq
 	!/content/lammps_education_gcmc_win/run.csh
