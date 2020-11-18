@@ -1,8 +1,11 @@
++ACMAIQ- /bin/bash
 
 echo +ACIAIw- type                 MPa                 gas+ACI- +AD4- info.txt
 
++ACM- temperature, K
 set t+AD0-273.15
 
++ACM- pressure, MPa
 for mpa in 2.5 5.0 15.0 30.0 50.0 70.0 100.0
 do
   cp -r main +ACQAew-mpa+AH0-MPa
@@ -25,5 +28,3 @@ do
   rm in.lmp1 in.lmp2 in.lmp+AF8-restart2 data.txt stats.txt
   cd ..
 done
-
-
