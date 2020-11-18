@@ -15,8 +15,8 @@ do
   echo +ACI-variable mpa   index +ACQAew-mpa+AH0AIg- +AD4APg- in.lmp1
   cat in.lmp1 in.lmp2 +AD4- in.lmp
   cat in.lmp1 in.lmp+AF8-restart2 +AD4- in.lmp+AF8-restart
-  lmp+AF8-stable +ADw- in.lmp
-  for ((i+AD0-319000+ADs-i+AD0APA-320000+ADs-i+AD0-i+-100))
+  lammps +ADw- in.lmp
+  for ((i+AD0-390000+ADs-i+AD0APA-400000+ADs-i+AD0-i+-100))
   do
     find +ACI- +ACQAew-i+AH0- +ACI- log.lammps +AD4APg- data.txt
   done
