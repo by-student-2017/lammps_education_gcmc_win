@@ -160,7 +160,9 @@ variable        nhav equal f_ave[6] # H
 
 variable        wtav equal f_ave[4]*2/(f_ave[5]*12+f_ave[6]+f_ave[4]*2+${nugget})*100
 
-compute_modify  thermo_temp dynamic/dof yes
+#compute thermo_temp gas temp
+#compute_modify  thermo_temp dynamic/dof yes
+compute_modify  thermo_temp dynamic yes
 thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav
 thermo          ${nfreq}
 
