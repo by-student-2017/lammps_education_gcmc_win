@@ -13,7 +13,7 @@ foreach mpa (YYYYY)
   echo "variable temp1 index ${mpa}" >> in.lmp1
   echo "variable mpa   index ${mpa}" >> in.lmp1
   cat in.lmp1 in.lmp2 > in.lmp
-  cat in.lmp1 in.lmp_restart2 in.lmp_restart
+  cat in.lmp1 in.lmp_restart2 > in.lmp_restart
   lmp < in.lmp
   set i = 990000
   while (${i} =< 100000)
