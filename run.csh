@@ -9,7 +9,7 @@ set ps = 30
 set t = 273.15
 
 # pressure, MPa
-foreach mpa (2.5 5.0 15.0 30.0 50.0 70.0 100.0)
+foreach mpa ( 2.5 5.0 15.0 30.0 50.0 70.0 100.0 )
   cp -r main ${mpa}MPa
   cd ${mpa}MPa
   echo "clear" > in.lmp1
@@ -18,13 +18,13 @@ foreach mpa (2.5 5.0 15.0 30.0 50.0 70.0 100.0)
   cat in.lmp1 in.lmp-linux > in.lmp
   sed -i "s/tgcmc/${ps}/" in.lmp
   lammps < in.lmp
-  set i = 1
-  @ i = $[ps} * 1900 + 38000
-  set max = 1
-  @ max = $[ps} * 2000 + 40000
-  while (${i} <= ${max})
-    find " ${i} " log.lammps >> data.txt
-    @ i = i + 100
+  @ i = ( ${ps} + 1 ) * 1900 
+  @ max = ( ${ps} + 1 ) * 2000
+  echo ${i},${max}
+  while ( ${i} <= ${max} )
+    grep " ${i} " log.lammps >> data.txt
+    echo ${i}
+    @ i = ${i} + 100
   end
   gnuplot stats.gpl > stats.txt
   echo "#                      MPa                 gas" > meam_and_std.txt

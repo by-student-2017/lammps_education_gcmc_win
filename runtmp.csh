@@ -2,14 +2,14 @@
 
 echo "# type                 MPa                 gas" > info.txt
 
-# gcmc (time, ps)
+# gcmc (time, ps, integer)
 set ps = ZZZZZ
 
 # temperature, K
 set t = XXXXX
 
 # pressure, MPa
-foreach mpa (YYYYY)
+foreach mpa ( YYYYY )
   cp -r main ${mpa}MPa
   cd ${mpa}MPa
   echo "clear" > in.lmp1
@@ -18,19 +18,19 @@ foreach mpa (YYYYY)
   cat in.lmp1 in.lmp-linux > in.lmp
   sed -i "s/tgcmc/${ps}/" in.lmp
   lammps < in.lmp
-  set i = 1
-  @ i = $[ps} * 1900 + 38000
-  set max = 1
-  @ max = $[ps} * 2000 + 40000
-  while (${i} <= ${max})
-    find " ${i} " log.lammps >> data.txt
-    @ i = i + 100
+  @ i = ( ${ps} + 20 ) * 1900
+  @ max = ( ${ps} + 20 ) * 2000
+  echo ${i},${max}
+  while ( ${i} <= ${max} )
+    grep " ${i} " log.lammps >> data.txt
+    echo ${i}
+    @ i = ${i} + 100
   end
   gnuplot stats.gpl > stats.txt
   echo "#                      MPa                 gas" > meam_and_std.txt
-  find " Mean: " stats.txt >> meam_and_std.txt
-  find " Std Dev: " stats.txt >> meam_and_std.txt
-  find " Mean: " stats.txt >> ../info.txt
+  grep " Mean: " stats.txt >> meam_and_std.txt
+  grep " Std Dev: " stats.txt >> meam_and_std.txt
+  grep " Mean: " stats.txt >> ../info.txt
   rm in.lmp1 in.lmp2 in.lmp_restart2 data.txt stats.txt
   cd ..
 end
