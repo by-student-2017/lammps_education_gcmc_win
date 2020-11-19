@@ -2,6 +2,9 @@
 
 echo "# type                 MPa                 gas" > info.txt
 
+# gcmc (time)
+set ps = ZZZZZ
+
 # temperature
 set t = XXXXX
 
@@ -13,9 +16,13 @@ foreach mpa (YYYYY)
   echo "variable temp1 index ${t}" >> in.lmp1
   echo "variable mpa   index ${mpa}" >> in.lmp1
   cat in.lmp1 in.lmp-linux > in.lmp
+  sed -i "s/tgcmc/${ps}/" in.lmp
   lammps < in.lmp
-  set i = 390000
-  while (${i} =< 400000)
+  set i = 1
+  @ i = $[ps}*1900
+  set max = 1
+  @ max = $[ps}*2000
+  while (${i} <= ${max})
     find " ${i} " log.lammps >> data.txt
     @ i = i + 100
   end
