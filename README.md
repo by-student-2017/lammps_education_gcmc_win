@@ -273,7 +273,11 @@ Heは原子の個数、H2は分子の個数として記載
 
 
 XXXXX is temperature [K]
+
+
 YYYYY is pressure [MPa]
+
+
 ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 
 
