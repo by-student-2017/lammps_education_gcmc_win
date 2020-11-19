@@ -21,17 +21,18 @@ foreach mpa ( YYYYY )
   @ i = ( ${ps} + 20 ) * 1900
   @ max = ( ${ps} + 20 ) * 2000
   echo ${i},${max}
+  echo -n > data.txt
   while ( ${i} <= ${max} )
     grep " ${i} " log.lammps >> data.txt
     echo ${i}
     @ i = ${i} + 100
   end
-  gnuplot stats.gpl > stats.txt
-  echo "#                      MPa                 gas" > meam_and_std.txt
+  script -c 'gnuplot stats.gpl' stats.txt
+  echo "#                      MPa                gas" > meam_and_std.txt
   grep " Mean: " stats.txt >> meam_and_std.txt
   grep " Std Dev: " stats.txt >> meam_and_std.txt
   grep " Mean: " stats.txt >> ../info.txt
-  rm in.lmp1 in.lmp2 in.lmp_restart2 data.txt stats.txt
+  rm in.lmp1 in.lmp2 in.lmp_restart2
   cd ..
 end
 
