@@ -3,7 +3,7 @@
 echo +ACIAIw- type                 MPa                 gas+ACI- +AD4- info.txt
 
 +ACM- gcmc (time, ps, integer)
-set ps +AD0- 180
+set ps+AD0-180
 
 +ACM- temperature, K
 set t+AD0-273.15
@@ -19,8 +19,8 @@ do
   cat in.lmp1 in.lmp-linux +AD4- in.lmp
   sed -i +ACI-s/tgcmc/+ACQAew-ps+AH0-/+ACI- in.lmp
   lammps +ADw- in.lmp
-  +AEA- init +AD0- ( +ACQAew-ps+AH0- +- 1 ) +ACo- 1900 
-  +AEA- max +AD0- ( +ACQAew-ps+AH0- +- 1 ) +ACo- 2000
+  set init+AD0AJA-(( +ACQAew-ps+AH0AKg-1900+-1900 ))
+  set max+AD0AJA-(( +ACQAew-ps+AH0AKg-2000+-2000 ))
   echo +ACQAew-i+AH0-,+ACQAew-max+AH0-
   echo -n +AD4- data.txt
   for ((i+AD0AJAB7-init+AH0AOw-i+AD0APAAkAHs-max+AH0AOw-i+AD0-i+-100))
