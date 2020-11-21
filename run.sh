@@ -19,9 +19,13 @@ do
   cat in.lmp1 in.lmp-linux +AD4- in.lmp
   sed -i +ACI-s/tgcmc/+ACQAew-ps+AH0-/+ACI- in.lmp
   lammps +ADw- in.lmp
-  echo -n data.txt
-  for ((i+AD0-390000+ADs-i+AD0APA-400000+ADs-i+AD0-i+-100))
+  +AEA- init +AD0- ( +ACQAew-ps+AH0- +- 1 ) +ACo- 1900 
+  +AEA- max +AD0- ( +ACQAew-ps+AH0- +- 1 ) +ACo- 2000
+  echo +ACQAew-i+AH0-,+ACQAew-max+AH0-
+  echo -n +AD4- data.txt
+  for ((i+AD0AJAB7-init+AH0AOw-i+AD0APAAkAHs-max+AH0AOw-i+AD0-i+-100))
   do
+    echo +ACQAew-i+AH0-
     find +ACI- +ACQAew-i+AH0- +ACI- log.lammps +AD4APg- data.txt
   done
   script -c 'gnuplot stats.gpl' stats.txt
