@@ -252,7 +252,7 @@ Heは原子の個数、H2は分子の個数として記載
 
 
 # Google Colaboratory
-## Run
+## 1 Run
 	%cd /content
 	!apt update
 	!apt install -y lammps
@@ -264,8 +264,8 @@ Heは原子の個数、H2は分子の個数として記載
 	%cd /content/lammps_education_gcmc_win
 	!cp runtmp.csh run.csh
 	!sed -i "s/XXXXX/273.15/g" run.csh
-	!sed -i "s/YYYYY/5.0 15.0 30.0 50.0 70.0 100.0/g" run.csh
-	!sed -i "s/ZZZZZ/30/" run.csh
+	!sed -i "s/YYYYY/100.0/g" run.csh
+	!sed -i "s/ZZZZZ/160/" run.csh
 	!chmod +x run.csh
 	%cd /content/lammps_education_gcmc_win/tutorial_7_gcmc_H2_seq
 	!/content/lammps_education_gcmc_win/run.csh
@@ -279,6 +279,26 @@ YYYYY is pressure [MPa]
 
 
 ZZZZZ is simulation time [ps] for GCMC part. (type integer)
+
+
+## 2 Run
+	%cd /content
+	!apt update
+	!apt install -y lammps
+	!apt install -y git python csh gnuplot
+	!git clone https://github.com/by-student-2017/lammps_education_gcmc_win
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	%cd /content/lammps_education_gcmc_win
+	!cp runtmp.csh run.csh
+	!sed -i "s/XXXXX/273.15/g" run.csh
+	!sed -i "s/YYYYY/5.0 15.0/g" run.csh
+	!sed -i "s/ZZZZZ/60/" run.csh
+	!chmod +x run.csh
+	%cd /content/lammps_education_gcmc_win/tutorial_7_gcmc_He_seq
+	!/content/lammps_education_gcmc_win/run.csh
+	!cat info.txt
 
 
 ------------------------------------------------------------------------------
