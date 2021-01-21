@@ -22,8 +22,11 @@ for %%t in (233.15 248.15 273.15 298.15 313.15 358.15) do (
     "C:\Program Files\LAMMPS 64-bit 18Jun2019\bin\lmp_serial.exe" -in in.lmp
     del in.lmp1 in.lmp2 in.lmp_restart2
     call ..\..\main\stats.bat
+    find " Mean: " <meam_and_std.txt>> ..\info_mean.txt
+    find " Std Dev: " <meam_and_std.txt>> ..\info_std.txt
+    echo "---------- ---------- ----------" >> ..\info.txt
     find " Mean: " <meam_and_std.txt>> ..\info.txt
-    find " Std Dev: " <meam_and_std.txt>> ..\info.txt
+    find " Std Dev: " <meam_and_std.txt>> ..\info.txt    
     cd ..
   )
   cd ..
