@@ -5,13 +5,14 @@ variable   tfac index 1.0 # 1 atom (e.g, He, Ar, Kr, etc)
 # total = 3n = 3+2+3n-5 = 3+3+3n-6
 # vib = about 0.0 at R.T. for molecular (2 atoms)
 
-variable   temp2 equal ${temp1} # K (for GCMC process)
-variable   pres equal ${mpa}*10.0 # bar unit (0.1 MPa = 10.0 bar)
+variable   temp2  equal ${temp1}    # K (for GCMC process)
+variable   pres   equal ${mpa}*10.0 # bar unit (0.1 MPa = 10.0 bar)
+variable   tgcmc2 equal ${tgcmc1}   # ps (for GCMC calculation time)
 
 # -----other settings -----
 variable   fs   index 0.0005 # 0.5 fs
 variable   ps   index 20 # 20 ps
-variable   ps_gcmc index tgcmc # 180 ps
+variable   ps_gcmc index ${tgcmc2} # 600 ps (recommend >= 200 ps)
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
