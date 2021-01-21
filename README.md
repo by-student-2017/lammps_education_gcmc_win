@@ -148,6 +148,7 @@
 
 
   MPa(input), number of Gas, (spacing)
+‰º‹L‚ğŒvZ‚µ‚È‚¨‚µ‚½‚à‚Ì‚ª H2_and_He.xlsx ‚É‚ ‚è‚Ü‚·B
 ----------
 He (77 K)
 
