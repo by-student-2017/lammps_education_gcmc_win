@@ -6,7 +6,7 @@ variable   tfac index 1.0 # 1 atom (e.g, He, Ar, Kr, etc)
 # vib = about 0.0 at R.T. for molecular (2 atoms)
 
 variable   temp2  equal ${temp1}    # K (for GCMC process)
-variable   pres   equal ${mpa}*10.0 # bar unit (0.1 MPa = 10.0 bar)
+variable   pres   equal ${mpa}*10.0 # bar unit (1.0 MPa = 10.0 bar)
 
 # -----other settings -----
 variable   fs   index 0.0005 # 0.5 fs
