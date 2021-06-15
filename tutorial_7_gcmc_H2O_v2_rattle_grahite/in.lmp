@@ -67,7 +67,7 @@ angle_coeff     1       0        180  # dummy
 angle_coeff     2      4.337     109.47 # H2O
 delete_bonds all bond  1*1 remove
 delete_bonds all angle 1*1 remove
-#delete_bonds all dihedral 1*3 remove
+delete_bonds all dihedral 1*1 remove
 
 # ----- Potential data -----
 # C,    52.84 [K](epsilon/K), 0.343  [nm](sigma)
