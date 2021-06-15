@@ -119,7 +119,7 @@ reset_timestep  0
 timestep        ${fs}
 
 # ----- Output setting -----
-dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
+dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type q
 dump_modify     d1 element C C O
 
 # ----- Check equilibriation setting -----
@@ -178,7 +178,7 @@ thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexa
 thermo          ${nfreq}
 
 # ----- Output setting -----
-dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
+dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type q
 dump_modify     d3 element C C O
 
 fix_modify      f1 temp thermo_temp

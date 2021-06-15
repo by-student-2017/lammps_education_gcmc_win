@@ -119,7 +119,7 @@ reset_timestep  0
 timestep        ${fs}
 
 # ----- Output setting -----
-dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
+dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type q
 dump_modify     d1 element C C O
 
 # ----- Check equilibriation setting -----
@@ -153,13 +153,13 @@ fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
 fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 0 761341 ${temp2} ${mu} ${disp} mol gas pressure ${pres} tfac_insert ${tfac}
 
 # ----- atom count -----
-variable        type1 atom "type==1" # C for absorbant
+variable        type1 atom "type==1" # C for absorbent
 variable        type2 atom "type==2" # Gas (C of CO2)
 variable        type3 atom "type==3" # Gas (O of CO2)
-group           type1 dynamic group_fix var type1 # C for absorbant
+group           type1 dynamic group_fix var type1 # C for absorbent
 group           type2 dynamic gas var type2 # Gas (C of CO2)
 group           type3 dynamic gas var type3 # Gas (O of CO2)
-variable        nc  equal count(type1) # C for absorbant
+variable        nc  equal count(type1) # C for absorbent
 variable        ngas equal count(type2) # Gas (C of CO2)
 
 # ----- averaging -----
@@ -183,7 +183,7 @@ thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexa
 thermo          ${nfreq}
 
 # ----- Output setting -----
-dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
+dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type q
 dump_modify     d3 element C C O
 
 fix_modify      f1 temp thermo_temp
