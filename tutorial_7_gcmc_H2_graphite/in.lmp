@@ -100,12 +100,13 @@ pair_coeff 2 2 lj/cut 0.003162 2.958 #  H2-H2
 thermo_style    custom step etotal temp lx vol press
 thermo          ${nfreq}
 
+# ----- fix all of absorbent v1-----
 #region		region_move block INF INF INF INF 16.0 29.0 # 11.0 34.0 # 3.0 40.0
 #group		group_move region region_move
 #group		group_fix subtract all group_move
 #fix			fix_fix group_fix setforce 0.0 0.0 0.0
 
-# fix all of absobant
+# ----- fix all of absorbent v2-----
 region		region_fix block INF INF INF INF INF INF
 group		group_fix region region_fix
 group		group_move subtract all group_fix
