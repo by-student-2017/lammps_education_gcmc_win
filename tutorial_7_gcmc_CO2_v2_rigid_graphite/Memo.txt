@@ -1,0 +1,5 @@
+https://docs.lammps.org/fix_rigid.html
+
+  The rigid styles are typically the best choice for a system with a small number of large rigid bodies, each of which can extend across the domain of many processors.
+
+  The rigid/small styles are typically best for a system with a large number of small rigid bodies.
