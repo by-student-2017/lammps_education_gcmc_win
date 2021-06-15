@@ -144,11 +144,12 @@ thermo          ${nfreq}
 region		region_fix block INF INF INF INF INF INF
 group		group_fix region region_fix
 group		group_move subtract all group_fix
+fix			fix_fix group_fix setforce 0.0 0.0 0.0
 velocity        all create ${temp2} 123456
 
 # ----- Relax calculation (0 K) -----
 #print "----- Relax calculation (0 K) -----"
-#fix             f1 all box/relax iso 0.0
+#fix             f1 group_move box/relax iso 0.0
 #minimize        1.0e-10 0.0 1000 100000
 #unfix           f1
 
@@ -174,13 +175,13 @@ fix 1 gas rattle 0.0001 20 10 t 2 2 m 1.0 b 2 # mol gas # rattle method
 # ----- Equilibriation (NPT) -----
 #print "----- Equilibriation (NPT) -----"
 #velocity        all create 10.0 123456
-#fix             f1 all npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
+#fix             f1 group_move npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
 #run             ${nstep} # 20 ps
 #unfix           f1
 
 # ----- Equilibriation (NVT) -----
 #print "----- Equilibriation (NVT) -----"
-#fix             f1 all nvt temp ${temp1} ${temp2} ${tdamp}
+#fix             f1 group_move nvt temp ${temp1} ${temp2} ${tdamp}
 #run             ${nstep} # 20 ps
 #unfix           f1
 
