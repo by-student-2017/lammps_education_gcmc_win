@@ -54,7 +54,7 @@ pair_coeff * * airebo CH.airebo C NULL
 pair_coeff 1 2 lj/cut/coul/long 0.002947 3.000 # C-H (H2)
 pair_coeff 2 2 lj/cut/coul/long 0.001908 2.570 # H-H (H2)
 
-kspace_style    ewald 1.0e-5
+kspace_style    ewald 1.0e-4
 kspace_modify gewald 0.24287
 #kspace_style ewald/n 0.00001
 #kspace_modify gewald 0.24287
