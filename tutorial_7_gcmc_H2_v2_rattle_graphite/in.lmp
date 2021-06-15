@@ -170,8 +170,8 @@ fix             fout1 all ave/time 1 ${nfreq} ${nfreq} v_Energy v_Temperature v_
 
 # ----- shake or rattle method -----
 variable   nmove index 0   # shake or rattle method need 0
-#fix 1 gas shake 0.0001 20 10 t 2 2 m 1.0 b 2 # mol gas # shake method
-fix 1 gas rattle 0.0001 20 10 t 2 2 m 1.0 b 2 # mol gas # rattle method
+#fix 1 gas shake 0.0001 20 10 b 2 # mol gas # shake method
+fix 1 gas rattle 0.0001 20 10 b 2 # mol gas # rattle method
 
 # ----- Equilibriation (NPT) -----
 #print "----- Equilibriation (NPT) -----"
