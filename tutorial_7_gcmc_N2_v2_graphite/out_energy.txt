@@ -1,0 +1,4 @@
+# Time-averaged data for fix fout1
+# TimeStep v_Energy v_Temperature v_Pressure
+100 -20996 303 -1310.67
+200 -20997.4 303 492.813
