@@ -1,0 +1,194 @@
+#LAMMPS Input file
+# Title
+clear
+
+# ----- condition settings -----
+
+variable   temp1 index 303.0 # K (for NPT process)
+
+variable   temp2 index 303.0 # K (for GCMC process)
+
+variable   pres index 500.0 # (bar units), 1.0 bar = 0.1 MPa 
+
+variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans)
+
+# -----other settings -----
+variable   fs   index 0.0020 # =< 2.0 fs for shake or rattle method
+#variable   fs   index 0.0005 # 0.5 fs (normal setting)
+variable   ps   index 20 # 20 ps
+variable   ps_gcmc index 30 # 30 ps
+variable   nfreq index 100 # = Nevery * Nrepeat
+variable   nstep equal ${ps}/${fs}
+variable   nstep_gcmc equal ${ps_gcmc}/${fs}
+variable   tdamp equal ${fs}*100
+variable   pdamp equal ${fs}*1000
+variable   pdamp_gcmc equal ${fs}*100 # (for GCMC process)
+variable   disp index 0.01
+variable   natom index 10
+variable   mu   index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
+
+# ----- Structure settings -----
+units      metal
+atom_style full
+dimension  3
+boundary   p p p
+read_data  data.c
+replicate  1 1 1
+timestep   ${fs}
+
+molecule        gas CO2.txt
+#group           ztc type 1 # 1=C
+group           gas type 2:3 # 2=C, 3=O (for CO2)
+
+mass 1 12.0107 # C
+mass 2 12.0107 # C
+mass 3 15.9994 # O
+
+# ----- Potential settings -----
+pair_style hybrid airebo 3.0 1 0 lj/cut/coul/long 14
+pair_coeff * * airebo CH.airebo C NULL NULL
+
+# rigid CO2 TraPPE model 
+# dwsideriusNIST/LAMMPS_Examples/TraPPECO2_example/in.TraPPECO2
+pair_coeff 1 2 lj/cut/coul/long 0.003254 3.115 # C-C (CO2)
+pair_coeff 2 2 lj/cut/coul/long 0.002326 2.800 # C-C (CO2)-(CO2)
+pair_coeff 1 3 lj/cut/coul/long 0.005567 3.240 # C-O (CO2)
+pair_coeff 2 3 lj/cut/coul/long 0.003979 2.925 # C-O (CO2)-(CO2)
+pair_coeff 3 3 lj/cut/coul/long 0.006807 3.050 # O-O (CO2)-(CO2)
+
+kspace_style    ewald 1.0e-5
+kspace_modify gewald 0.24287
+#kspace_style ewald/n 0.00001
+#kspace_modify gewald 0.24287
+bond_style      harmonic # bond for CO2 molecules
+angle_style     harmonic # bond for CO2 molecules
+bond_coeff      1       0       1.0  # dummy
+bond_coeff      2    216.834    1.16 # CO2
+angle_coeff     1       0       180  # dummy
+angle_coeff     2     21.683    180  # CO2
+delete_bonds all bond  1*1 remove
+delete_bonds all angle 1*1 remove
+delete_bonds all dihedral 1*1 remove
+
+# ----- Potential data -----
+# C,    52.84 [K](epsilon/K), 0.343  [nm](sigma)
+# H,    22.14 [K](epsilon/K), 0.257  [nm](sigma)
+# O,    30.20 [K](epsilon/K), 0.312  [nm](sigma)
+# N,    38.92 [K](epsilon/K), 0.3263 [nm](sigma)
+# He,   10.41 [K](epsilon/K), 0.602  [nm](sigma)
+# Ar,  141.6  [K](epsilon/K), 0.3350 [nm](sigma)
+# N2,  104.2  [K](epsilon/K), 0.3632 [nm](sigma)
+# H2,   36.7  [K](epsilon/K), 0.2958 [nm](sigma)
+# O2,  126.3  [K](epsilon/K), 0.3382 [nm](sigma)
+# CO2, 245.3  [K](epsilon/K), 0.3762 [nm](sigma)
+# CH4, 161.3  [K](epsilon/K), 0.3721 [nm](sigma)
+# Lorentz-Berthelot: 
+#  epsilon(ij) = sqrt(epsilon(i)*epsilon(j)) [K] (epsilon/K)
+#  sigma(ij)   = (sigma(i)+sigma(j))/2       [nm](sigma)
+# real  unit: [kcal/mol]=[K]*0.001987, [Angstrom]=[nm]*10
+# metal unit: [eV]=[K]*0.00008617, [Angstrom]=[nm]*10
+
+# ----- Output setting -----
+thermo_style    custom step etotal temp lx vol press
+thermo          ${nfreq}
+
+# ----- fix all of absorbant v1-----
+#region		region_move block INF INF INF INF 16.0 29.0 # 11.0 34.0 # 3.0 40.0
+#group		group_move region region_move
+#group		group_fix subtract all group_move
+#fix			fix_fix group_fix setforce 0.0 0.0 0.0
+
+# ----- fix all of absorbant v2-----
+region		region_fix block INF INF INF INF INF INF
+group		group_fix region region_fix
+group		group_move subtract all group_fix
+velocity        all create ${temp2} 123456
+
+# ----- Relax calculation (0 K) -----
+#print "----- Relax calculation (0 K) -----"
+#fix             f1 all box/relax iso 0.0
+#minimize        1.0e-10 0.0 1000 100000
+#unfix           f1
+
+# ----- reset timestep and dt -----
+reset_timestep  0
+timestep        ${fs}
+
+# ----- Output setting -----
+dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
+dump_modify     d1 element C C O
+
+# ----- Check equilibriation setting -----
+variable        Energy equal etotal
+variable        Temperature equal temp
+variable        Pressure equal press
+fix             fout1 all ave/time 1 ${nfreq} ${nfreq} v_Energy v_Temperature v_Pressure file out_energy.txt
+
+# ----- shake or rattle method -----
+variable   nmove index 0   # shake or rattle method need 0
+#fix 1 gas shake 0.0001 20 10 t 2 3 m 1.0 b 2 a 2 # mol gas
+fix 1 gas rattle 0.0001 20 10 t 2 3 m 1.0 b 2 a 2 # mol gas
+
+# ----- Equilibriation (NPT) -----
+#print "----- Equilibriation (NPT) -----"
+#velocity        all create 10.0 123456
+#fix             f1 all npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
+#run             ${nstep} # 20 ps
+#unfix           f1
+
+# ----- Equilibriation (NVT) -----
+#print "----- Equilibriation (NVT) -----"
+#fix             f1 all nvt temp ${temp1} ${temp2} ${tdamp}
+#run             ${nstep} # 20 ps
+#unfix           f1
+
+# ----- GCMC Calculation-----
+print "----- GCMC Calculation -----"
+fix             f1 group_move npt temp ${temp2} ${temp2} ${tdamp} iso ${pres} ${pres} ${pdamp_gcmc}
+fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
+fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 0 761341 ${temp2} ${mu} ${disp} mol gas pressure ${pres} tfac_insert ${tfac}
+
+# ----- atom count -----
+variable        type1 atom "type==1" # C for absorbant
+variable        type2 atom "type==2" # Gas (C of CO2)
+variable        type3 atom "type==3" # Gas (O of CO2)
+group           type1 dynamic group_fix var type1 # C for absorbant
+group           type2 dynamic gas var type2 # Gas (C of CO2)
+group           type3 dynamic gas var type3 # Gas (O of CO2)
+variable        nc  equal count(type1) # C for absorbant
+variable        ngas equal count(type2) # Gas (C of CO2)
+
+# ----- averaging -----
+variable        rho equal density
+variable        p equal press
+variable        t equal temp
+variable        nugget equal 1.0e-8
+variable        lambda equal 1.0
+variable        muex equal ${mu}-${temp2}*ln(density*${lambda}+${nugget})
+fix             ave all ave/time 1 ${nfreq} ${nfreq} v_rho v_p v_muex v_ngas v_nc v_t ave one file rho_vs_p.dat
+variable        rhoav equal f_ave[1]
+variable        pav equal f_ave[2]
+variable        muexav equal f_ave[3]
+variable        ngasav equal f_ave[4] # Gas (CO2)
+variable        ncav equal f_ave[5] # C
+
+variable        wtav equal f_ave[4]*44/(f_ave[5]*12+f_ave[4]*44+${nugget})*100
+
+compute_modify  thermo_temp dynamic/dof yes
+thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_wtav
+thermo          ${nfreq}
+
+# ----- Output setting -----
+dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
+dump_modify     d3 element C C O
+
+fix_modify      f1 temp thermo_temp
+fix_modify      f2 temp thermo_temp
+
+run             ${nstep_gcmc} # 30 ps
+unfix f1
+unfix f2
+unfix f3
+
+# ----- Output restart data -----
+write_data gcmc_restart.data
