@@ -136,6 +136,7 @@ thermo          ${nfreq}
 
 # ----- fix all of absorbent v1-----
 #region		region_move block INF INF INF INF 16.0 29.0 # 11.0 34.0 # 3.0 40.0
+#region		region_fix block 14.0 15.0 14.0 15.0 INF INF
 #group		group_move region region_move
 #group		group_fix subtract all group_move
 #fix			fix_fix group_fix setforce 0.0 0.0 0.0
@@ -145,7 +146,7 @@ region		region_fix block INF INF INF INF INF INF
 group		group_fix region region_fix
 group		group_move subtract all group_fix
 fix			fix_fix group_fix setforce 0.0 0.0 0.0
-velocity        all create ${temp2} 123456
+velocity        all create ${temp1} 123456
 
 # ----- Relax calculation (0 K) -----
 #print "----- Relax calculation (0 K) -----"
