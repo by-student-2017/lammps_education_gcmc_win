@@ -41,7 +41,7 @@ timestep   ${fs}
 
 molecule        gas H2.txt
 #group           ztc type 1  # 1=C
-group           gas type 2  # 2=molecular (e.g., N2)
+group           gas type 2  # 2=molecular (e.g., H2)
 
 mass 1 12.0107 # C
 mass 2 1.00794 # H
