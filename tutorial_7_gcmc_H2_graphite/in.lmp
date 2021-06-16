@@ -158,7 +158,8 @@ fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 2 761341 ${temp2} ${mu} $
 variable        type1 atom "type==1" # C
 #variable        type2 atom "type==2" # H
 variable        type2 atom "type==2" # Gas
-group           type1 dynamic group_move var type1 # C
+#group           type1 dynamic group_move var type1 # C
+group           type1 dynamic group_fix var type1 # C
 #group           type2 dynamic group_move var type2 # H
 group           type2 dynamic gas var type2 # Gas (e.g., He, Ar, Kr, etc)
 variable        nc  equal count(type1) # C

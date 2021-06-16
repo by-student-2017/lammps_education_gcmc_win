@@ -48,7 +48,7 @@ mass 2 14.0067 # N
 mass 3 0.00001 # M
 
 # ----- Potential settings -----
-pair_style hybrid airebo 3.0 1 0 lj/cut/coul/long 15.0 15.0
+pair_style hybrid airebo 3.0 1 0 lj/cut/coul/long 10.0 10.0
 pair_coeff * * airebo CH.airebo C NULL NULL
 
 # N2 case
@@ -58,11 +58,21 @@ pair_coeff 2 2 lj/cut/coul/long 0.003102 3.310 #   N-N
 pair_coeff 2 3 lj/cut/coul/long 0.000000 0.000 #   N-M
 pair_coeff 3 3 lj/cut/coul/long 0.000000 0.000 #   M-M
 
+# https://docs.lammps.org/Speed_tips.html
+kspace_style    pppm 1.0e-4 # default: PPPM, ik
+#kspace_style    ewald 1.0e-4
+#
+kspace_modify  gewald 0.195
+# https://docs.lammps.org/99/force_fields.html
+# g_ewald = accuracy*sqrt(natoms*cutoff*xprd*yprd*zprd) / (2.0*q2); # 1.0e-4*sqrt(2688*10.0*29.61*29.91*37.39)/(2.0*1.0) = 1.49172
+# if (g_ewald >= 1.0) g_ewald = (1.35 - 0.15*log(accuracy))/cutoff; # (1.35 - 0.15*log(1.0e-4))/10.0 = 0.195
+# else g_ewald = sqrt(-log(g_ewald)) / cutoff
+# https://mochirixi.hatenadiary.com/entry/2018/05/14/154921
+# https://docs.lammps.org/Howto_dispersion.html
+# kspace_modify force/disp/real 0.0001
+# kspace_modify force/disp/kspace 0.002
+#
 # https://github.com/dwsideriusNIST/LAMMPS_Examples/blob/master/TraPPEN2_example/in.TraPPEN2
-kspace_style   ewald 1.0e-4
-kspace_modify  gewald 0.24287
-
-pair_modify tail yes
 bond_style      harmonic # bond for N2 molecules
 bond_coeff      1       0      1.0    # dummy (test version)
 bond_coeff      2    216.8344  0.550  # N2 (test version)
