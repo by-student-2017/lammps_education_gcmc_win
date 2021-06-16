@@ -16,10 +16,10 @@ variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans)
 # vib = about 0.0 at R.T. for molecular (2 atoms)
 
 # -----other settings -----
-variable   fs   index 0.0020 # =< 2.0 fs for shake or rattle method
+variable   fs   index 0.0015 # =< 2.0 fs for shake or rattle method
 #variable   fs   index 0.0005 # 0.5 fs (normal setting)
-variable   ps   index 20 # 20 ps
-variable   ps_gcmc index 30 # 30 ps
+variable   ps   index 15 # 15 ps
+variable   ps_gcmc index 300 # 300 ps
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
@@ -164,13 +164,13 @@ fix 1 gas rattle 0.0001 20 10 b 2 mol gas # rattle method
 #print "----- Equilibriation (NPT) -----"
 #velocity        all create 10.0 123456
 #fix             f1 group_move npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
-#run             ${nstep} # 20 ps
+#run             ${nstep} # 15 ps
 #unfix           f1
 
 # ----- Equilibriation (NVT) -----
 #print "----- Equilibriation (NVT) -----"
 #fix             f1 group_move nvt temp ${temp1} ${temp2} ${tdamp}
-#run             ${nstep} # 20 ps
+#run             ${nstep} # 15 ps
 #unfix           f1
 
 # ----- GCMC Calculation-----
@@ -214,7 +214,7 @@ dump_modify     d3 element C N M
 fix_modify      f1 temp thermo_temp
 fix_modify      f2 temp thermo_temp
 
-run             ${nstep_gcmc} # 30 ps
+run             ${nstep_gcmc} # 300 ps
 unfix f1
 unfix f2
 unfix f3
