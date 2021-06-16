@@ -1,9 +1,0 @@
-#!/usr/bin/gnuplot
-
-stats "data.txt" u ($9*0.1):14
-
-# pause -1
-
-#set terminal postscript color enhanced lw 2
-#set out "gcmc.ps"
-#replot

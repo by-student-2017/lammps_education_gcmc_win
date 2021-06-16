@@ -1,3 +1,0 @@
-https://docs.lammps.org/fix_shake.html
-
-SHAKE or RATTLE should not be used to constrain an angle at 180 degrees (e.g. linear CO2 molecule). This causes numeric difficulties. You can use fix rigid or fix rigid/small instead to make a linear molecule rigid.
