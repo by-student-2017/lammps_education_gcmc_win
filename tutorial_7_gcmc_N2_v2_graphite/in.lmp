@@ -106,6 +106,107 @@ delete_bonds all dihedral 1*1 remove
 # real  unit: [kcal/mol]=[K]*0.001987, [Angstrom]=[nm]*10
 # metal unit: [eV]=[K]*0.00008617, [Angstrom]=[nm]*10
 
+# ----- Potential data of DFT-----
+# Latoskie, C., Gubbins, K., Quirke, N., Langmuir 9, 2693 (1993).
+# Ravikovitch, P., Vishnyakov, A., Neimark, A.V., Physical review E, 64, 011602-1 (2001).
+# N2,    94.45 [K](epsilon/K), 0.3575 [nm](sigma), 0.3575 [nm] (dHS)
+# Ar,   118.05 [K](epsilon/K), 0.3305 [nm](sigma), 0.3390 [nm] (dHS)
+# CO2,  235.9  [K](epsilon/K), 0.3454 [nm](sigma), 0.3495 [nm] (dHS)
+#
+# N2-C(cylinder),  53.22 [K](epsilon/K), 0.3494 [nm](sigma)
+# N2-C(slit),      53.72 [K](epsilon/K), 0.3494 [nm](sigma)
+# Ar-C,            55.0  [K](epsilon/K), 0.335  [nm](sigma)
+# CO2-C,           81.5  [K](epsilon/K), 0.3430 [nm](sigma)
+# N2-Si,          147.3  [K](epsilon/K), 0.3170 [nm](sigma)
+# CO2-Si,         147.1  [K](epsilon/K), 0.3300 [nm](sigma)
+# Ar-Si,          171.24 [K](epsilon/K), 0.3000 [nm](sigma)
+# C , 0.3819 [Angstrom^-2] (rows)
+# Si, 0.153  [Angstrom^-2] (rows)
+# C(slit pore),     0.335 delta(nm)/layer spacing, 114 rows (nm^-3) 
+# C,               38.19 (surface molecule number Ns (nm^-2) in cylinder and spherical pore)
+# Si,              15.3  (surface molecule number Ns (nm^-2) in cylinder and spherical pore)
+
+# ----- Potential data -----
+# Ravikovitch, P., Vishnyakov, A., Neimark, A.V., Physical review E, 64, 011602-1 (2001).
+# CH4,            148.2  [K](epsilon/K), 0.382  [nm](sigma), 0.382  [nm] (dHS)
+# CH4-C,           64.4  [K](epsilon/K), 0.36   [nm](sigma)
+
+# ----- Potential data of CO2 -----
+# Ravikovitch, P.I., Vishnyakov, A., Russo, R., Neimark, A.V., Langmuir 16, 2311 (2000).
+# Parameters of the Intermolecular Potentials for the Three-Center Model of CO2.
+# Harris, J. G.; Yung, K. H. J. Phys. Chem. 1995, 99, 12021.
+# O-O,  80.507 [K](epsilon/K), 0.3033 [nm](sigma)
+# C-C,  28.129 [K](epsilon/K), 0.2757 [nm](sigma)
+# C-O,  49.060 [K](epsilon/K), 0.2892 [nm](sigma)
+# l(O-O), 0.232 [nm]
+# q0(au), -03256
+#
+# ----- Potential data of Carbon-CO2 -----
+# Ravikovitch, P.I., Vishnyakov, A., Russo, R., Neimark, A.V., Langmuir 16, 2311 (2000).
+# Parameters of the Intermolecular Potentials for the Three-Center Model of CO2.
+# Vishnyakov, A.; Ravikovitch, P. I.; Neimark, A. V. Langmuir, 1999, 15, 8736.
+# Carbon-O,  47.563 [K](epsilon/K), 0.3217 [nm](sigma)
+# Carbon-C,  28.13  [K](epsilon/K), 0.3107 [nm](sigma)
+
+# ----- Potential data -----
+# Sweatman, M. B., Quirke, N., J. Phys. Chem., 105, 1403 (2001).
+# Initial Model Parameters for Gas-Solid Surface Interactions
+# C(cylinder)-C(cylinder), 18.0 [K](epsilon/K)
+# N2-C(cylinder),  25.0  [K](epsilon/K), 0.337  [nm](sigma)
+# C-C,             18    [K](epsilon/K)
+#
+# CH4-C            57.2  [K](epsilon/K), 0.355  [nm](sigma)
+# C-C,             22    [K](epsilon/K)
+#
+# C(of CO2)-C,     25.0  [K](epsilon/K), 0.308  [nm](sigma)
+# O(of CO2)-O,     42.2  [K](epsilon/K), 0.321  [nm](sigma)
+# C-C,             22    [K](epsilon/K)
+# O-O,             22    [K](epsilon/K)
+
+# ----- Potential data -----
+# Sweatman, M. B., Quirke, N., J. Phys. Chem., 105, 1403 (2001).
+# Initial Model Parameters for Gas-Solid Surface Interactions
+# C(cylinder)-C(cylinder), 18.0 [K](epsilon/K)
+# N2-C(cylinder),  26.0  [K](epsilon/K), 0.337  [nm](sigma)
+# C-C,             19.5  [K](epsilon/K)
+#
+# CH4-C            54.5  [K](epsilon/K), 0.355  [nm](sigma)
+# C-C,             20    [K](epsilon/K)
+#
+# C(of CO2)-C,     23.9  [K](epsilon/K), 0.308  [nm](sigma)
+# O(of CO2)-O,     39.2  [K](epsilon/K), 0.321  [nm](sigma)
+# C-C,             19    [K](epsilon/K)
+# O-O,             19    [K](epsilon/K)
+
+# ----- Potential data of MC -----
+# Sweatman, M. B., Quirke, N., J. Phys. Chem., 105, 1403 (2001).
+# Ravikovitch, P.I., Vishnyakov, A., Russo, R., Neimark, A.V., Langmuir 16, 2311 (2000).
+# Ravikovitch, P., Vishnyakov, A., Neimark, A.V., Physical review E, 64, 011602-1 (2001).
+# N2,              101.5  [K](epsilon/K), 0.3615 [nm](sigma), 0.373 and -0.373 [e](q)
+# N2,               34.7  [K](epsilon/K), 0.334  [nm](sigma), +-0.05047 [nm] (lx), +-0.0847 and +-0.1044 [nm] (lq), 0.373 ad -0.373 [e](q)
+# Ar,              118.05 [K](epsilon/K), 0.3305 [nm](sigma), 0 [nm] (lx), 0 [nm] (lq), 0 [e](q)
+# C of CO2,         28.3  [K](epsilon/K), 0.275  [nm](sigma), 0 [nm] (lx), 0 [nm] (lq), 0.6521 [e](q)
+# O of CO2,         81.0  [K](epsilon/K), 0.3015 [nm](sigma), +-0.1149 [nm] (lx), +-0.1149 [nm] (lq), -0.3256 [e](q)
+# CH4,             148.75 [K](epsilon/K), 0.374  [nm](sigma), 0 [nm] (lx), 0 [nm] (lq), 0 [e](q)
+#
+# C(cylinder)-C(cylinder), 18.0 [K](epsilon/K)
+# N2-C(cylinder),  25.0  [K](epsilon/K), 0.337  [nm](sigma)
+# C-C,             18    [K](epsilon/K)
+#
+# N2-C(slit),      53.72 [K](epsilon/K), 0.3494 [nm](sigma)
+# C(slit)-C(slit), 28.43 [K](epsilon/K)
+#
+# N2-O,           147.3  [K](epsilon/K), 0.317  [nm](sigma)
+# O-O,            213.8  [K](epsilon/K)
+#
+# C(of CO2)-C,     25.0  [K](epsilon/K), 0.308  [nm](sigma)
+# O(of CO2)-O,     42.2  [K](epsilon/K), 0.321  [nm](sigma)
+# C-C,             22    [K](epsilon/K)
+# O-O,             22    [K](epsilon/K)
+#
+# CH4-C            57.2  [K](epsilon/K), 0.355  [nm](sigma)
+# C-C,             22    [K](epsilon/K)
+
 # ----- Output setting -----
 thermo_style    custom step etotal temp lx vol press
 thermo          ${nfreq}

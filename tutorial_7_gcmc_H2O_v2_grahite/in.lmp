@@ -85,7 +85,6 @@ delete_bonds all dihedral 1*1 remove
 #  epsilon(ij) = sqrt(epsilon(i)*epsilon(j)) [K] (epsilon/K)
 #  sigma(ij)   = (sigma(i)+sigma(j))/2       [nm](sigma)
 # real  unit: [kcal/mol]=[K]*0.001987, [Angstrom]=[nm]*10
-# metal unit: [eV]=[K]*0.00008617, [Angstrom]=[nm]*10
 
 # ----- Output setting -----
 thermo_style    custom step etotal temp lx vol press
