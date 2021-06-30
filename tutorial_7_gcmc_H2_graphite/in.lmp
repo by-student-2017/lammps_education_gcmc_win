@@ -18,8 +18,8 @@ variable   tfac index 1.0 # 1 atom (e.g, He, Ar, Kr, etc)
 
 # -----other settings -----
 variable   fs   index 0.0005 # 0.5 fs
-variable   ps   index 20 # 20 ps
-variable   ps_gcmc index 200 # 200 ps (recommend >= 200 ps)
+variable   ps   index 15 # 15 ps
+variable   ps_gcmc index 250 # 250 ps (recommend >= 50 ps)
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
@@ -49,7 +49,7 @@ mass 2 2.016   # H2
 # mass 3 44.01  # CO2
 
 # ----- Potential settings -----
-pair_style hybrid airebo 3.0 1 0 lj/cut 10.2
+pair_style hybrid airebo 3.0 1 0 lj/cut 10.0
 pair_coeff * * airebo CH.airebo C NULL
 
 # He cases
@@ -123,8 +123,8 @@ reset_timestep  0
 timestep        ${fs}
 
 # ----- Output setting -----
-dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
-dump_modify     d1 element C H
+#dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
+#dump_modify     d1 element C H
 
 # ----- Check equilibriation setting -----
 variable        Energy equal etotal
@@ -183,10 +183,11 @@ variable        ncav equal f_ave[5] # C
 
 variable        wtav equal f_ave[4]*2/(f_ave[5]*12+f_ave[4]*2+${nugget})*100
 #variable        wtav equal f_ave[4]*2/(f_ave[5]*12+f_ave[6]+f_ave[4]*2+${nugget})*100
+variable        micro_mol_per_m2 equal f_ave[4]/(6.02214e23)/(2*lx*1e-10*ly*1e-10)*1e6 # micro mol/m^2 for H2 molecule
 
 compute_modify  thermo_temp dynamic/dof yes
 #thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav
-thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_wtav
+thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_wtav v_micro_mol_per_m2
 thermo          ${nfreq}
 
 # ----- Output setting -----

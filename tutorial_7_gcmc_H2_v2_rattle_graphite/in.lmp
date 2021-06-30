@@ -18,8 +18,8 @@ variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans) for molecular (2 at
 # -----other settings -----
 variable   fs   index 0.0015 # =< 2.0 fs for shake or rattle method
 #variable   fs   index 0.0005 # 0.5 fs (normal setting)
-variable   ps   index 15 # 15 ps
-variable   ps_gcmc index 300 # 300 ps (recommend >= 200 ps)
+variable   ps   index 15 # 15 ps (recommend >= 20 ps)
+variable   ps_gcmc index 300 # 300 ps (recommend >= 300 ps)
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
@@ -47,7 +47,7 @@ mass 1 12.0107 # C for absorbant
 mass 2 1.00794 # H for H2
 
 # ----- Potential settings -----
-pair_style hybrid airebo 3.0 1 0 lj/cut/coul/long 10.0 10.0
+pair_style hybrid airebo 3.0 1 0 lj/cut/coul/long 10.0 10.0 # range 10.0 - 15.0
 pair_coeff * * airebo CH.airebo C NULL
 
 # H2 case
@@ -144,19 +144,23 @@ delete_bonds all bond  1*1 remove
 thermo_style    custom step etotal temp lx vol press
 thermo          ${nfreq}
 
-# ----- fix all of absorbent v1-----
+# ----- fix all of absorbent v1 -----
 #region		region_move block INF INF INF INF 16.0 29.0 # 11.0 34.0 # 3.0 40.0
 #region		region_fix block 14.0 15.0 14.0 15.0 INF INF
 #group		group_move region region_move
 #group		group_fix subtract all group_move
 #fix			fix_fix group_fix setforce 0.0 0.0 0.0
 
-# ----- fix all of absorbent v2-----
+# ----- fix all of absorbent v2 -----
 region		region_fix block INF INF INF INF INF INF
 group		group_fix region region_fix
 group		group_move subtract all group_fix
 fix			fix_fix group_fix setforce 0.0 0.0 0.0
+
+# ----- temperature setting -----
 velocity        all create ${temp1} 123456
+run             0 # for shake or rattle method
+velocity        all scale ${temp1} # for shake or rattle method
 
 # ----- Relax calculation (0 K) -----
 #print "----- Relax calculation (0 K) -----"
@@ -169,8 +173,8 @@ reset_timestep  0
 timestep        ${fs}
 
 # ----- Output setting -----
-dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type q
-dump_modify     d1 element C H
+#dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type q
+#dump_modify     d1 element C H
 
 # ----- Check equilibriation setting -----
 variable        Energy equal etotal
@@ -180,20 +184,20 @@ fix             fout1 all ave/time 1 ${nfreq} ${nfreq} v_Energy v_Temperature v_
 
 # ----- shake or rattle method -----
 variable   nmove index 0   # shake or rattle method need 0
-#fix 1 gas shake 0.0001 20 10 b 2 mol gas # shake method
-fix 1 gas rattle 0.0001 20 10 b 2 mol gas # rattle method
+#fix 1 gas shake 0.0001 20 0 b 2 mol gas # shake method
+fix 1 gas rattle 0.0001 20 0 b 2 mol gas # rattle method
 
 # ----- Equilibriation (NPT) -----
 #print "----- Equilibriation (NPT) -----"
 #velocity        all create 10.0 123456
 #fix             f1 group_move npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
-#run             ${nstep} # 15 ps
+#run             ${nstep}
 #unfix           f1
 
 # ----- Equilibriation (NVT) -----
 #print "----- Equilibriation (NVT) -----"
 #fix             f1 group_move nvt temp ${temp1} ${temp2} ${tdamp}
-#run             ${nstep} # 15 ps
+#run             ${nstep}
 #unfix           f1
 
 # ----- GCMC Calculation-----
@@ -230,9 +234,10 @@ variable        ncav equal f_ave[5] # C
 #variable        nhav equal f_ave[6] # H
 
 variable        wtav equal f_ave[4]/(f_ave[5]*12+f_ave[4]+${nugget})*100
+variable        micro_mol_per_m2 equal f_ave[4]/2.0/(6.02214e23)/(2*lx*1e-10*ly*1e-10)*1e6 # micro mol/m^2 for H2 molecule
 
 compute_modify  thermo_temp dynamic/dof yes
-thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_wtav
+thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_wtav v_micro_mol_per_m2
 thermo          ${nfreq}
 
 # ----- Output setting -----
@@ -242,7 +247,7 @@ dump_modify     d3 element C H
 fix_modify      f1 temp thermo_temp
 fix_modify      f2 temp thermo_temp
 
-run             ${nstep_gcmc} # 300 ps
+run             ${nstep_gcmc}
 unfix f1
 unfix f2
 unfix f3
