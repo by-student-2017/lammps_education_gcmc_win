@@ -229,6 +229,7 @@ variable        ncav equal f_ave[5] # C
 
 variable        wtav equal f_ave[4]/(f_ave[5]*12+f_ave[4]+${nugget})*100
 variable        micro_mol_per_m2 equal f_ave[4]/2.0/(6.02214e23)/(2*lx*1e-10*ly*1e-10)*1e6 # micro mol/m^2 for H2 molecule
+# 2*29.531999588*29.8380355835*1e-20/(12*2688/8/6.02214076e23) # m2/g, about 2650 m2/g
 
 compute_modify  thermo_temp dynamic/dof yes
 thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_wtav v_micro_mol_per_m2
