@@ -14,6 +14,7 @@ variable   fs   index 0.0005 # 0.5 fs
 variable   ps   index 20 # 20 ps
 variable   ps_gcmc index ${tgcmc2} # 600 ps (recommend >= 200 ps)
 variable   nfreq index 100 # = Nevery * Nrepeat
+variable   nfreq_print equal ${nfreq}*100
 variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
 variable   tdamp equal ${fs}*100
@@ -102,7 +103,8 @@ reset_timestep  0
 timestep        ${fs}
 
 # ----- Output setting -----
-dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
+#dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
+dump            d1 all cfg ${nfreq_print} cfg/run.*.cfg mass type xs ys zs id type
 dump_modify     d1 element C H H
 
 # ----- Check equilibriation setting -----
@@ -166,7 +168,8 @@ thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexa
 thermo          ${nfreq}
 
 # ----- Output setting -----
-dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
+#dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
+dump            d3 all cfg ${nfreq_print} cfg/gcmc_run.*.cfg mass type xs ys zs id type
 dump_modify     d3 element C H H
 
 fix_modify      f1 temp thermo_temp
