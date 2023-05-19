@@ -9,10 +9,8 @@ set ncore=4
 rem "temperature, K"
 set t=273.15
 
-set_mpich2.bat
-
 rem "pressure, MPa"
-for %%i in (2.5 5.0 15.0 30.0 50.0 70.0 100.0) do (
+for %%i in (5.0 15.0 30.0 50.0 70.0 100.0) do (
   mkdir %%i
   REM xcopy /y main %%i
   copy .\main\* %%i 

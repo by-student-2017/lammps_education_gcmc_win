@@ -6,14 +6,12 @@ set s=600
 rem "Number of CPU"
 set ncore=4
 
-set_mpich2.bat
-
 rem "temperature, K"
 for %%t in (233.15 248.15 273.15 298.15 313.15 358.15 423.15) do (
   mkdir %%t
   cd %%t
   rem "pressure, MPa"
-  for %%i in (2.5 5.0 15.0 30.0 50.0 70.0 100.0) do (
+  for %%i in (5.0 15.0 30.0 50.0 70.0 100.0) do (
     mkdir %%i
     copy ..\main\* %%i
     cd %%i
