@@ -9,6 +9,8 @@ set ncore=4
 rem "temperature, K"
 set t=273.15
 
+set_mpich2.bat
+
 rem "pressure, MPa"
 for %%i in (2.5 5.0 15.0 30.0 50.0 70.0 100.0) do (
   mkdir %%i
@@ -32,4 +34,5 @@ for %%i in (2.5 5.0 15.0 30.0 50.0 70.0 100.0) do (
   cd ..
 )
 
-gnuplot plot_p_vs_wt.gpl
+rem "gnuplot plot_p_vs_wt.gpl"
+"C:\Program Files\gnuplot\bin\gnuplot.exe" plot_p_vs_wt.gpl

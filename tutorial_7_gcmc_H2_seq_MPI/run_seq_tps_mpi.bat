@@ -6,6 +6,8 @@ set s=600
 rem "Number of CPU"
 set ncore=4
 
+set_mpich2.bat
+
 rem "temperature, K"
 for %%t in (233.15 248.15 273.15 298.15 313.15 358.15 423.15) do (
   mkdir %%t
@@ -37,4 +39,5 @@ for %%t in (233.15 248.15 273.15 298.15 313.15 358.15 423.15) do (
   cd ..
 )
 
-gnuplot plot_p_vs_wt.gpl
+rem "gnuplot plot_p_vs_wt.gpl"
+"C:\Program Files\gnuplot\bin\gnuplot.exe" plot_p_vs_wt.gpl
