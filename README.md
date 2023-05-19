@@ -23,23 +23,24 @@
 2. コントロール パネル > システムとセキュリティ > システム
 3. システムの環境設定 > 環境変数（N）... > システム環境変数（S）のPath > 編集（I）... > 新規（N）> C:\Program Files\gnuplot\bin を追加する > OK > OK
 
-□ Microsoft MPI（MSMPI）版 (Edit: May/15/2023 追記)
+□ Microsoft MPI（MSMPI）版 (Edit: May/15/2023 追記)（推奨）
 1. MSMPI版が https://rpm.lammps.org/windows/admin/64bit/index.html から入手できます。LAMMPS-64bit-22Dec2022-MSMPI-admin.exe をダウンロードしてください。
 2. "tutorial_7_gcmc_H2_seq_MSMPI"がMSMPI版に対応します。"run_msmpi.bat"内の"set ncore=4"の数値の部分（ここでは4）を並列計算したいCPU数に変更してください。"in.lmp2"ファイルではovitoの入力ファイルであるcfgも出力されるように変更しています（コメントから外しています）のでご注意ください（H2ガスは1つの球として描画されるようにしています）。他のフォルダでも利用したい場合は参考にしてください（"run_msmpi.bat"をそのままコピー&ペーストしても動作するかもしれません。作った本人ですが詳細を忘れてしまいました。申し訳ないです。未確認）。
 ※ Microsoft MPI v10.1.2
 ※ MPICH2自体のインストールがwindow11ではより煩雑になっていますのでlammpsのMS-MPI版はありがたいです。
 
-□ MPI版 (Edit: May/19/2023 追記)
+□ MPI版 (Edit: May/19/2023 追記)（非推奨）
 1. MPI版（MPICH2版）が https://rpm.lammps.org/windows/admin/64bit/index.html から入手できます。LAMMPS-64bit-28Mar2023-MPI-admin.exe をダウンロードしてください。
 2. "tutorial_7_gcmc_H2_seq_MPI"がMPI版に対応します。PowerShellを管理者として開きます。
 3. "set_mpich2.bat"を管理者として開いたPowerShellにドラッグ&ドロップしてEnterを押します。
 4. "run_mpi.bat"を管理者として開いたPowerShellにドラッグ&ドロップしてEnterを押します。
 5. ファイルについての注意事項はMSMPI版と同じです。
 ※「mpich2-1.4.1p1-win-x86-64.msi では".NET Framework version 2.0.50727"が必要です」という画面が表示されます。その場合には Microsoft .NET Framework 3.5 をgoogleなどで検索してダウンロードします。"dotNetFx35setup.exe"を実行します。
+※ 私の所持している環境（Windows 11 Home, Intel Core(TM) i7-12700, 32.0 GB）では、MPI版は計算速度も遅いのに加えてエラーも発生したため非推奨です。一方、MSMPI版は高速かつ正常に動作する。
 
 □ 注意点 (Edit: May/15/2023 追記)
 ・gnuplotにパスを通していないと正しく動作しません。gnuplotのパスの設定が難しい場合は、"stats.bat"のファイル中で"gnuplot"をパスを含めた記述に変更します。tutorial_7_gcmc_H2_seqでは変更済みのものを入れています。gnuplotをインストールするときにパスを変更してしまった場合やgnuplotのインストーラー側の初期設定でのパスが変更されたりした場合などは書き換えてください。
-※ 私が動作確認したバージョンは、gnuplotでは"gp546-win64-mingw-2.exe"、Ovitoでは"ovito-basic-3.8.4-win64.exe"となります（Windows 11 Home）。
+※ 私がWindows 11でMSMPI版とMPI版の動作確認をしたバージョンは、gnuplotでは"gp546-win64-mingw-2.exe"、Ovitoでは"ovito-basic-3.8.4-win64.exe"となります。
 ------------------------------------------------------------------------------
 ■ GCMC（グランドカノニカルモンテカルロシミュレーション）
 
