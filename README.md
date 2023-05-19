@@ -25,8 +25,8 @@
 
 □ Microsoft MPI（MSMPI）版 (Edit: May/15/2023 追記)
 1. MSMPI版が https://rpm.lammps.org/windows/admin/64bit/index.html から入手できます。LAMMPS-64bit-22Dec2022-MSMPI-admin.exe をダウンロードしてください。
-2. "tutorial_7_gcmc_H2_seq_MSMPI"にある"run_msmpi.bat"がMSMPI版に対応します。"run_msmpi.bat"内の"set ncore=4"の数値の部分（ここでは4）を並列計算したいCPUに変更してください。"in.lmp2"ファイルではovitoの入力ファイルであるcfgも出力されるように変更している（コメントから外している）のでご注意ください（H2ガスは1つの球として描画されるようにしています）。
-※ MPICH2自体のインストールがwindow11ではより煩雑になっているのでlammpsのMS-MPI版はありがたい。
+2. "tutorial_7_gcmc_H2_seq_MSMPI"がMSMPI版に対応します。"run_msmpi.bat"内の"set ncore=4"の数値の部分（ここでは4）を並列計算したいCPUに変更してください。"in.lmp2"ファイルではovitoの入力ファイルであるcfgも出力されるように変更しています（コメントから外しています）のでご注意ください（H2ガスは1つの球として描画されるようにしています）。
+※ MPICH2自体のインストールがwindow11ではより煩雑になっていますのでlammpsのMS-MPI版はありがたいです。
 
 □ 注意点 (Edit: May/15/2023 追記)
 ・gnuplotにパスを通してないと正しく動作しません。gnuplotのパスの設定が難しい場合は、"stats.bat"のファイル中で"gnuplot"をパスを含めた記述に変更します。tutorial_7_gcmc_H2_seqでは変更済みのものを入れています。gnuplotをインストールするときにパスを変更してしまった場合やgnuplotのインストーラー側の初期設定でのパスが変更されたりした場合などは書き換えてください。
