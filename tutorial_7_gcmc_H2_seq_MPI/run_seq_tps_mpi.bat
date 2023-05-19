@@ -23,7 +23,7 @@ for %%t in (233.15 248.15 273.15 298.15 313.15 358.15 423.15) do (
     copy /b in.lmp1 + in.lmp2 in.lmp
     copy /b in.lmp1 + in.lmp_restart2 in.lmp_restart
 
-    "C:\Program Files\Microsoft MPI\Bin\mpiexec.exe" -np %ncore% "C:\Program Files\LAMMPS 64-bit 22Dec2022-MSMPI\bin\lmp.exe" -in in.lmp
+    "C:\Program Files\MPICH2\bin\mpiexec.exe" -np %ncore% "C:\Program Files\LAMMPS 64-bit 28Mar2023-MPI\bin\lmp.exe" -in in.lmp
 
     del in.lmp1 in.lmp2 in.lmp_restart2
     call ..\..\main\stats.bat
