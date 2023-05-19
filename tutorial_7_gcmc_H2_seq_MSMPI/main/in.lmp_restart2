@@ -5,14 +5,13 @@ variable   tfac index 1.0 # 1 atom (e.g, He, Ar, Kr, etc)
 # total = 3n = 3+2+3n-5 = 3+3+3n-6
 # vib = about 0.0 at R.T. for molecular (2 atoms)
 
-variable   temp2  equal ${temp1}    # K (for GCMC process)
-variable   pres   equal ${mpa}*10.0 # bar unit (1.0 MPa = 10.0 bar)
-variable   tgcmc2 equal ${tgcmc1}   # ps (for GCMC calculation time)
+variable   temp2 equal ${temp1} # K (for GCMC process)
+variable   pres equal ${mpa}*10.0 # bar unit (0.1 MPa = 10.0 bar)
 
 # -----other settings -----
 variable   fs   index 0.0005 # 0.5 fs
 variable   ps   index 20 # 20 ps
-variable   ps_gcmc index ${tgcmc2} # 600 ps (recommend >= 200 ps)
+variable   ps_gcmc index 30 # 30 ps
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
@@ -29,8 +28,9 @@ units      metal
 atom_style atomic
 dimension  3
 boundary   p p p
-read_data  data.ch # read initial data case
-replicate  2 2 2
+#read_data  data.ch # read initial data case
+read_data gcmc_restart.data # read restart data case
+replicate  1 1 1
 timestep   ${fs}
 
 mass 1 12.0107 # C
@@ -92,17 +92,17 @@ thermo_style    custom step etotal temp lx vol press
 thermo          ${nfreq}
 
 # ----- Relax calculation (0 K) -----
-print "----- Relax calculation (0 K) -----"
-fix             f1 all box/relax iso 0.0
-minimize        1.0e-10 0.0 1000 100000
-unfix           f1
+#print "----- Relax calculation (0 K) -----"
+#fix             f1 all box/relax iso 0.0
+#minimize        1.0e-10 0.0 1000 100000
+#unfix           f1
 
 # ----- reset timestep and dt -----
 reset_timestep  0
 timestep        ${fs}
 
 # ----- Output setting -----
-#dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
+#dump            d1 all cfg ${nfreq} cfg_restart/run.*.cfg mass type xs ys zs id type
 #dump_modify     d1 element C H H
 
 # ----- Check equilibriation setting -----
@@ -113,16 +113,17 @@ fix             fout1 all ave/time 1 ${nfreq} ${nfreq} v_Energy v_Temperature v_
 
 # ----- Equilibriation (NPT) -----
 print "----- Equilibriation (NPT) -----"
-velocity        all create 10.0 123456
-fix             f1 all npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
-run             ${nstep} # 20 ps
+#velocity        all create 10.0 123456
+#fix             f1 all npt temp 10.0 ${temp1} ${tdamp} iso 0.0 ${pres} ${pdamp}
+fix             f1 all npt temp ${temp1} ${temp1} ${tdamp} iso ${pres} ${pres} ${pdamp}
+run             ${nstep} # 10 ps
 unfix           f1
 
 # ----- Equilibriation (NVT) -----
 #print "----- Equilibriation (NVT) -----"
 #velocity        all create 10.0 123456
 #fix             f1 all nvt temp ${temp1} ${temp2} ${tdamp}
-#run             ${nstep} # 20 ps
+#run             ${nstep} # 10 ps
 #unfix           f1
 
 # ----- GCMC Calculation-----
@@ -166,13 +167,13 @@ thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexa
 thermo          ${nfreq}
 
 # ----- Output setting -----
-#dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
+#dump            d3 all cfg ${nfreq} cfg_restart/gcmc_run.*.cfg mass type xs ys zs id type
 #dump_modify     d3 element C H H
 
-fix_modify      f1 temp thermo_temp
-fix_modify      f2 temp thermo_temp
+fix_modify f1 temp thermo_temp
+fix_modify f2 temp thermo_temp
 
-run             ${nstep_gcmc} # 180 ps
+run             ${nstep_gcmc} # 30 ps
 unfix f1
 unfix f2
 unfix f3

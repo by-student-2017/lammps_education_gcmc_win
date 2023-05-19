@@ -25,7 +25,7 @@
 
 □ Microsoft MPI（MSMPI）版 (Edit: May/15/2023 追記)
 1. MSMPI版が https://rpm.lammps.org/windows/admin/64bit/index.html から入手できます。LAMMPS-64bit-22Dec2022-MSMPI-admin.exe をダウンロードしてください。
-2. tutorial_7_gcmc_H2_seq にある"run_msmpi.bat"がMSMPI版に対応します。"run_msmpi.bat"ないの"set ncore=8"の数値の部分（ここでは8）を並列計算したいCPUに変更してください。"in.lmp2"ファイルではovitoの入力ファイルであるcfgも出力されるように変更している（コメントから外している）のでご注意ください（H2ガスは1つの球として描画されるようにしています）。
+2. "tutorial_7_gcmc_H2_seq_MSMPI"にある"run_msmpi.bat"がMSMPI版に対応します。"run_msmpi.bat"内の"set ncore=4"の数値の部分（ここでは4）を並列計算したいCPUに変更してください。"in.lmp2"ファイルではovitoの入力ファイルであるcfgも出力されるように変更している（コメントから外している）のでご注意ください（H2ガスは1つの球として描画されるようにしています）。
 ※ MPICH2自体のインストールがwindow11ではより煩雑になっているのでlammpsのMS-MPI版はありがたい。
 
 □ 注意点 (Edit: May/15/2023 追記)

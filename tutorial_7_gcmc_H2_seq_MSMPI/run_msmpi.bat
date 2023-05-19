@@ -4,15 +4,13 @@ rem "GCMC calculation time, ps"
 set s=600
 
 rem "Number of CPU"
-set ncore=8
+set ncore=4
 
 rem "temperature, K"
-rem "set t=273.15"
-set t=423.15
+set t=273.15
 
 rem "pressure, MPa"
-rem "for %%i in (2.5 5.0 15.0 30.0 50.0 70.0 100.0) do ("
-for %%i in (70.0 30.0 15.0) do (
+for %%i in (2.5 5.0 15.0 30.0 50.0 70.0 100.0) do (
   mkdir %%i
   REM xcopy /y main %%i
   copy .\main\* %%i 
