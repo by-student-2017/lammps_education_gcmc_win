@@ -23,11 +23,13 @@
 2. コントロール パネル > システムとセキュリティ > システム
 3. システムの環境設定 > 環境変数（N）... > システム環境変数（S）のPath > 編集（I）... > 新規（N）> C:\Program Files\gnuplot\bin を追加する > OK > OK
 
-□ Microsoft MPI（MSMPI版）
-1. MSMPI版が https://rpm.lammps.org/windows/admin/64bit/index.html から入手できます。
-  LAMMPS-64bit-22Dec2022-MSMPI-admin.exe をダウンロードしてください。
-2. tutorial_7_gcmc_H2_seq にある run_msmpi.bat が MSMPI版に対応します。"set ncore=8"での数値の8を並列計算したいCPUに変更すれば良いです。
-※ gnuplotにパスを通してないと正しく動作しません。gnuplotのパスの設定が難しい場合は、"stats.bat"のファイル中で"gnuplot"をパスを含めた記述に変更します。tutorial_7_gcmc_H2_seqでは変更済みのものを入れています。gnuplotをインストールするときにパスを変更してしまった場合は書き換えてください。
+□ Microsoft MPI（MSMPI）版 (Edit: May/15/2023 追記)
+1. MSMPI版が https://rpm.lammps.org/windows/admin/64bit/index.html から入手できます。LAMMPS-64bit-22Dec2022-MSMPI-admin.exe をダウンロードしてください。
+2. tutorial_7_gcmc_H2_seq にある"run_msmpi.bat"がMSMPI版に対応します。"run_msmpi.bat"ないの"set ncore=8"の数値の部分（ここでは8）を並列計算したいCPUに変更してください。"in.lmp2"ファイルではovitoの入力ファイルであるcfgも出力されるように変更している（コメントから外している）のでご注意ください（H2ガスは1つの球として描画されるようにしています）。
+※ MPICH2自体のインストールがwindow11ではより煩雑になっているのでlammpsのMS-MPI版はありがたい。
+
+□ 注意点 (Edit: May/15/2023 追記)
+・gnuplotにパスを通してないと正しく動作しません。gnuplotのパスの設定が難しい場合は、"stats.bat"のファイル中で"gnuplot"をパスを含めた記述に変更します。tutorial_7_gcmc_H2_seqでは変更済みのものを入れています。gnuplotをインストールするときにパスを変更してしまった場合やgnuplotのインストーラー側の初期設定でのパスが変更されたりした場合などは書き換えてください。
 ------------------------------------------------------------------------------
 ■ GCMC（グランドカノニカルモンテカルロシミュレーション）
 
