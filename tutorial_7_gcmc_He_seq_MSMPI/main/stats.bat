@@ -5,7 +5,7 @@ for /l %%i in (400000,4000,1600000) do (
 rem "gnuplot stats.gpl > stats.txt"
 "C:\Program Files\gnuplot\bin\gnuplot.exe" stats.gpl > stats.txt"
 
-echo #                      MPa                 wt.%% > meam_and_std.txt
+echo #                      MPa                 He > meam_and_std.txt
 find " Mean: " <stats.txt>> meam_and_std.txt
 find " Std Dev: " <stats.txt>> meam_and_std.txt
 
