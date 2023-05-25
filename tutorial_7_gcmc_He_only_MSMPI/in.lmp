@@ -8,7 +8,7 @@ variable   temp index 77.0 # K (for GCMC process)
 
 variable   pres index 1.0 # (bar units), 1.0 bar = 0.1 MPa 
 
-vvariable   tfac index 1.0 # 1 atom (e.g, He, Ar, Kr, etc)
+variable   tfac index 1.0 # 1 atom (e.g, He, Ar, Kr, etc)
 #variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans) for molecular (2 atoms)
 # trans = 3, rot = 2 (line), rot = 3 (non-line), vib = 3n-5 (line), vib = 3n-6 (non-line)
 # total = 3n = 3+2+3n-5 = 3+3+3n-6
