@@ -347,3 +347,147 @@ ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 
 
 ------------------------------------------------------------------------------
+# Input file
+
+
+## Metal
+
+[IFM1] M. Li et al., Nanomaterials 9 (2019) 347.
+  https://doi.org/10.3390/nano9030347 (Graphene, The temperature of each atom)
+
+
+[IFM2] P. Malakar et al., ACS Appl. Nano Mater. 5 (2022) 16489-16499.
+  https://doi.org/10.1021/acsanm.2c03564 (lammps input file)
+
+
+[IFM3] S. K. Achar et al., J. Chem. Theory Comput. 18 (2022) 3593-3606.
+  https://doi.org/10.1021/acs.jctc.2c00010
+
+
+[IFM4] M. Qamar et al., J. Chem. Theory, Comput. XXX (2023) XXX-XXXX.
+  https://doi.org/10.1021/acs.jctc.2c01149
+
+
+[IFM5] Y. A. Zulueta et al., Inorg. Chem. 59 (2020) 11841-11846.
+  https://doi.org/10.1021/acs.inorgchem.0c01923 (Transition-Metal-Doped Li2SnO3)
+
+
+## Other
+
+[IFO1] P. G. Boyd et al., J. Phys. Chem. Lett. 8 (2017) 357-363.
+  https://doi.org/10.1021/acs.jpclett.6b02532 (MOF)
+
+
+[IFO2] K. Banlusan et al., J. Phys. Chem. C 119 (2015) 25845-25852.
+  https://doi.org/10.1021/acs.jpcc.5b05446 (MOF)
+
+
+[IFO3] M. Witman et al., J. Phys. Chem. Lett. 10 (2019) 5929-5934.
+  https://doi.org/10.1021/acs.jpclett.9b02449 (MOF)
+
+
+[IFO4] J. P. Ruffley et al., J. Phys. Chem. C 124 (2020) 19873.
+  https://doi.org/10.1021/acs.jpcc.0c07650 (MOF)
+
+
+[IFO5] R. Anderson et al., Chem. Mater, 32 (2020) 8106-8119.
+  https://doi.org/10.1021/acs.chemmater.0c00744 (MOF)
+
+
+[IFO6] A. v. Wedelstedt et al., J. Chem. Inf. Model. 62 (2022) 1154-1159.
+  https://doi.org/10.1021/acs.jcim.2c00158 (input file of MOF on Lammps and CP2k code)
+
+
+[IFO7] J. J. Wardzala et al., J. Phys. Chem. C 124 (2020) 28469-28478.
+  https://doi.org/10.1021/acs.jpcc.0c07040 (MOF)
+
+
+[IFO8] M. C. Oliver et al., J. Phys. Chem. C 127 (2023) 6503-6514.
+  https://doi.org/10.1021/acs.jpcc.2c08695 (MOF)
+
+
+[IFO9] H. Xu et al., J. Chem. Theory Comput. 18 (2022) 2826-2835.
+  https://doi.org/10.1021/acs.jctc.2c00094 (MOF)
+  https://archive.materialscloud.org/record/2022.37
+
+
+[IFO10] J. M. Findley et al., J. Phys. Chem. C 125 (2021) 8418-8429.
+  https://doi.org/10.1021/acs.jpcc.1c00943 (input file of MOF on Lammps and RASPA code)
+
+
+[IFO11] A. S. S. Daou et al., J. Phys. Chem. C 125 (2021) 5296-5305.
+  https://doi.org/10.1021/acs.jpcc.0c09952 (input file of MOF on Lammps and RASPA code)
+
+
+[IFO12] Z. Zhu et al., ACS Omega 7 (2022) 37640-37653.
+  https://doi.org/10.1021/acsomega.2c04517 (input file of MOF on Lammps and RASPA code)
+
+
+[IFO13] T. Weng et al., J. Phys. Chem. A 123 (2019) 3000-3012.
+  https://doi.org/10.1021/acs.jpca.8b12311 (ZIF-8)
+
+
+[IFO14] S. Wang et al., J. Chem. Theory Comput. 17 (2021) 5198-5213.
+  https://doi.org/10.1021/acs.jctc.0c01132 (Zeolite)
+
+
+[IFO15] P. Saidi et al., J. Phys. Chem. C 124 (2020) 26864-26873.
+  https://doi.org/10.1021/acs.jpcc.0c08817 (GO)
+
+
+[IFO16] M. L. Urquiza et al., ACS Nano 15 (2021) 12945-12954.
+  https://doi.org/10.1021/acsnano.1c01466 (HfO2)
+
+
+[IFO17] M. Deffner et al., J. Chem. Theory Comput. 19 (2023) 992-1002.
+  https://doi.org/10.1021/acs.jctc.2c00648
+
+
+[IFO18] W. A. Pisani et al., Ind. Eng. Chem. Res. 60 (2021) 13604-13613.
+  https://doi.org/10.1021/acs.iecr.1c02440
+
+
+[IFO19] K. Goloviznina et al., J. Chem. Theory Comput. 17 (2021) 1606-1617.
+  https://doi.org/10.1021/acs.jctc.0c01002
+
+
+[IFO20] C. Han et al., J. Phys. Chem. C 124 (2020) 20203-20212.
+  https://doi.org/10.1021/acs.jpcc.0c05942
+
+
+[IFO21] S. Sharma et al., J. Phys. Chem. A 124 (2020) 7832-7842.
+  https://doi.org/10.1021/acs.jpca.0c06721
+
+
+[IFO22] E. Braun et al., J. Chem. Theory Comput. 14 (2018) 5262-5272.
+  https://doi.org/10.1021/acs.jctc.8b00446
+
+
+[IFO23] Y. Chen et al., J. Phys. Chem. B 125 (2021) 8193-8204.
+  https://doi.org/10.1021/acs.jpcb.1c01966
+
+
+[IFO24] Y. Zhang et al., J. Phys. Chem. B 124 (2020) 5251-5264.
+  https://doi.org/10.1021/acs.jpcb.0c04058
+
+
+[IFO25] C. M. Tenney et al., J. Phys. Chem. C 117 (2013) 24673-24684.
+  https://doi.org/10.1021/jp4039122
+
+
+[IFO26] S. K. Achar et al., J. Phys. Chem. C 125 (2021) 14874-14882.
+  https://doi.org/10.1021/acs.jpcc.1c01411
+------------------------------------------------------------------------------
+# Structure
+
+[S1] N. Sakhavand et al., ACS Appl. Mater. Interfaces 7 (2015) 18312-18319.
+  https://doi.org/10.1021/acsami.5b03967
+
+
+[S2] M. Agrawal et al., J. Phys. Chem. Lett. 10 (2019) 7823-7830.
+  https://doi.org/10.1021/acs.jpclett.9b03119
+
+
+[S3] R. Thyagarajan et al., Chem. Mater. 32 (2020) 8020-8033.
+  https://doi.org/10.1021/acs.chemmater.0c03057
+------------------------------------------------------------------------------
