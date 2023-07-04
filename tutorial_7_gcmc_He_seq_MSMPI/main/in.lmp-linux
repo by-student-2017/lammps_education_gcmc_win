@@ -101,16 +101,17 @@ reset_timestep  0
 timestep        ${fs}
 
 # ----- calculate temperature per particle (Additional: 4/Jul/2023) --------------------------------
-variable kB equal 1.3806504e-23  # Boltzman constant [J/K]
-variable eV2J equal 1.602763e-19 # change [eV] to [J] unit
-compute ke all ke/atom           # The kinetic energy [eV] of each atom
-variable tempatom atom c_ke*${eV2J}*(2/3)/${kB} # ke = (1/2)*m*v^2 = (3/2)*kB*T, T = ke*(2/3)/kB
+#variable kB equal 1.3806504e-23  # Boltzman constant [J/K]
+#variable eV2J equal 1.602763e-19 # change [eV] to [J] unit
+#compute ke all ke/atom           # The kinetic energy [eV] of each atom
+#variable tempatom atom c_ke*${eV2J}*(2/3)/${kB} # ke = (1/2)*m*v^2 = (3/2)*kB*T, T = ke*(2/3)/kB
 #
 # Reference
 # [1] M. Li et al., Nanomaterials 2019, 9(3), 347; https://doi.org/10.3390/nano9030347
 # URL: https://www.mdpi.com/2079-4991/9/3/347
 # Supplementary Materials: https://www.mdpi.com/2079-4991/9/3/347/s1.
 # ----- --------------------------------------------------------------------------------------------
+#fix ave_tempatom all ave/atom 1 ${nfreq} ${nfreq} vx vy vz v_tempatom # Average calculation for velocity and temperature of each atom
 
 # ----- Output setting -----
 #dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type vx vy vz fx fy fz # stable version
