@@ -351,7 +351,7 @@ ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 
 # plot the temperature of each atom
 
-- MSMPI version file
+- seq_MSMPI version file
 1. *.cfg -> Ovito -> (upper right) Add modification... 
 2. Color coding -> Input property: f_ave_tempatom
 3. (click) Adjust range

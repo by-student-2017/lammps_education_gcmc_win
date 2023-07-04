@@ -115,7 +115,7 @@ timestep        ${fs}
 
 # ----- Output setting -----
 #dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
-#dump            d1 all cfg ${nfreq_print} cfg/run.*.cfg mass type xs ys zs id type fx fy fz vx vy vz f_ave_tempatom # Snap shot
+#dump            d1 all cfg ${nfreq_print} cfg/run.*.cfg mass type xs ys zs id type fx fy fz vx vy vz f_ave_tempatom
 #dump_modify     d1 element C H H
 
 # ----- Check equilibriation setting -----
@@ -184,7 +184,7 @@ thermo          ${nfreq}
 
 # ----- Output setting -----
 #dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
-#dump            d3 all cfg ${nfreq_print} cfg/gcmc_run.*.cfg mass type xs ys zs id type fx fy fz vx vy vz v_ave_tempatom # Snapshot
+#dump            d3 all cfg ${nfreq_print} cfg/gcmc_run.*.cfg mass type xs ys zs id type fx fy fz vx vy vz f_ave_tempatom
 #dump_modify     d3 element C H H
 
 fix_modify      f1 temp thermo_temp
