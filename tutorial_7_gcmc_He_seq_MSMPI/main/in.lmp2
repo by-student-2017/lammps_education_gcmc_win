@@ -113,12 +113,11 @@ variable tempatom atom c_ke*${eV2J}*(2/3)/${kB} # ke = (1/2)*m*v^2 = (3/2)*kB*T,
 # URL: https://www.mdpi.com/2079-4991/9/3/347
 # Supplementary Materials: https://www.mdpi.com/2079-4991/9/3/347/s1.
 # ----- --------------------------------------------------------------------------------------------
-fix ave_tempatom all ave/atom 1 ${nfreq} ${nfreq} vx vy vz v_tempatom # Average calculation for velocity and temperature of each atom
+fix ave_tempatom all ave/atom 1 ${nfreq} ${nfreq} v_tempatom # Average calculation for temperature of each atom
 
 # ----- Output setting -----
 #dump            d1 all cfg ${nfreq_print} cfg/run.*.cfg mass type xs ys zs id type # stable version
-#dump            d1 all cfg ${nfreq_print} cfg/run.*.cfg mass type xs ys zs id type vx vy vz fx fy fz v_tempatom # Snap shot
-dump            d1 all cfg ${nfreq_print} cfg/run.*.cfg mass type xs ys zs id type fx fy fz f_ave_tempatom[1] f_ave_tempatom[2] f_ave_tempatom[3] f_ave_tempatom[4]  # average of vx, vy, vz and tempatom
+dump            d1 all cfg ${nfreq_print} cfg/run.*.cfg mass type xs ys zs id type fx fy fz vx vy vz f_ave_tempatom # Snap shot
 dump_modify     d1 element C H He
 
 # ----- Check equilibriation setting -----
@@ -182,8 +181,7 @@ thermo          ${nfreq}
 
 # ----- Output setting -----
 #dump            d3 all cfg ${nfreq_print} cfg/gcmc_run.*.cfg mass type xs ys zs id type # stable version
-#dump            d3 all cfg ${nfreq_print} cfg/gcmc_run.*.cfg mass type xs ys zs id type vx vy vz fx fy fz v_tempatom # Snap shot
-dump            d3 all cfg ${nfreq_print} cfg/gcmc_run.*.cfg mass type xs ys zs id type fx fy fz f_ave_tempatom[1] f_ave_tempatom[2] f_ave_tempatom[3] f_ave_tempatom[4]  # average of vx, vy, vz and tempatom
+dump            d3 all cfg ${nfreq_print} cfg/gcmc_run.*.cfg mass type xs ys zs id type fx fy fz vx vy vz v_ave_tempatom # Snapshot
 dump_modify     d3 element C H He
 
 fix_modify      f1 temp thermo_temp
