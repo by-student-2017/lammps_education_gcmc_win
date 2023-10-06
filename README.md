@@ -504,3 +504,10 @@ ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 [S3] R. Thyagarajan et al., Chem. Mater. 32 (2020) 8020-8033.
   https://doi.org/10.1021/acs.chemmater.0c03057
 ------------------------------------------------------------------------------
+
+
+## Acknowledgment ######################################
+- This project (modified version) is/was partially supported by the following :
+  + meguREnergy Co., Ltd.
+  + ATSUMITEC Co., Ltd.
+  + RIKEN
