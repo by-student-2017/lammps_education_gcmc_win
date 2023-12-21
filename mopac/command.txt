@@ -1,0 +1,9 @@
+----------------------------------------------------------------------
+cif2cell -p mopac -f ZTC.cif
+/usr/local/bin/mopac ZTC.mop
+
+variable   mu   index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
+----------------------------------------------------------------------
+cif2cell -p mopac -f ZTC_defectN.cif
+/usr/local/bin/mopac ZTC_defectN.mop
+----------------------------------------------------------------------
