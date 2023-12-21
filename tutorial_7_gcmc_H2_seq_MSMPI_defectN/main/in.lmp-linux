@@ -79,7 +79,7 @@ pair_coeff 2 4 lj/cut 0.002389 2.915 #   H-N
 # C,    52.84 [K](epsilon/K), 0.343  [nm](sigma)
 # H,    22.14 [K](epsilon/K), 0.257  [nm](sigma)
 # O,    30.20 [K](epsilon/K), 0.312  [nm](sigma)
-# N,    34.72 [K](epsilon/K), 0.326  [nm](sigma)
+# N,    34.72 [K](epsilon/K), 0.3263 [nm](sigma)
 # B,    90.58 [K](epsilon/K), 0.3637 [nm](sigma)
 # He,   10.41 [K](epsilon/K), 0.602  [nm](sigma)
 # Ar,  141.6  [K](epsilon/K), 0.3350 [nm](sigma)
