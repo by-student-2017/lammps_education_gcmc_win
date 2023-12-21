@@ -21,7 +21,7 @@ variable   pdamp_gcmc equal ${fs}*100 # (for GCMC process)
 variable   disp index 0.01
 variable   natom index 10
 variable   nmove index 10
-variable   mu   index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
+variable   mu   index -4.99 # Fermi Energy (eV) from MOPAC v.22.1.0 PM7
 
 # ----- Structure settings -----
 units      metal
