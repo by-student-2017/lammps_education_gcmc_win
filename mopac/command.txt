@@ -42,3 +42,17 @@ mu = (-7.329 + -5.042)/2 = -6.1855
 
 variable   mu   index -6.19 # Fermi Energy (eV) from MOPAC v.22.1.0 PM7
 ----------------------------------------------------------------------
+cif2cell -p mopac -f ZTC_defectNB.cif
+
+export OMP_NUM_THREADS=1
+/usr/local/bin/mopac ZTC_defectNB.mop
+
+          IONIZATION POTENTIAL    =          6.894788 EV
+          HOMO LUMO ENERGIES (EV) =         -6.895 -3.852
+          NO. OF FILLED LEVELS    =        612
+          MOLECULAR WEIGHT        =       3533.3262
+          
+mu = (-6.895 + -3.852)/2 = -5.3735
+
+variable   mu   index -5.37 # Fermi Energy (eV) from MOPAC v.22.1.0 PM7
+----------------------------------------------------------------------

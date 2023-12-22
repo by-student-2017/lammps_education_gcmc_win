@@ -1,2 +1,0 @@
-
-          MOPAC input data-set file: "ZTC_dN" does not exist.
