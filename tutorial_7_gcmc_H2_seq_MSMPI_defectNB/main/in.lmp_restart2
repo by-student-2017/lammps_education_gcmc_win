@@ -177,7 +177,7 @@ variable        nhav equal f_ave[6] # H
 variable        nnav equal f_ave[7] # N
 variable        nbav equal f_ave[8] # B
 
-variable        wtav equal f_ave[4]*2/(f_ave[5]*12+f_ave[6]+f_ave[7]*14+f_ave[8]*11+f_ave[4]*2+${nugget})*100
+variable        wtav equal f_ave[4]*2/(f_ave[5]*12+f_ave[6]+f_ave[7]*14+f_ave[8]*10.8+f_ave[4]*2+${nugget})*100
 
 compute_modify  thermo_temp dynamic/dof yes
 thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav v_nnav v_nbav

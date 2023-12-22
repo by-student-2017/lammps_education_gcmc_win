@@ -146,7 +146,7 @@ fix             f3 gas gcmc ${nfreq} ${natom} ${nmove} 3 761341 ${temp2} ${mu} $
 variable        type1 atom "type==1" # C
 variable        type2 atom "type==2" # H
 variable        type3 atom "type==3" # Gas
-variable        type4 atom "type==4" # N
+variable        type4 atom "type==4" # B
 group           type1 dynamic ztc var type1 # C
 group           type2 dynamic ztc var type2 # H
 group           type3 dynamic gas var type3 # Gas (e.g., He, Ar, Kr, etc)
@@ -170,9 +170,9 @@ variable        muexav equal f_ave[3]
 variable        ngasav equal f_ave[4] # Gas (e.g., He, Ar, Kr, etc)
 variable        ncav equal f_ave[5] # C
 variable        nhav equal f_ave[6] # H
-variable        nbav equal f_ave[7] # N
+variable        nbav equal f_ave[7] # B
 
-variable        wtav equal f_ave[4]*2/(f_ave[5]*12+f_ave[6]+f_ave[7]*14+f_ave[4]*2+${nugget})*100
+variable        wtav equal f_ave[4]*2/(f_ave[5]*12+f_ave[6]+f_ave[7]*10.8+f_ave[4]*2+${nugget})*100
 
 compute_modify  thermo_temp dynamic/dof yes
 thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav v_nbav
