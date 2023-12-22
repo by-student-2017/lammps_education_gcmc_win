@@ -23,7 +23,7 @@ variable   pdamp_gcmc equal ${fs}*100 # (for GCMC process)
 variable   disp index 0.01
 variable   natom index 10
 variable   nmove index 10
-variable   mu   index -4.99 # Fermi Energy (eV) from MOPAC v.22.1.0 PM7
+variable   mu   index -4.56 # Fermi Energy (eV) from MOPAC v.22.1.0 PM7
 
 # ----- Structure settings -----
 units      metal
@@ -73,8 +73,10 @@ pair_coeff * * tersoff BNC.tersoff C NULL NULL N
 pair_coeff 1 3 lj/cut 0.003795 3.194 #   C-H2
 pair_coeff 2 3 lj/cut 0.002456 2.764 #   H-H2
 pair_coeff 3 3 lj/cut 0.003162 2.958 #  H2-H2
-pair_coeff 4 3 lj/cut 0.003076 3.109 #   N-N2
+pair_coeff 4 3 lj/cut 0.003076 3.110 #   N-H2
 pair_coeff 2 4 lj/cut 0.002389 2.915 #   H-N
+#pair_coeff 4 3 lj/cut 0.004968 3.2975 #   B-H2
+#pair_coeff 2 4 lj/cut 0.003859 3.1035 #   H-B
 
 # ----- Potential data -----
 # https://github.com/SimonEnsemble/PorousMaterials.jl/blob/master/docs/src/force_field.md

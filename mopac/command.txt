@@ -19,14 +19,26 @@ cif2cell -p mopac -f ZTC_defectN.cif
 export OMP_NUM_THREADS=1
 /usr/local/bin/mopac ZTC_defectN.mop
 
-          IONIZATION POTENTIAL    =          7.600523 EV
-          ALPHA SOMO LUMO (EV)    =         -7.601 -2.361
-          BETA  SOMO LUMO (EV)    =         -7.640 -2.369
-          NO. OF ALPHA ELECTRONS  =        614
-          NO. OF BETA  ELECTRONS  =        613
-          MOLECULAR WEIGHT        =       3537.7239
+          IONIZATION POTENTIAL    =          5.516093 EV
+          HOMO LUMO ENERGIES (EV) =         -5.516 -3.611
+          NO. OF FILLED LEVELS    =        614
+          MOLECULAR WEIGHT        =       3539.7196
           
-mu = (-7.601 + -2.369)/2 = -4.985
+mu = (-5.516 + -3.611)/2 = -4.5635
 
-variable   mu   index -4.99 # Fermi Energy (eV) from MOPAC v.22.1.0 PM7
+variable   mu   index -4.56 # Fermi Energy (eV) from MOPAC v.22.1.0 PM7
+----------------------------------------------------------------------
+cif2cell -p mopac -f ZTC_defectB.cif
+
+export OMP_NUM_THREADS=1
+/usr/local/bin/mopac ZTC_defectB.mop
+
+          IONIZATION POTENTIAL    =          7.328743 EV
+          HOMO LUMO ENERGIES (EV) =         -7.329 -5.042
+          NO. OF FILLED LEVELS    =        610
+          MOLECULAR WEIGHT        =       3526.9328
+          
+mu = (-7.329 + -5.042)/2 = -6.1855
+
+variable   mu   index -6.19 # Fermi Energy (eV) from MOPAC v.22.1.0 PM7
 ----------------------------------------------------------------------
