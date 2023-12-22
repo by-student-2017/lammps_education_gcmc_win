@@ -8,6 +8,6 @@ do
     cp ZTC.mop ZTC_defectN_$i.mop
     sed -i "$i s/C/N/" ZTC_defectN_$i.mop
     /usr/local/bin/mopac ZTC_defectN_$i.mop
-    grep HEAT ZTC_defectN_$i.mop >> results.txt
+    grep HEAT ZTC_defectN_$i.out >> results.txt
     rm -f ZTC_defectN_$i.arc
 done
