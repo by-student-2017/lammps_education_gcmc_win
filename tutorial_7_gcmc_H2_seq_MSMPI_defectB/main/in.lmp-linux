@@ -112,7 +112,7 @@ timestep        ${fs}
 
 # ----- Output setting -----
 dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
-dump_modify     d1 element C H H N
+dump_modify     d1 element C H H B
 
 # ----- Check equilibriation setting -----
 variable        Energy equal etotal
@@ -136,7 +136,7 @@ unfix           f1
 
 # ----- GCMC Calculation-----
 print "----- GCMC Calculation -----"
-group           ztc type 1 2 4 # 1=C, 2=H, 4=N
+group           ztc type 1 2 4 # 1=C, 2=H, 4=B
 group           gas type 3   # 3=H2
 fix             f1 ztc npt temp ${temp2} ${temp2} ${tdamp} iso ${pres} ${pres} ${pdamp_gcmc}
 fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
@@ -150,11 +150,11 @@ variable        type4 atom "type==4" # N
 group           type1 dynamic ztc var type1 # C
 group           type2 dynamic ztc var type2 # H
 group           type3 dynamic gas var type3 # Gas (e.g., He, Ar, Kr, etc)
-group           type4 dynamic ztc var type4 # N
+group           type4 dynamic ztc var type4 # B
 variable        nc  equal count(type1) # C
 variable        nh  equal count(type2) # H
 variable        ngas equal count(type3) # Gas (e.g., He, Ar, Kr, etc)
-variable        nn  equal count(type4) # N
+variable        nb  equal count(type4) # B
 
 # ----- averaging -----
 variable        rho equal density
@@ -163,24 +163,24 @@ variable        t equal temp
 variable        nugget equal 1.0e-8
 variable        lambda equal 1.0
 variable        muex equal ${mu}-${temp2}*ln(density*${lambda}+${nugget})
-fix             ave all ave/time 1 ${nfreq} ${nfreq} v_rho v_p v_muex v_ngas v_nc v_nh v_t v_nn ave one file rho_vs_p.dat
+fix             ave all ave/time 1 ${nfreq} ${nfreq} v_rho v_p v_muex v_ngas v_nc v_nh v_t v_nb ave one file rho_vs_p.dat
 variable        rhoav equal f_ave[1]
 variable        pav equal f_ave[2]
 variable        muexav equal f_ave[3]
 variable        ngasav equal f_ave[4] # Gas (e.g., He, Ar, Kr, etc)
 variable        ncav equal f_ave[5] # C
 variable        nhav equal f_ave[6] # H
-variable        nnav equal f_ave[7] # N
+variable        nbav equal f_ave[7] # N
 
 variable        wtav equal f_ave[4]*2/(f_ave[5]*12+f_ave[6]+f_ave[7]*14+f_ave[4]*2+${nugget})*100
 
 compute_modify  thermo_temp dynamic/dof yes
-thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav v_nnav
+thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexav v_ngasav v_ncav v_nhav v_wtav v_nbav
 thermo          ${nfreq}
 
 # ----- Output setting -----
 dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
-dump_modify     d3 element C H H N
+dump_modify     d3 element C H H B
 
 fix_modify      f1 temp thermo_temp
 fix_modify      f2 temp thermo_temp
