@@ -1,0 +1,13 @@
+---------------------------------------------------------------------
+ZTC
+ Total surface area per mass in m^2/g:           4795.23
+ Network-accessible surface area per mass in m^2/g:           4881.60
+---------------------------------------------------------------------
+Defect N
+ Total surface area per mass in m^2/g:           4894.48
+ Network-accessible surface area per mass in m^2/g:           4828.69
+---------------------------------------------------------------------
+Defect B
+ Total surface area per mass in m^2/g:           4912.52
+ Network-accessible surface area per mass in m^2/g:           4854.81
+---------------------------------------------------------------------

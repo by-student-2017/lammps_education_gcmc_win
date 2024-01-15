@@ -1,0 +1,14 @@
+#!/usr/bin/gnuplot
+
+set terminal win font "Arial,12"
+set ylabel "Derivative distribution function, dV/dw"
+set xlabel "Pore width, w / nm"
+plot "Total_psd_ztc.txt" u ($1*0.1):2 w l t "No-defect", \
+     "Total_psd_ztc_dn.txt" u ($1*0.1):2 w l t "Defect N" , \
+     "Total_psd_ztc_db.txt" u ($1*0.1):2 w l t "Defect B"
+
+# pause -1
+
+# set terminal postscript color enhanced lw 2
+# set out "PSD.ps"
+# replot

@@ -1,0 +1,31 @@
+ ZTC_defectB.xyz
+V_A^3    13945.313
+M _g/mol     3523.244
+RHO_g/cm^3        0.420
+PLD_A         7.95
+LCD_A        10.99
+ D            3
+ Total               
+S_AC_A^2      2874.06
+S_AC_m^2/cm^3      2060.95
+S_AC_m^2/g      4912.52
+ Total               
+V_He_A^3    12712.446
+V_He_cm^3/g        2.173
+V_G_A^3    11085.999
+V_G cm^3/g:        1.895
+V_PO A^3:    10911.949
+V_PO cm^3/g:        1.865
+FV_PO:      0.78248
+ Network-accessible  
+S_AC_A^2      2840.30
+S_AC_m^2/cm^3      2036.74
+S_AC_m^2/g      4854.81
+ Network-accessible  
+V_He_A^3    12712.446
+V_He_cm^3/g        2.173
+V_G_A^3    11085.693
+V_G cm^3/g:        1.895
+V_PO A^3:    10903.887
+V_PO cm^3/g:        1.864
+FV_PO:      0.78190
