@@ -10,9 +10,9 @@ variable   pres   equal ${mpa}*10.0 # bar unit (1.0 MPa = 10.0 bar)
 variable   tgcmc2 equal ${tgcmc1}   # ps (for GCMC calculation time)
 
 # -----other settings -----
-variable   fs   index 0.0001 # 0.1 fs (0.25 fs is failed)
-variable   ps   index 4 # 4 ps
-variable   ps_gcmc index ${tgcmc2} # 120 ps (recommend >= 120 ps)
+variable   fs   index 0.0005 # 0.5 fs
+variable   ps   index 20 # 20 ps
+variable   ps_gcmc index ${tgcmc2} # 600 ps (recommend >= 200 ps)
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nfreq_print equal ${nfreq}*100
 variable   nstep equal ${ps}/${fs}
@@ -31,7 +31,7 @@ atom_style atomic
 dimension  3
 boundary   p p p
 read_data  data.ch # read initial data case
-replicate  2 2 2
+replicate  1 1 1
 timestep   ${fs}
 
 mass 1 12.0107 # C
