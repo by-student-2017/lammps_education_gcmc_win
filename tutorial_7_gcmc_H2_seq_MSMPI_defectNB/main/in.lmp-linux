@@ -29,7 +29,7 @@ atom_style atomic
 dimension  3
 boundary   p p p
 read_data  data.ch # read initial data case
-replicate  1 1 1
+replicate  2 2 2
 timestep   ${fs}
 
 mass 1 12.0107 # C
