@@ -168,6 +168,7 @@ variable        t equal temp
 variable        nugget equal 1.0e-8
 variable        lambda equal 1.0
 variable        muex equal ${mu}-${temp2}*ln(density*${lambda}+${nugget})
+# Memo                                                 1    2    3       4     5    6    7    8
 fix             ave all ave/time 1 ${nfreq} ${nfreq} v_rho v_p v_muex v_ngas v_nc v_nh v_nn v_nb v_t ave one file rho_vs_p.dat
 variable        rhoav equal f_ave[1]
 variable        pav equal f_ave[2]
