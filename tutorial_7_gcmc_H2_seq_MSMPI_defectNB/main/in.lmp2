@@ -138,7 +138,7 @@ unfix           f1
 
 # ----- GCMC Calculation-----
 print "----- GCMC Calculation -----"
-group           ztc type 1 2 4 # 1=C, 2=H, 4=N, 5=B
+group           ztc type 1 2 4 5 # 1=C, 2=H, 4=N, 5=B
 group           gas type 3   # 3=H2
 fix             f1 ztc npt temp ${temp2} ${temp2} ${tdamp} iso ${pres} ${pres} ${pdamp_gcmc}
 fix             f2 gas nvt temp ${temp2} ${temp2} ${tdamp}
