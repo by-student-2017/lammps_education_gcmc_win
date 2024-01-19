@@ -9,9 +9,9 @@ variable   temp2  equal ${temp1}    # K (for GCMC process)
 variable   pres   equal ${mpa}*10.0 # bar unit (1.0 MPa = 10.0 bar)
 
 # -----other settings -----
-variable   fs   index 0.0005 # 0.5 fs
-variable   ps   index 20 # 20 ps
-variable   ps_gcmc index tgcmc # 600 ps (recommend >= 200 ps)
+variable   fs   index 0.0001 # 0.1 fs (0.25 fs is failed)
+variable   ps   index 4 # 4 ps
+variable   ps_gcmc index tgcmc # 120 ps (recommend >= 120 ps)
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nstep equal ${ps}/${fs}
 variable   nstep_gcmc equal ${ps_gcmc}/${fs}
@@ -29,7 +29,7 @@ atom_style atomic
 dimension  3
 boundary   p p p
 read_data  data.ch # read initial data case
-replicate  1 1 1
+replicate  2 2 2
 timestep   ${fs}
 
 mass 1 12.0107 # C
@@ -163,7 +163,7 @@ variable        t equal temp
 variable        nugget equal 1.0e-8
 variable        lambda equal 1.0
 variable        muex equal ${mu}-${temp2}*ln(density*${lambda}+${nugget})
-fix             ave all ave/time 1 ${nfreq} ${nfreq} v_rho v_p v_muex v_ngas v_nc v_nh v_t v_nb ave one file rho_vs_p.dat
+fix             ave all ave/time 1 ${nfreq} ${nfreq} v_rho v_p v_muex v_ngas v_nc v_nh v_nb v_t ave one file rho_vs_p.dat
 variable        rhoav equal f_ave[1]
 variable        pav equal f_ave[2]
 variable        muexav equal f_ave[3]
