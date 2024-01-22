@@ -508,6 +508,9 @@ ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 
 ## N site
 - R. Lv et al., Sci. Reports 2 (2012) 586.: https://doi.org/10.1038/srep00586 (Open Access)
+- H. Zhong et al., Angew. Chem. Int. Ed. 53 (2014) 14235-14239.: https://doi.org/10.1002/anie.201408990
+- Z. Lin et al., Phys. Chem. Chem. Phys., 14 (2012) 3381-3387.: DOI: 10.1039/C2CP00032F 
+- H. Kim et al., Phys. Chem. Chem. Phys., 13 (2011) 17505-17510.
 
 
 ## Activation energy (TS - Reactant)
