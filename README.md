@@ -506,6 +506,10 @@ ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 ------------------------------------------------------------------------------
 
 
+## N site
+- R. Lv et al., Sci. Reports 2 (2012) 586.: https://doi.org/10.1038/srep00586 (Open Access)
+
+
 ## Acknowledgment ######################################
 - This project (modified version) is/was partially supported by the following :
   + meguREnergy Co., Ltd.
