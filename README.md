@@ -514,10 +514,10 @@ ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 
 
 ## Activation energy (TS - Reactant)
-・About 10 kcal/mol: Reacts at room temperature
-・About 20 kcal/mol: takes a very long time at room temperature
-・About 25 kcal/mol: Reacts when heated in an oil bath
-・Over 30 kcal/mol: Rarely occurs
+- About 10 kcal/mol: Reacts at room temperature
+- About 20 kcal/mol: takes a very long time at room temperature
+- About 25 kcal/mol: Reacts when heated in an oil bath
+- Over 30 kcal/mol: Rarely occurs
 
 
 ## Acknowledgment ######################################
