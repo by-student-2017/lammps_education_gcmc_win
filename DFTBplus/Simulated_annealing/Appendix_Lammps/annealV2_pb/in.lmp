@@ -1,0 +1,60 @@
+#LAMMPS MD simulation script
+
+#-------------------- Environment Settings ------------------------------------------------
+variable TL equal  100.0 # K
+variable TH equal 2500.0 # K
+variable dt equal  0.002 # 2.0 fs
+
+#-------------------- Initialization -----------------------------------------------------
+units        metal
+dimension    3
+boundary     p p p
+
+#-------------------- Read structure file ------------------------------------------------
+atom_style   atomic
+read_data    80_V2.data
+
+#-------------------- Force field --------------------------------------------------------
+pair_style airebo 3.0 1 0
+pair_coeff * * CH.airebo C
+
+#-------------------- Structure Optimization (0 K) ---------------------------------------
+minimize 1.0e-6 1.0e-8 1000 100000
+reset_timestep 0
+
+#-------------------- Settings -----------------------------------------------------------
+timestep     ${dt}
+
+thermo       100
+thermo_style custom step temp pe etotal ke vol
+
+#------------------------------
+dump            d1 all cfg 100 cfg/run.*.cfg mass type xs ys zs id type vx vy vz fx fy fz
+dump_modify     d1 element C
+#------------------------------
+
+variable RandomSeed equal 195828608
+velocity all create ${TL} ${RandomSeed} mom yes rot yes dist gaussian
+
+#-------------------- Run the simulation -------------------------------------------------
+# Heating
+fix 1 all npt temp ${TL} ${TH} 0.1 iso 1.0 1.0 0.1
+#fix 1 all nvt temp ${TL} ${TH} 0.1
+run 10000
+unfix 1
+
+#-------------------- Run the simulation -------------------------------------------------
+# Annealing
+fix 2 all npt temp ${TH} ${TH} 0.1 iso 1.0 1.0 0.1
+#fix 2 all nvt temp ${TH} ${TH} 0.1
+run 30000
+unfix 2
+
+#-------------------- Run the simulation -------------------------------------------------
+# Cooling
+fix 3 all npt temp ${TH} ${TL} 0.1 iso 1.0 1.0 0.1
+#fix 3 all nvt temp ${TH} ${TL} 0.1
+run 20000
+unfix 3
+
+#-------------------- End ----------------------------------------------------------------
