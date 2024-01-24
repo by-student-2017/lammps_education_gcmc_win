@@ -1,0 +1,85 @@
+Geometry = GenFormat {
+  <<< 80_V2.gen
+  #<<< "POSCAR_4x4x1"
+}
+
+Driver = VelocityVerlet {
+  
+  TimeStep [Femtosecond] = 2.0 # Using a thermostat, so conserved
+  # properties of dynamics are less
+  # important
+  
+  Thermostat = Andersen {
+    
+    # Probabalistically replaces atomic velocities from a
+    # Maxwell-Boltzmann distribution
+    ReselectProbability = 0.2
+    ReselectIndividually = Yes
+    
+    # Simulated annealing profile for the temperature
+    Temperature [Kelvin] = TemperatureProfile {
+      constant      1    100.0
+      linear      500   5000.0
+      constant   1500   5000.0
+      linear      999    100.0
+    }
+    
+    AdaptFillingTemp = Yes # Adjust electron temperature to match
+    
+  }
+  
+  Barostat { # Apply presure control
+    Pressure [Pa] = 1.0E5
+    Timescale [ps] = 0.1
+  }
+  
+  MDRestartFrequency = 10 # Only write output every 10 steps
+  
+  OutputPrefix = "geo_end"
+  
+}
+
+Hamiltonian = xTB {
+  Method = "GFN1-xTB" # GFN1-xTB, IPEA1-xTB, or GFN2-xTB
+  #SCC = Yes
+  #SCCTolerance = 1.0e-3
+  #MaxSCCIterations = 1000
+  #Mixer = Broyden {
+  #  MixingParameter = 0.10
+  #  InverseJacobiWeight = 0.5
+  #  WeightFactor = 0.5
+  #}
+  
+  Charge = 0.0
+  
+  Filling = Fermi {} # electronic temperature is controlled by the
+  # thermostat
+  
+  # Gamma point - use more accurate sampling for a realistic calculation
+  KPointsAndWeights {
+    0 0 0 1.0
+  }
+  
+}
+
+Options {
+  
+  # specify the rand number generator starting seed:
+  RandomSeed = 195828608
+  
+  #RandomSeed = 1819633407 # Ejects a C2 molecule
+  #RandomSeed = 171108352  # Anneals to a different divacancy
+  #RandomSeed = 1959391743 # Vacancies remain in place and oscillate
+  #RandomSeed = 0          # Genuinely random seed choice
+
+  WriteDetailedOut = No # suppress writing detailed.out
+}
+
+Analysis {
+  MullikenAnalysis = No
+  WriteBandOut = No
+}
+
+ParserOptions {
+  ParserVersion = 8
+}

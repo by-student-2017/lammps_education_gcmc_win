@@ -1,0 +1,77 @@
+Geometry = GenFormat {
+  <<< 80_SW.gen
+  # <<< "POSCAR_4x4x1"
+}
+
+Driver = VelocityVerlet {
+
+  # Using a thermostat, so conserved properties of dynamics are less #
+  # important
+  TimeStep [Femtosecond] = 2.0
+  
+  Thermostat = Andersen {
+    
+    # Probabalistically replaces atomic velocities from a
+    # Maxwell-Boltzmann distribution    
+    ReselectProbability = 0.2
+    ReselectIndividually = Yes
+    
+    # Simulated annealing profile for the temperature
+    Temperature [Kelvin] = TemperatureProfile {
+      constant      1    100.0 # Start
+      linear      499   5500.0 # Ramp up
+      constant    200   5500.0 # 'cook'
+      linear      500    100.0 # Quench
+    }
+    
+    AdaptFillingTemp = Yes # Adjust electron temperature to match
+    
+  }
+  
+  Barostat { # Apply presure control
+    Pressure [Pa] = 1.0E5
+    Timescale [ps] = 0.1
+  }
+  
+  MDRestartFrequency = 10 # Only write output every 10 steps
+  
+  OutputPrefix = "geo_end"
+  
+}
+
+Hamiltonian = xTB {
+  Method = "GFN1-xTB" # GFN1-xTB, IPEA1-xTB, or GFN2-xTB
+  #SCC = Yes
+  #SCCTolerance = 1.0e-3
+  #MaxSCCIterations = 1000
+  #Mixer = Broyden {
+  #  MixingParameter = 0.10
+  #  InverseJacobiWeight = 0.5
+  #  WeightFactor = 0.5
+  #}
+  
+  Charge = 0.0
+  
+  Filling = Fermi {} # electronic temperature is controlled by the
+  # thermostat
+  
+  # Gamma point - use more accurate sampling for a realistic calculation
+  KPointsAndWeights {
+    0 0 0 1.0
+  }
+}
+
+Analysis {
+  MullikenAnalysis = No
+  WriteBandOut = No
+}
+
+Options {  
+  WriteDetailedOut = No
+  RandomSeed = 589105024 # specify the rand number generator
+  # starting seed
+}
+
+ParserOptions {
+  ParserVersion = 8
+}
