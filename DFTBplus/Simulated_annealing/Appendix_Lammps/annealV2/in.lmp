@@ -2,8 +2,8 @@
 
 #-------------------- Environment Settings ------------------------------------------------
 variable TL equal  100.0 # K
-variable TH equal 2500.0 # K
-variable dt equal  0.002 # 2.0 fs
+variable TH equal 2500.0 # K (airebo:2500.0, tersoff:1800.0)
+variable dt equal  0.002 # ps (airebo:0.002, tersoff:0.001)
 
 #-------------------- Initialization -----------------------------------------------------
 units        metal
@@ -17,6 +17,9 @@ read_data    80_V2.data
 #-------------------- Force field --------------------------------------------------------
 pair_style airebo 3.0 1 0
 pair_coeff * * CH.airebo C
+
+#pair_style tersoff
+#pair_coeff * * BNC.tersoff C
 
 #-------------------- Structure Optimization (0 K) ---------------------------------------
 minimize 1.0e-6 1.0e-8 1000 100000
