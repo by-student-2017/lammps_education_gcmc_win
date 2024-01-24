@@ -8,7 +8,7 @@ variable dt equal  0.002 # 2.0 fs
 #-------------------- Initialization -----------------------------------------------------
 units        metal
 dimension    3
-boundary     f f f
+boundary     s s s
 
 #-------------------- Read structure file ------------------------------------------------
 atom_style   atomic
