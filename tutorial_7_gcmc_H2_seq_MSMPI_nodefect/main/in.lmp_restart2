@@ -42,8 +42,9 @@ mass 3 2.016   # H2
 # mass 3 44.01  # CO2
 
 # ----- Potential settings -----
-pair_style hybrid airebo 3.0 1 0 lj/cut 10.2
-pair_coeff * * airebo CH.airebo C H NULL
+pair_style hybrid airebo 3.0 1 0 lj/cut 10.2 tersoff
+pair_coeff * * airebo  CH.airebo   C H    NULL
+pair_coeff * * tersoff BNC.tersoff C NULL NULL
 
 # He case
 #pair_coeff 1 3 lj/cut 0.002021 4.725 #   C-He
