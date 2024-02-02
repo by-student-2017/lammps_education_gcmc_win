@@ -1,0 +1,41 @@
+-----------------------------------------------------------------------
+ZTC
+          FINAL HEAT OF FORMATION =       2538.15218 KCAL/MOL =   10619.62874 KJ/MOL
+          H.o.F. per unit cell    =         35.25211 KCAL, for 72 unit cells, unit cell = C4 H1
+-----------------------------------------------------------------------
+C1 site
+          FINAL HEAT OF FORMATION =       3695.15237 KCAL/MOL =   15460.51754 KJ/MOL
+          H.o.F. per unit cell    =        153.96468 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C2 site
+          FINAL HEAT OF FORMATION =       3046.87301 KCAL/MOL =   12748.11666 KJ/MOL
+          H.o.F. per unit cell    =        126.95304 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C3 site
+          FINAL HEAT OF FORMATION =       2955.85550 KCAL/MOL =   12367.29941 KJ/MOL
+          H.o.F. per unit cell    =        123.16065 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C4 site
+          FINAL HEAT OF FORMATION =       3052.98305 KCAL/MOL =   12773.68108 KJ/MOL
+          H.o.F. per unit cell    =        127.20763 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C5 site
+          FINAL HEAT OF FORMATION =       2907.51248 KCAL/MOL =   12165.03222 KJ/MOL
+          H.o.F. per unit cell    =        121.14635 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C6 site
+          FINAL HEAT OF FORMATION =       3095.74287 KCAL/MOL =   12952.58818 KJ/MOL
+          H.o.F. per unit cell    =        128.98929 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C7 site
+          FINAL HEAT OF FORMATION =       3201.90773 KCAL/MOL =   13396.78194 KJ/MOL
+          H.o.F. per unit cell    =        133.41282 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C8 site
+          FINAL HEAT OF FORMATION =       3124.74619 KCAL/MOL =   13073.93804 KJ/MOL
+          H.o.F. per unit cell    =        130.19776 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C9 site
+          FINAL HEAT OF FORMATION =       3162.27519 KCAL/MOL =   13230.95941 KJ/MOL
+          H.o.F. per unit cell    =        131.76147 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------

@@ -520,6 +520,11 @@ ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 - Over 30 kcal/mol: Rarely occurs
 
 
+## Linux version (Ubuntu 22.04 LTS)
+- see Installation_lammps_linux.txt
+- use "csh" script for run.
+
+
 ## Acknowledgment ######################################
 - This project (modified version) is/was partially supported by the following :
   + meguREnergy Co., Ltd.

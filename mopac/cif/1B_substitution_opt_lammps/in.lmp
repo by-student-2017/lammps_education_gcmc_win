@@ -1,0 +1,45 @@
+# ----- Structure settings -----
+units      metal
+atom_style atomic
+dimension  3
+boundary   p p p
+#read_data  ZTC_SG213.data # read initial data case
+read_data  ZTC_SG213_C6site.data
+
+#mass 1 12.0107 # C
+#mass 2 14.0067 # N
+#mass 2 10.81   # B
+#mass 3 1.00794 # H
+
+# ----- Potential settings -----
+#pair_style airebo 3.0 1 0
+#pair_coeff * * CH.airebo C H
+#
+# N substitution
+#pair_style hybrid airebo 3.0 1 0 lj/cut 10.2 tersoff
+#pair_coeff * * tersoff BNC.tersoff C N    NULL
+#pair_coeff * * airebo  CH.airebo   C NULL H
+#pair_coeff 2 3 lj/cut 0.002389 2.915  #   N-H
+#
+# B substitution
+pair_style hybrid airebo 3.0 1 0 lj/cut 10.2 tersoff
+pair_coeff * * tersoff BNC.tersoff C B    NULL
+pair_coeff * * airebo  CH.airebo   C NULL H
+pair_coeff 2 3 lj/cut 0.003859 3.1035 #   B-H
+
+# ----- Output setting -----
+thermo          100
+thermo_style    custom step etotal temp lx vol press
+
+# ----- Relax calculation (0 K) -----
+fix             f1 all box/relax iso 0.0
+minimize        1.0e-10 0.0 10000 100000
+unfix           f1
+
+# ----- Output setting -----
+dump            d1 all cfg 1 cfg/run.*.cfg mass type xs ys zs id type
+dump_modify     d1 element C B H
+
+# ----- Run calculation -----
+run 0
+# ----- Ende -----

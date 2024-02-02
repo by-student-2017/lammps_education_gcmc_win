@@ -1,0 +1,51 @@
+-----------------------------------------------------------------------
+ZTC
+          FINAL HEAT OF FORMATION =       2538.15218 KCAL/MOL =   10619.62874 KJ/MOL
+          H.o.F. per unit cell    =         35.25211 KCAL, for 72 unit cells, unit cell = C4 H1
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+C1 site
+          FINAL HEAT OF FORMATION =       6539.52713 KCAL/MOL =   27361.38152 KJ/MOL
+          H.o.F. per unit cell    =        272.48030 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C2 site
+          FINAL HEAT OF FORMATION =       6422.18437 KCAL/MOL =   26870.41940 KJ/MOL
+          H.o.F. per unit cell    =        267.59102 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C3 site
+          FINAL HEAT OF FORMATION =       3503.52483 KCAL/MOL =   14658.74791 KJ/MOL
+          H.o.F. per unit cell    =        145.98020 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C4 site
+          FINAL HEAT OF FORMATION =       3744.09095 KCAL/MOL =   15665.27654 KJ/MOL
+          H.o.F. per unit cell    =        156.00379 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C5 site
+          FINAL HEAT OF FORMATION =       4614.97211 KCAL/MOL =   19309.04332 KJ/MOL
+          H.o.F. per unit cell    =        192.29050 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C6 site
+          FINAL HEAT OF FORMATION =       3354.98014 KCAL/MOL =   14037.23689 KJ/MOL
+          H.o.F. per unit cell    =        139.79084 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C7 site
+          FINAL HEAT OF FORMATION =       3756.38045 KCAL/MOL =   15716.69580 KJ/MOL
+          H.o.F. per unit cell    =        156.51585 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C8 site
+          FINAL HEAT OF FORMATION =       3868.65430 KCAL/MOL =   16186.44959 KJ/MOL
+          H.o.F. per unit cell    =        161.19393 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+C9 site
+          FINAL HEAT OF FORMATION =       3466.83548 KCAL/MOL =   14505.23964 KJ/MOL
+          H.o.F. per unit cell    =        144.45148 KCAL, for 24 unit cells, unit cell = C11 H3 N1
+-----------------------------------------------------------------------
+
+Commands
+-----------------------------------------------------------------------
+cif2cell -p mopac -f ZTC_SG213_C1site_opt_lammps.cif
+write *.mop
+export OMP_NUM_THREADS=1
+/usr/local/bin/mopac ZTC_SG213_C1site_opt_lammps.mop
+-----------------------------------------------------------------------

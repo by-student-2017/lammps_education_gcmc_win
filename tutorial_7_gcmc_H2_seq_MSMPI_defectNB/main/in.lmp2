@@ -10,9 +10,9 @@ variable   pres   equal ${mpa}*10.0 # bar unit (1.0 MPa = 10.0 bar)
 variable   tgcmc2 equal ${tgcmc1}   # ps (for GCMC calculation time)
 
 # -----other settings -----
-variable   fs   index 0.0001 # 0.1 fs (0.25 fs is failed)
-variable   ps   index 4 # 4 ps
-variable   ps_gcmc index ${tgcmc2} # 120 ps (recommend >= 120 ps)
+variable   fs   index 0.00005 # 0.05 fs (0.25 and 0.1 fs is failed)
+variable   ps   index 4 # 4 ps (need >= 4 ps. If the changes are not made slowly over a long period of time, ZTC will break.)
+variable   ps_gcmc index ${tgcmc2} # 60 ps (recommend >= 60 ps)
 variable   nfreq index 100 # = Nevery * Nrepeat
 variable   nfreq_print equal ${nfreq}*100
 variable   nstep equal ${ps}/${fs}
@@ -30,7 +30,10 @@ units      metal
 atom_style atomic
 dimension  3
 boundary   p p p
-read_data  data.ch # read initial data case
+
+read_data  data.ch_defect4X4Y # read initial data case
+#read_data  data.ch_defect12X12Y # read initial data case
+
 replicate  2 2 2
 timestep   ${fs}
 
@@ -46,8 +49,9 @@ mass 5 10.81  # B
 
 # ----- Potential settings -----
 pair_style hybrid airebo 3.0 1 0 lj/cut 10.2 tersoff
-pair_coeff * * airebo  CH.airebo   C H    NULL NULL NULL
 pair_coeff * * tersoff BNC.tersoff C NULL NULL N    B
+pair_coeff * * airebo  CH.airebo   C H    NULL NULL NULL
+# Note: f tersoff and airebo are not written in that order, the bond between hydrogen and carbon will easily break.
 
 # He case
 #pair_coeff 1 3 lj/cut 0.002021 4.725 #   C-He
@@ -73,9 +77,9 @@ pair_coeff * * tersoff BNC.tersoff C NULL NULL N    B
 pair_coeff 1 3 lj/cut 0.003795 3.194 #   C-H2
 pair_coeff 2 3 lj/cut 0.002456 2.764 #   H-H2
 pair_coeff 3 3 lj/cut 0.003162 2.958 #  H2-H2
-pair_coeff 4 3 lj/cut 0.003076 3.110 #   N-H2
+pair_coeff 3 4 lj/cut 0.003076 3.110 #   H2-N
 pair_coeff 2 4 lj/cut 0.002389 2.915 #   H-N
-pair_coeff 5 3 lj/cut 0.004968 3.2975 #   B-H2
+pair_coeff 3 5 lj/cut 0.004968 3.2975 #   H2-B
 pair_coeff 2 5 lj/cut 0.003859 3.1035 #   H-B
 
 # ----- Potential data -----
@@ -114,7 +118,7 @@ timestep        ${fs}
 
 # ----- Output setting -----
 dump            d1 all cfg ${nfreq} cfg/run.*.cfg mass type xs ys zs id type
-dump_modify     d1 element C H H N B
+dump_modify     d1 element C H H2 N B
 
 # ----- Check equilibriation setting -----
 variable        Energy equal etotal
@@ -186,8 +190,9 @@ thermo_style    custom step temp press pe ke density atoms v_rhoav v_pav v_muexa
 thermo          ${nfreq}
 
 # ----- Output setting -----
+undump          d1
 dump            d3 all cfg ${nfreq} cfg/gcmc_run.*.cfg mass type xs ys zs id type
-dump_modify     d3 element C H H N B
+dump_modify     d3 element C H H2 N B
 
 fix_modify      f1 temp thermo_temp
 fix_modify      f2 temp thermo_temp

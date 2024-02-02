@@ -1,10 +1,10 @@
 echo # type                 MPa                 wt.%% > info.txt
 
 rem "GCMC calculation time, ps"
-set s=600
+set s=60
 
 rem "Number of CPU"
-set ncore=4
+set ncore=8
 
 rem "temperature, K"
 set t=273.15

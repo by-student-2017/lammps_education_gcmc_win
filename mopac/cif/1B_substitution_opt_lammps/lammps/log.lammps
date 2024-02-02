@@ -1,0 +1,220 @@
+LAMMPS (22 Dec 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 23Jun2022\plugins
+Loaded 0 plugins from C:\Program Files\LAMMPS 64-bit 23Jun2022-MPI\plugins
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 22Dec2022-MSMPI\plugins
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 28Mar2023-MPI\plugins
+# ----- Structure settings -----
+units      metal
+atom_style atomic
+dimension  3
+boundary   p p p
+#read_data  ZTC_SG213.data # read initial data case
+read_data  ZTC_SG213_C6site.data
+Reading data file ...
+  orthogonal box = (0 0 0) to (24.07 24.07 24.07)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  360 atoms
+  read_data CPU = 0.001 seconds
+
+#mass 1 12.0107 # C
+#mass 2 14.0067 # N
+#mass 2 10.81   # B
+#mass 3 1.00794 # H
+
+# ----- Potential settings -----
+#pair_style airebo 3.0 1 0
+#pair_coeff * * CH.airebo C H
+#
+# N substitution
+#pair_style hybrid airebo 3.0 1 0 lj/cut 10.2 tersoff
+#pair_coeff * * tersoff BNC.tersoff C N    NULL
+#pair_coeff * * airebo  CH.airebo   C NULL H
+#pair_coeff 2 3 lj/cut 0.002389 2.915  #   N-H
+#
+# B substitution
+pair_style hybrid airebo 3.0 1 0 lj/cut 10.2 tersoff
+pair_coeff * * tersoff BNC.tersoff C B    NULL
+Reading tersoff potential file BNC.tersoff with DATE: 2013-03-21
+pair_coeff * * airebo  CH.airebo   C NULL H
+Reading airebo potential file CH.airebo with DATE: 2011-10-25
+pair_coeff 2 3 lj/cut 0.003859 3.1035 #   B-H
+
+# ----- Output setting -----
+thermo          100
+thermo_style    custom step etotal temp lx vol press
+
+# ----- Relax calculation (0 K) -----
+fix             f1 all box/relax iso 0.0
+minimize        1.0e-10 0.0 10000 100000
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12.2
+  ghost atom cutoff = 12.2
+  binsize = 6.1, bins = 4 4 4
+  6 neighbor lists, perpetual/occasional/extra = 6 0 0
+  (1) pair airebo, perpetual, skip from (4)
+      attributes: full, newton on, ghost
+      pair build: skip/ghost
+      stencil: none
+      bin: none
+  (2) pair lj/cut, perpetual, skip from (5)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) pair tersoff, perpetual, skip from (6)
+      attributes: full, newton on, cut 4.1
+      pair build: skip
+      stencil: none
+      bin: none
+  (4) neighbor class addition, perpetual
+      attributes: full, newton on, ghost
+      pair build: full/bin/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+  (5) neighbor class addition, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (6) neighbor class addition, perpetual, trim from (4)
+      attributes: full, newton on, cut 4.1
+      pair build: trim
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 8.273 | 8.273 | 8.273 Mbytes
+   Step         TotEng          Temp            Lx           Volume         Press     
+         0  -2283.2524      0              24.07          13945.313      5553.7387    
+       100  -2299.2689      0              24.103698      14003.965      33.278764    
+       200  -2304.4437      0              24.089256      13978.809      53.942343    
+       300  -2306.0521      0              24.084442      13970.43       38.505076    
+       400  -2307.1617      0              24.079628      13962.054      57.959841    
+       500  -2307.9932      0              24.074814      13953.682      95.931321    
+       600  -2308.5327      0              24.074814      13953.682     -95.177258    
+       700  -2309.3814      0              24.065186      13936.948      122.59636    
+       800  -2309.7663      0              24.065186      13936.948     -68.351372    
+       900  -2310.0588      0              24.060372      13928.585      59.771672    
+      1000  -2310.3577      0              24.060372      13928.585     -124.16041    
+      1100  -2310.8216      0              24.050744      13911.871      105.46586    
+      1200  -2311.0471      0              24.050744      13911.871     -115.24953    
+      1300  -2311.3844      0              24.041116      13895.17      -12.839104    
+      1400  -2312.0826      0              23.986448      13800.596     -52.750465    
+      1500  -2312.3468      0              23.953407      13743.644     -15.494128    
+      1600  -2312.4872      0              23.923772      13692.696      120.9419     
+      1700  -2312.5808      0              23.894745      13642.915     -82.838869    
+      1800  -2312.6378      0              23.853177      13571.838     -2.2856752    
+      1878  -2312.6578      0              23.809744      13497.837     -1.7524794    
+Loop time of 4.32711 on 1 procs for 1878 steps with 360 atoms
+
+79.1% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+     -2283.25238551663  -2312.65784866118  -2312.65784879821
+  Force two-norm initial, final = 158.12468 0.067771644
+  Force max component initial, final = 145.0189 0.044776419
+  Final line search alpha, max atom move = 0.0017222872 7.7117856e-05
+  Iterations, force evaluations = 1878 2178
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 4.2052     | 4.2052     | 4.2052     |   0.0 | 97.18
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.01527    | 0.01527    | 0.01527    |   0.0 |  0.35
+Output  | 0.000369   | 0.000369   | 0.000369   |   0.0 |  0.01
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.1063     |            |       |  2.46
+
+Nlocal:            360 ave         360 max         360 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:           2592 ave        2592 max        2592 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:              0 ave           0 max           0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 0
+Ave neighs/atom = 0
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           f1
+
+# ----- Output setting -----
+dump            d1 all cfg 1 cfg/run.*.cfg mass type xs ys zs id type
+dump_modify     d1 element C B H
+
+# ----- Run calculation -----
+run 0
+WARNING: No fixes with time integration, atoms won't move (src/verlet.cpp:60)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12.2
+  ghost atom cutoff = 12.2
+  binsize = 6.1, bins = 4 4 4
+  6 neighbor lists, perpetual/occasional/extra = 6 0 0
+  (1) pair airebo, perpetual, skip from (4)
+      attributes: full, newton on, ghost
+      pair build: skip/ghost
+      stencil: none
+      bin: none
+  (2) pair lj/cut, perpetual, skip from (5)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) pair tersoff, perpetual, skip from (6)
+      attributes: full, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (4) neighbor class addition, perpetual
+      attributes: full, newton on, ghost
+      pair build: full/bin/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+  (5) neighbor class addition, perpetual, half/full from (6)
+      attributes: half, newton on
+      pair build: halffull/newton
+      stencil: none
+      bin: none
+  (6) neighbor class addition, perpetual, copy from (4)
+      attributes: full, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 8.165 | 8.165 | 8.165 Mbytes
+   Step         TotEng          Temp            Lx           Volume         Press     
+      1878  -2312.6578      0              23.809744      13497.837     -1.7524794    
+Loop time of 1e-06 on 1 procs for 0 steps with 360 atoms
+
+0.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 1e-06      |            |       |100.00
+
+Nlocal:            360 ave         360 max         360 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:           2616 ave        2616 max        2616 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:              0 ave           0 max           0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 0
+Ave neighs/atom = 0
+Neighbor list builds = 0
+Dangerous builds = 0
+# ----- Ende -----
+Total wall time: 0:00:04

@@ -1,10 +1,10 @@
 echo # type                 MPa                 wt.%% > info.txt
 
 rem "GCMC calculation time, ps"
-set s=120
+set s=60
 
 rem "Number of CPU"
-set ncore=4
+set ncore=8
 
 rem "temperature, K"
 for %%t in (233.15 248.15 273.15 298.15 313.15 358.15 423.15) do (

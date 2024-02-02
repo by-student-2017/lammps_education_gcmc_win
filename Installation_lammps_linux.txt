@@ -1,0 +1,26 @@
+---------------------------------------------------------------------------------------------------------------
+1. sudo apt update
+2. sudo apt -y install g++ build-essential libopenmpi-dev libfftw-3 csh
+---------------------------------------------------------------------------------------------------------------
+0. (Download lammps-22Dec2022.tar.gz from LAMMPS Source Download Repository (https://download.lammps.org/tars/))
+1. tar zxvf lammps-22Dec2022.tar.gz
+2. cd lammps-22Dec2022
+3. cd src
+4. make package-status
+5. make yes-MANYBODY yes-MC
+6. make mpi
+---------------------------------------------------------------------------------------------------------------
+Commands:
+mpirun -np 1 ~/lammps-22Dec2022/src/lmp_mpi -h
+---------------------------------------------------------------------------------------------------------------
+Note:
+MANYBODY: Tersoff, Airebo, EAM, ADP, COMB3
+MC: MC, GCMC
+---------------------------------------------------------------------------------------------------------------
+LAMMPS Source Download Repository (Recommend)
+https://download.lammps.org/tars/
+---------------------------------------------------------------------------------------------------------------
+LAMMPS GitHub releases site (not recommend)
+https://github.com/lammps/lammps/tags?after=patch_15Jun2023
+Error: The MPI calculation of GCMC: stable_23Jun2022_update3
+---------------------------------------------------------------------------------------------------------------
