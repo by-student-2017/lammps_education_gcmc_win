@@ -40,7 +40,7 @@ foreach fd ( tutorial_7_gcmc_H2_seq_MSMPI_defectB \
       #
       #@ i = ( ${ps} + 1 ) * 1900 
       #@ max = ( ${ps} + 1 ) * 2000
-      @ i = ( 4 * 20000 ) + 100
+      @ i = ( 8 * 20000 )
       @ max = ( ${ps} * 20000 ) + ${i}
       echo ${i},${max}
       echo -n > data.txt
