@@ -47,7 +47,7 @@ foreach mpa ( 2.5 5.0 15.0 30.0 50.0 70.0 100.0 )
   echo "#                      MPa                gas" > meam_and_std.txt
   grep " Mean: " stats.txt >> meam_and_std.txt
   grep " Std Dev: " stats.txt >> meam_and_std.txt
-  echo "---------- ---------- ----------" >> ..\info.txt
+  echo "---------- ---------- ----------" >> ../info.txt
   grep " Mean: " stats.txt >> ../info.txt
   grep " Std Dev: " stats.txt >> ../info.txt
   rm in.lmp1 in.lmp2 in.lmp_restart2

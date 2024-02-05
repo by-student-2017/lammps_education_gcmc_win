@@ -53,7 +53,7 @@ foreach fd ( tutorial_7_gcmc_H2_seq_MSMPI_defectB \
       echo "#                      MPa                gas" > meam_and_std.txt
       grep " Mean: " stats.txt >> meam_and_std.txt
       grep " Std Dev: " stats.txt >> meam_and_std.txt
-      echo "---------- ---------- ----------" >> ..\info.txt
+      echo "---------- ---------- ----------" >> ../info.txt
       grep " Mean: " stats.txt >> ../info.txt
       grep " Std Dev: " stats.txt >> ../info.txt
       rm in.lmp1 in.lmp2 in.lmp_restart2
