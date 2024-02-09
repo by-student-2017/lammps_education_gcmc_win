@@ -8,7 +8,7 @@ set ncore = 10
 
 # For openmpi error (segmentation fault on GCMC)
 setenv OMP_NUM_THREADS=1
-export OMP_NUM_THREADS=1
+#export OMP_NUM_THREADS=1
 
 # gcmc (time, ps)
 set ps = 60
@@ -41,7 +41,7 @@ foreach fd ( tutorial_7_gcmc_H2_seq_MSMPI_defectB \
       #@ i = ( ${ps} + 1 ) * 1900 
       #@ max = ( ${ps} + 1 ) * 2000
       @ i = ( 19 * 20000 )
-      @ max = ( ${ps} * 20000 ) + ${i}
+      @ max = ( ${ps} * 20000 ) + 80000
       echo ${i},${max}
       echo -n > data.txt
       while ( ${i} <= ${max} )

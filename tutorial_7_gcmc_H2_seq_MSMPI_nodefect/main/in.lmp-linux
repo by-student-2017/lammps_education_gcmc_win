@@ -29,7 +29,11 @@ units      metal
 atom_style atomic
 dimension  3
 boundary   p p p
-read_data  data.ch # read initial data case
+
+read_data  data.ch_defect4X # read initial data case
+#read_data  data.ch_defect12X # read initial data case
+#read_data  data.ch_defect24X # read initial data case
+
 replicate  2 2 2
 timestep   ${fs}
 
@@ -72,7 +76,7 @@ pair_coeff * * airebo  CH.airebo   C H    NULL NULL
 pair_coeff 1 3 lj/cut 0.003795 3.194 #   C-H2
 pair_coeff 2 3 lj/cut 0.002456 2.764 #   H-H2
 pair_coeff 3 3 lj/cut 0.003162 2.958 #  H2-H2
-#pair_coeff 4 3 lj/cut 0.003076 3.110 #   N-H2
+#pair_coeff 3 4 lj/cut 0.003076 3.110 #   H2-N  ("4 3" case: ERROR: Incorrect args for pair coefficients (../pair_lj_cut.cpp:468))
 #pair_coeff 2 4 lj/cut 0.002389 2.915 #   H-N
 #pair_coeff 3 4 lj/cut 0.004968 3.2975 #   H2-B ("4 3" case: ERROR: Incorrect args for pair coefficients (../pair_lj_cut.cpp:468))
 #pair_coeff 2 4 lj/cut 0.003859 3.1035 #   H-B

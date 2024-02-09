@@ -31,7 +31,11 @@ units      metal
 atom_style atomic
 dimension  3
 boundary   p p p
-read_data  data.ch # read initial data case
+
+read_data  data.ch_defect4X # read initial data case
+#read_data  data.ch_defect12X # read initial data case
+#read_data  data.ch_defect24X # read initial data case
+
 replicate  2 2 2
 timestep   ${fs}
 
