@@ -51,6 +51,7 @@ mass 4 14.0067 # N
 # ----- Potential settings -----
 pair_style hybrid airebo 3.0 1 0 lj/cut 10.2 tersoff
 pair_coeff * * tersoff BNC.tersoff C NULL NULL N
+#pair_coeff 1 1 none
 pair_coeff * * airebo  CH.airebo   C H    NULL NULL
 
 # He case

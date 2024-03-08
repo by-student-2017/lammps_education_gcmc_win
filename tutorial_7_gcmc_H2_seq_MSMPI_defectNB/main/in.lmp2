@@ -50,6 +50,7 @@ mass 5 10.81  # B
 # ----- Potential settings -----
 pair_style hybrid airebo 3.0 1 0 lj/cut 10.2 tersoff
 pair_coeff * * tersoff BNC.tersoff C NULL NULL N    B
+#pair_coeff 1 1 none
 pair_coeff * * airebo  CH.airebo   C H    NULL NULL NULL
 # Note: f tersoff and airebo are not written in that order, the bond between hydrogen and carbon will easily break.
 
