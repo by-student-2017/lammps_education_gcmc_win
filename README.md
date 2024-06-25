@@ -2,296 +2,296 @@
 
 
 ------------------------------------------------------------------------------
-�� lammps
+■ lammps
 
-�� lammps�̃C���X�g�[��
-1. http://packages.lammps.org/windows.html ��HP��"their own download area"�Ɓh64bit�h���N���b�N����
-  �iLAMMPS Binaries Repository: ./admin/64bit�j
-2. LAMMPS-64bit-18Jun2019.exe ���_�E�����[�h���ĉ𓀂���
-3. �f�B�t�H���g�̐ݒ�̂܂܍Ō�܂Ői�߂΂悢
-�ȏ�� lammps �̃_�E�����[�h�Ɛݒ�͊����ł�
-�� �z�z����HP���ύX��������Ȃǂ��āA�ʂ̃o�[�W������lammps���g���K�v�ɂȂ����ꍇ�ɂ́Arun.bat��["C:\Program Files\LAMMPS 64-bit 18Jun2019\bin\lmp_serial.exe" -in in.lmp]�̕������C���X�g�[������lammps�̃o�[�W�����ɑΉ�������̂ɏ��������Ă��������B�܂���[C:\Program Files\LAMMPS 64-bit **********]������������Ƃ������@������܂�
+□ lammpsのインストール
+1. http://packages.lammps.org/windows.html のHPで"their own download area"と”64bit”をクリックする
+  （LAMMPS Binaries Repository: ./admin/64bit）
+2. LAMMPS-64bit-18Jun2019.exe をダウンロードして解凍する
+3. ディフォルトの設定のまま最後まで進めばよい
+以上で lammps のダウンロードと設定は完了です
+※ 配布元のHPが変更を加えるなどして、別のバージョンのlammpsを使う必要になった場合には、run.batで["C:\Program Files\LAMMPS 64-bit 18Jun2019\bin\lmp_serial.exe" -in in.lmp]の部分をインストールしたlammpsのバージョンに対応するものに書き換えてください。または[C:\Program Files\LAMMPS 64-bit **********]を書き換えるという方法もあります
 
-�� �`��\�t�g�ignuplot��Ovito�j
- �Egnuplot�ihttp://www.gnuplot.info/�j
+□ 描画ソフト（gnuplotとOvito）
+ ・gnuplot（http://www.gnuplot.info/）
   http://www.yamamo10.jp/yamamoto/comp/gnuplot/inst_win/index.php
-�EOvito�ihttps://www.ovito.org/windows-downloads/�j
-�� web��ɏ�񂪂���܂��̂ŁA���萔�����������܂����A����������Q�Ƃ�������
-�� gnuplot�̃C���X�g�[���Ɗ��ݒ� (Edit: Dec/11/2020)
-1. gnuplot - Browse /gnuplot at SourceForge.net ���� gp528-win64-mingw.exe �𓾂�
-  gp528-win64-mingw.exe ���_�u���N���b�N�B�ݒ�̓f�B�t�H���g�̂܂܂ł悢
-2. �R���g���[�� �p�l�� > �V�X�e���ƃZ�L�����e�B > �V�X�e��
-3. �V�X�e���̊��ݒ� > ���ϐ��iN�j... > �V�X�e�����ϐ��iS�j��Path > �ҏW�iI�j... > �V�K�iN�j> C:\Program Files\gnuplot\bin ��ǉ����� > OK > OK
+・Ovito（https://www.ovito.org/windows-downloads/）
+※ web上に情報がありますので、お手数をおかけしますが、そちらをご参照ください
+※ gnuplotのインストールと環境設定 (Edit: Dec/11/2020)
+1. gnuplot - Browse /gnuplot at SourceForge.net から gp528-win64-mingw.exe を得る
+  gp528-win64-mingw.exe をダブルクリック。設定はディフォルトのままでよい
+2. コントロール パネル > システムとセキュリティ > システム
+3. システムの環境設定 > 環境変数（N）... > システム環境変数（S）のPath > 編集（I）... > 新規（N）> C:\Program Files\gnuplot\bin を追加する > OK > OK
 
-�� Microsoft MPI�iMSMPI�j�� (Edit: May/15/2023 �ǋL)�i�����j
-1. MSMPI�ł� https://rpm.lammps.org/windows/admin/64bit/index.html �������ł��܂��BLAMMPS-64bit-22Dec2022-MSMPI-admin.exe ���_�E�����[�h���Ă��������B
-2. "tutorial_7_gcmc_H2_seq_MSMPI"��MSMPI�łɑΉ����܂��B"run_msmpi.bat"����"set ncore=4"�̐��l�̕����i�����ł�4�j�����v�Z������CPU���ɕύX���Ă��������B"in.lmp2"�t�@�C���ł�ovito�̓��̓t�@�C���ł���cfg���o�͂����悤�ɕύX���Ă��܂��i�R�����g����O���Ă��܂��j�̂ł����ӂ��������iH2�K�X��1�̋��Ƃ��ĕ`�悳���悤�ɂ��Ă��܂��j�B���̃t�H���_�ł����p�������ꍇ�͎Q�l�ɂ��Ă��������i"run_msmpi.bat"�����̂܂܃R�s�[&�y�[�X�g���Ă����삷�邩������܂���B������{�l�ł����ڍׂ�Y��Ă��܂��܂����B�\����Ȃ��ł��B���m�F�j�B
-�� Microsoft MPI v10.1.2
-�� MPICH2���̂̃C���X�g�[����window11�ł͂��ώG�ɂȂ��Ă��܂��̂�lammps��MS-MPI�ł͂��肪�����ł��B
+□ Microsoft MPI（MSMPI）版 (Edit: May/15/2023 追記)（推奨）
+1. MSMPI版が https://rpm.lammps.org/windows/admin/64bit/index.html から入手できます。LAMMPS-64bit-22Dec2022-MSMPI-admin.exe をダウンロードしてください。
+2. "tutorial_7_gcmc_H2_seq_MSMPI"がMSMPI版に対応します。"run_msmpi.bat"内の"set ncore=4"の数値の部分（ここでは4）を並列計算したいCPU数に変更してください。"in.lmp2"ファイルではovitoの入力ファイルであるcfgも出力されるように変更しています（コメントから外しています）のでご注意ください（H2ガスは1つの球として描画されるようにしています）。他のフォルダでも利用したい場合は参考にしてください（"run_msmpi.bat"をそのままコピー&ペーストしても動作するかもしれません。作った本人ですが詳細を忘れてしまいました。申し訳ないです。未確認）。
+※ Microsoft MPI v10.1.2
+※ MPICH2自体のインストールがwindow11ではより煩雑になっていますのでlammpsのMS-MPI版はありがたいです。
 
-�� MPI�� (Edit: May/19/2023 �ǋL)�i�񐄏��j
-1. MPI�ŁiMPICH2�Łj�� https://rpm.lammps.org/windows/admin/64bit/index.html �������ł��܂��BLAMMPS-64bit-28Mar2023-MPI-admin.exe ���_�E�����[�h���Ă��������B
-2. "tutorial_7_gcmc_H2_seq_MPI"��MPI�łɑΉ����܂��BPowerShell���Ǘ��҂Ƃ��ĊJ���܂��B
-3. "set_mpich2.bat"���Ǘ��҂Ƃ��ĊJ����PowerShell�Ƀh���b�O&�h���b�v����Enter�������܂��B
-4. "run_mpi.bat"���Ǘ��҂Ƃ��ĊJ����PowerShell�Ƀh���b�O&�h���b�v����Enter�������܂��B
-5. �t�@�C���ɂ��Ă̒��ӎ�����MSMPI�łƓ����ł��B
-���umpich2-1.4.1p1-win-x86-64.msi �ł�".NET Framework version 2.0.50727"���K�v�ł��v�Ƃ�����ʂ��\������܂��B���̏ꍇ�ɂ� Microsoft .NET Framework 3.5 ��google�ȂǂŌ������ă_�E�����[�h���܂��B"dotNetFx35setup.exe"�����s���܂��B
-�� ���̏������Ă�����iWindows 11 Home, Intel Core(TM) i7-12700, 32.0 GB�j�ł́AMPI�ł͌v�Z���x���x���̂ɉ����ăG���[�������������ߔ񐄏��ł��B����AMSMPI�ł͍���������ɓ��삷��B
+□ MPI版 (Edit: May/19/2023 追記)（非推奨）
+1. MPI版（MPICH2版）が https://rpm.lammps.org/windows/admin/64bit/index.html から入手できます。LAMMPS-64bit-28Mar2023-MPI-admin.exe をダウンロードしてください。
+2. "tutorial_7_gcmc_H2_seq_MPI"がMPI版に対応します。PowerShellを管理者として開きます。
+3. "set_mpich2.bat"を管理者として開いたPowerShellにドラッグ&ドロップしてEnterを押します。
+4. "run_mpi.bat"を管理者として開いたPowerShellにドラッグ&ドロップしてEnterを押します。
+5. ファイルについての注意事項はMSMPI版と同じです。
+※「mpich2-1.4.1p1-win-x86-64.msi では".NET Framework version 2.0.50727"が必要です」という画面が表示されます。その場合には Microsoft .NET Framework 3.5 をgoogleなどで検索してダウンロードします。"dotNetFx35setup.exe"を実行します。
+※ 私の所持している環境（Windows 11 Home, Intel Core(TM) i7-12700, 32.0 GB）では、MPI版は計算速度も遅いのに加えてエラーも発生したため非推奨です。一方、MSMPI版は高速かつ正常に動作する。
 
-�� ���ӓ_ (Edit: May/15/2023 �ǋL)
-�Egnuplot�Ƀp�X��ʂ��Ă��Ȃ��Ɛ��������삵�܂���Bgnuplot�̃p�X�̐ݒ肪����ꍇ�́A"stats.bat"�̃t�@�C������"gnuplot"���p�X���܂߂��L�q�ɕύX���܂��Btutorial_7_gcmc_H2_seq�ł͕ύX�ς݂̂��̂����Ă��܂��Bgnuplot���C���X�g�[������Ƃ��Ƀp�X��ύX���Ă��܂����ꍇ��gnuplot�̃C���X�g�[���[���̏����ݒ�ł̃p�X���ύX���ꂽ�肵���ꍇ�Ȃǂ͏��������Ă��������B
-�� ����Windows 11��MSMPI�ł�MPI�ł̓���m�F�������o�[�W�����́Agnuplot�ł�"gp546-win64-mingw-2.exe"�AOvito�ł�"ovito-basic-3.8.4-win64.exe"�ƂȂ�܂��B
+□ 注意点 (Edit: May/15/2023 追記)
+・gnuplotにパスを通していないと正しく動作しません。gnuplotのパスの設定が難しい場合は、"stats.bat"のファイル中で"gnuplot"をパスを含めた記述に変更します。tutorial_7_gcmc_H2_seqでは変更済みのものを入れています。gnuplotをインストールするときにパスを変更してしまった場合やgnuplotのインストーラー側の初期設定でのパスが変更されたりした場合などは書き換えてください。
+※ 私がWindows 11でMSMPI版とMPI版の動作確認をしたバージョンは、gnuplotでは"gp546-win64-mingw-2.exe"、Ovitoでは"ovito-basic-3.8.4-win64.exe"となります。
 ------------------------------------------------------------------------------
-�� GCMC�i�O�����h�J�m�j�J�������e�J�����V�~�����[�V�����j
+■ GCMC（グランドカノニカルモンテカルロシミュレーション）
 
 
-�� ���̓t�@�C���̃_�E�����[�h
-    by-student-2017 �� lammps_education_gcmc_win ( https://github.com/by-student-2017/lammps_education_gcmc_win ) ������̓t�@�C�����_�E�����[�h���ĉ𓀂���B�E����[Clone or download]���N���b�N���Ă��������ƁADownload ZIP ���\������܂�
+□ 入力ファイルのダウンロード
+    by-student-2017 の lammps_education_gcmc_win ( https://github.com/by-student-2017/lammps_education_gcmc_win ) から入力ファイルをダウンロードして解凍する。右側の[Clone or download]をクリックしていただくと、Download ZIP が表示されます
 
 
-�� �V�~�����[�V�����̎��s
-1. �e��̃t�H���_�̒��ɂ���run.bat���_�u���N���b�N����Όv�Z������
-  �����Čv�Z����ꍇ�i������ς��Ă��ǂ��j��run_restart.bat���_�u���N���b�N����Όv�Z������
-2. cfg��Ovito�ŊJ���΍\����������
-3. plot�ƋL�ڂ̂���t�@�C�����_�u���N���b�N����ΐ}��������
-  �� ���x���ړI�̒l�ɂȂ��Ă��邩�A�G�l���M�[�����̒l�ɂȂ��Ă��邩���m�F���Ă݂Ă�������
-�� �ȏ�̎菇�́Adata.ch�ɂ��錴�q�̏�������������Α��̒Y�����f�iC-H�j�ł����l�Ɍv�Z���\�ł��iAvogadro�Ȃǂ̃t���[�\�t�g��p���č\���̃t�@�C���idata.ch�j�������������܂��j
+□ シミュレーションの実行
+1. 各種のフォルダの中にあるrun.batをダブルクリックすれば計算が走る
+  続けて計算する場合（条件を変えても良い）はrun_restart.batをダブルクリックすれば計算が走る
+2. cfgをOvitoで開けば構造が得られる
+3. plotと記載のあるファイルをダブルクリックすれば図が得られる
+  ※ 温度が目的の値になっているか、エネルギーが一定の値になっているかを確認してみてください
+※ 以上の手順は、data.chにある原子の情報を書きかえれば他の炭化水素（C-H）でも同様に計算が可能です（Avogadroなどのフリーソフトを用いて構造のファイル（data.ch）を作られる方もいます）
 
 
-�� tutorial_7_gcmc_He
-  He�K�X�̐�΋z���ʂ̃V�~�����[�V����
-  �Ō�ɏo�͂����f�[�^�ilog.lammps�ɂ����l�ł��j
-  �ŏ���3��̓X�e�b�v���A���x[K]�A����[bar]�ł��B
-  �Ō��4��͍����珇��He���q�̐��AC���q�̐��AH���q�̐��Awt.%�ƂȂ��Ă��܂��B
-  cfg�̃t�@�C����gcmc�̕t���ĂȂ����̂����t�������i�\�������肷��܂ł܂����j�̂��̂ŁAgcmc�ƕt�������̂�He�K�X�����Ă������ꍇ�ɂȂ�܂��B
+□ tutorial_7_gcmc_He
+  Heガスの絶対吸着量のシミュレーション
+  最後に出力されるデータ（log.lammpsにも同様です）
+  最初の3列はステップ数、温度[K]、圧力[bar]です。
+  最後の4列は左から順にHe原子の数、C原子の数、H原子の数、wt.%となっています。
+  cfgのファイルはgcmcの付いてないものが平衡化処理（構造が安定するまでまつ処理）のもので、gcmcと付いたものがHeガスを入れていった場合になります。
 
 
-�� tutorial_7_gcmc_Ar
-  Ar�K�X�̐�΋z���ʂ̃V�~�����[�V����
-  �ŏ���3��̓X�e�b�v���A���x[K]�A����[bar]�ł��B
-  �Ō��4��͍����珇��Ar���q�̐��AC���q�̐��AH���q�̐��Awt.%�ƂȂ��Ă��܂��B
+□ tutorial_7_gcmc_Ar
+  Arガスの絶対吸着量のシミュレーション
+  最初の3列はステップ数、温度[K]、圧力[bar]です。
+  最後の4列は左から順にAr原子の数、C原子の数、H原子の数、wt.%となっています。
 
-�� tutorial_7_gcmc_N2
-  ���f���q�iN2�j����g�Ƃ��ċߎ������ꍇ��N2�K�X�[�U�̃V�~�����[�V����
-  N2�̕��q����̋��Ƃ���Ovito��ŕ\������܂��i���f����N�ɂ��Ă���j
-  �ŏ���3��̓X�e�b�v���A���x[K]�A����[bar]�ł��B
-  �Ō��4��͍����珇��N2���q�̐��AC���q�̐��AH���q�̐��Awt.%�ƂȂ��Ă��܂��B
-
-
-�� tutorial_7_gcmc_H2
-  ���f���q�iH2�j����g�Ƃ��ċߎ������ꍇ��H2�K�X�̐�΋z���ʂ̃V�~�����[�V����
-  H2�̕��q����̋��Ƃ���Ovito��ŕ\������܂��i���f����H�ɂ��Ă���j
-  �ŏ���3��̓X�e�b�v���A���x[K]�A����[bar]�ł��B
-  �Ō��4��͍����珇��H2���q�̐��AC���q�̐��AH���q�̐��Awt.%�ƂȂ��Ă��܂��B
+□ tutorial_7_gcmc_N2
+  窒素分子（N2）を一組として近似した場合のN2ガス充填のシミュレーション
+  N2の分子を一つの球としてOvito上で表示されます（元素名はNにしてある）
+  最初の3列はステップ数、温度[K]、圧力[bar]です。
+  最後の4列は左から順にN2分子の数、C原子の数、H原子の数、wt.%となっています。
 
 
-�� tutorial_7_gcmc_CO2
-  ��_���Y�f���q�iCO2�j����g�Ƃ��ċߎ������ꍇ��CO2�K�X�̐�΋z���ʂ̃V�~�����[�V����
-  CO2�̕��q����̋��Ƃ���Ovito��ŕ\������܂��i���f����O�ɂ��Ă���j
-  �ŏ���3��̓X�e�b�v���A���x[K]�A����[bar]�ł��B
-  �Ō��4��͍����珇��CO2���q�̐��AC���q�̐��AH���q�̐��Awt.%�ƂȂ��Ă��܂��B
+□ tutorial_7_gcmc_H2
+  水素分子（H2）を一組として近似した場合のH2ガスの絶対吸着量のシミュレーション
+  H2の分子を一つの球としてOvito上で表示されます（元素名はHにしてある）
+  最初の3列はステップ数、温度[K]、圧力[bar]です。
+  最後の4列は左から順にH2分子の数、C原子の数、H原子の数、wt.%となっています。
 
 
-�� He�K�X�͎��e�ς̑���Ɏg���܂��B
+□ tutorial_7_gcmc_CO2
+  二酸化炭素分子（CO2）を一組として近似した場合のCO2ガスの絶対吸着量のシミュレーション
+  CO2の分子を一つの球としてOvito上で表示されます（元素名はOにしてある）
+  最初の3列はステップ数、温度[K]、圧力[bar]です。
+  最後の4列は左から順にCO2分子の数、C原子の数、H原子の数、wt.%となっています。
 
 
-�� cfg�̃t�@�C����gcmc�̕t���ĂȂ����̂����t�������i�\�������肷��܂ł܂����j�̂��̂ŁAgcmc�ƕt�������̂��ړI�̃K�X�����Ă������ꍇ�ɂȂ�܂��B
+※ Heガスは死容積の測定に使われます。
 
 
-�� �ʏ�A��������͉ߏ�z���ʁiexcess adsorption uptake�j�������܂��B���̂��߁A�������ʂƔ�r���邽�߂ɂ́A�v�Z���瓾��ꂽ��΋z���ʁiabsolute adsorption uptake�j����z���ނ������Ƃ��̃K�X�̗ʂ������ĉߏ�z���ʂŔ�r����K�v������܂��B���ɉߏ�z���ʂ̌v�Z��������Ă��܂��B
+※ cfgのファイルはgcmcの付いてないものが平衡化処理（構造が安定するまでまつ処理）のもので、gcmcと付いたものが目的のガスを入れていった場合になります。
 
 
-�� �����l�����K�X���z�����Ă���ꍇ�́A�v�Z�ɗp���Ă���|�e���V���������i�[�h�W���[���Y�ilj�j�|�e���V���������ł͂Ȃ����߁A���w�z���̌��ʂ��o�Ă���\��������܂��B�K�X-�K�X�Ԃ�lj�|�e���V�����݂̂ɂȂ��Ă��܂��B
+※ 通常、実験からは過剰吸着量（excess adsorption uptake）が得られます。そのため、実験結果と比較するためには、計算から得られた絶対吸着量（absolute adsorption uptake）から吸着材が無いときのガスの量を引いて過剰吸着量で比較する必要があります。下に過剰吸着量の計算例を示しています。
 
 
-�� �t�@�C���̒������Ă���������΁A���̃K�X�ł����l�̌v�Z�͉\�ł��B�������A���̃t�@�C���ł̌v�Z�ł́ACO2�Ȃǂ̕��q�͈�̋��ɋߎ������p�����[�^��p���Ă̌v�Z�ɂȂ�܂��i�v�Z���Ă���R�[�h��lammps�ł͂���܂��񂪁A�_���ł����̂悤�ɂ��Čv�Z����Ă���Ⴊ��������܂��j�B������ƕ��q�Ƃ��Ĉ��������ꍇ�́A�����́uLammps (GCMC, Mg(OH)2)�v�Ȃǂ��Q�l�ɂ��Ă��������B
+※ 実験値よりもガスが吸着している場合は、計算に用いているポテンシャルがレナードジョーンズ（lj）ポテンシャルだけではないため、化学吸着の効果が出ている可能性があります。ガス-ガス間はljポテンシャルのみになっています。
 
 
-�� ���̓t�@�C���Ŏw�肵�Ă��鉷�x�A���͂ɂ��邱�Ƃ͓�����ߏo�̓t�@�C���ilog.lammps�j�Ŏ��������l�Ō������Ă��������B
+※ ファイルの中を見ていただければ、他のガスでも同様の計算は可能です。ただし、このファイルでの計算では、CO2などの分子は一つの球に近似したパラメータを用いての計算になります（計算しているコードはlammpsではありませんが、論文でもこのようにして計算されている例が多くあります）。きちんと分子として扱いたい場合は、左欄の「Lammps (GCMC, Mg(OH)2)」などを参考にしてください。
 
 
-�� replicate 1 1 1 �̒l��ς���Ƃ��̐��l�̕������P�ʖE�̍\�������т܂��B
+※ 入力ファイルで指定している温度、圧力にすることは難しいため出力ファイル（log.lammps）で収束した値で検討してください。
 
 
-�� �K�X���[�U���Ă����ƁAlammps�̐��l�v�Z��A�K�X�̑����ŉ��x���ϓ����܂��Bin.lmp�ł� tfac_insert �̌�̐��l��ς�����A"variable   temp2 index"�̌�̒l��ς���Ȃǂ��Ă݂Ă��������Btfac_insert�̌�̒l��ς��邱�Ƃ��������͂��ł����A���̓��͗�̏ꍇ�͂قƂ�ǋ@�\���܂���ł����Btemp1�͉������iNPT�ł̐���j�̖ڕW�Ƃ��鉷�x�ł��B
+※ replicate 1 1 1 の値を変えるとその数値の分だけ単位胞の構造が並びます。
 
 
-�� ���͂̐��䂪���ɓ���ł��B���̂��ߑO��̍\���ƌ��q�̑��x��p���ď����ς��čČv�Z���\�ȃt�@�C�����Y�t���Ă��܂��Blammps�̌v�Z�I�ɂ̓K�X�̋������̈��͂�in.lmp��in.lmp_restart��"variable   pres index 1.0"�Ŏw�肵���l�ƂȂ��Ă���͂��ł����A�S�̂̈��͔͂��ɗ��������Ă��܂��B���Ԃ�����ꍇ�͉��x��run_restart.bat���J��Ԃ��Ă݂Ă��������B
+※ ガスが充填していくと、lammpsの数値計算上、ガスの増減で温度も変動します。in.lmpでの tfac_insert の後の数値を変えたり、"variable   temp2 index"の後の値を変えるなどしてみてください。tfac_insertの後の値を変えることが正しいはずですが、この入力例の場合はほとんど機能しませんでした。temp1は加圧時（NPTでの制御）の目標とする温度です。
 
 
-�� ���̗�ł�mu�̒l��MOPAC�̌v�Z�œ���ꂽ�t�F���~���ʋߖT�̃G�l���M�[��p���Ă��܂����A�}�j���A���i https://lammps.sandia.gov/doc/fix_gcmc.html �j�ɂ��鎮��id=kT*ln�i��P��^3/kT�j�Ōv�Z�����l����͂��邱�Ƃ��������Ǝv���܂��B�ł����A���̓��͗�̂悤��gcmc�̕����ň��́ipressure�j���w�肵�Ă���ꍇ��mu�̒l������������lammps�̃}�j���A���ɏ�����Ă��܂��B
+※ 圧力の制御が非常に難しいです。そのため前回の構造と原子の速度を用いて条件変えて再計算が可能なファイルも添付しています。lammpsの計算的にはガスの供給側の圧力はin.lmpやin.lmp_restartの"variable   pres index 1.0"で指定した値となっているはずですが、全体の圧力は非常に乱高下しています。時間がある場合は何度もrun_restart.batを繰り返してみてください。
 
 
-�� ��A��GCMC�̓��̓t�@�C���̐ݒ�ɂ��ẮA���ꂪ�œK�Ƃ����킯�ł͂���܂���B���̂��߁A����ɗǂ����̓t�@�C���ƂȂ�悤�ɕ׋���i�߂Ă��������B��낵�����肢�v���܂��B
+※ この例ではmuの値にMOPACの計算で得られたフェルミ準位近傍のエネルギーを用いていますが、マニュアル（ https://lammps.sandia.gov/doc/fix_gcmc.html ）にある式μid=kT*ln（ΦPλ^3/kT）で計算した値を入力することが正しいと思われます。ですが、この入力例のようにgcmcの部分で圧力（pressure）を指定している場合はmuの値が無視されるとlammpsのマニュアルに書かれています。
 
 
-�� seq�ƕt�����t�@�C���͎w�肵�����x�ň�A�̈��͂��v�Z���܂��B�������ɂ�run.bat�̉��x�ƈ��͂̐��������������āi���͍͂폜���ǉ����\�ł��jrun.bat���N���b�N���邾���ł��Breplace��2 2 2�ɂȂ��Ă���̂ł����ӂ��������Brun_seq_tps.bat�͓����Ŏw�肵�Ă��鉷�x�ƈ��͂Ǝ��ԂŌv�Z���Ă���܂��B
+※ 一連のGCMCの入力ファイルの設定については、これが最適というわけではありません。そのため、さらに良い入力ファイルとなるように勉強を進めてください。よろしくお願い致します。
 
 
-�� �ߏ�z���ʂ��v�Z���邽�߂�Excel�V�[�g�̗�����Ă����܂����BZTC�ł̗��[ZTC_H2_and_He_example.xlsx]�A��ʓI�ȃe���v���[�g�̗��[CxHy_H2_and_He_template.xlsx]�ƂȂ�܂��B�Q�l�ɂȂ�΍K���ł��B�L�ڂ���Ă��鉷�x�ł͋z���ނ̖����ꍇ��H2��He���v�Z����Ă��܂��B�z���ނ̂���ꍇ�ł�H2��He���v�Z����΂悢�悤�ɂȂ��Ă��܂��B
+※ seqと付いたファイルは指定した温度で一連の圧力を計算します。動かすにはrun.batの温度と圧力の数字を書き換えて（圧力は削除も追加も可能です）run.batをクリックするだけです。replaceが2 2 2になっているのでご注意ください。run_seq_tps.batは内部で指定している温度と圧力と時間で計算してくれます。
+
+
+※ 過剰吸着量を計算するためのExcelシートの例を入れておきました。ZTCでの例は[ZTC_H2_and_He_example.xlsx]、一般的なテンプレートの例は[CxHy_H2_and_He_template.xlsx]となります。参考になれば幸いです。記載されている温度では吸着材の無い場合のH2とHeが計算されています。吸着材のある場合でのH2とHeを計算すればよいようになっています。
 
 --------------------------------------------------
-�� �ߏ�z���ʂ̌v�Z�̂��߂̃K�X�݂̂�GCMC�v�Z
+■ 過剰吸着量の計算のためのガスのみのGCMC計算
 
 
-�� tutorial_7_gcmc_He_only
-  100^3 [Angstrom^3]�̋�Ԃ�He�K�X���[�U�����ꍇ�̃V�~�����[�V����
-  �Ō�ɏo�͂����f�[�^�ilog.lammps�ɂ����l�ł��j
-  �ŏ���3��̓X�e�b�v���A���x[K]�A����[bar]�ł��B
-  �Ō��4��͍����珇��He���q�̐��A���x�ƂȂ��Ă��܂��B
-  �� ���̓��͗�ł͖�90/100^3 [He���q�̐�/Angstrom^3]�̒l�ɂȂ�܂����B
+□ tutorial_7_gcmc_He_only
+  100^3 [Angstrom^3]の空間にHeガスを充填した場合のシミュレーション
+  最後に出力されるデータ（log.lammpsにも同様です）
+  最初の3列はステップ数、温度[K]、圧力[bar]です。
+  最後の4列は左から順にHe原子の数、温度となっています。
+  ※ この入力例では約90/100^3 [He原子の数/Angstrom^3]の値になりました。
 
 
-�� tutorial_7_gcmc_N2_only
-  120^3 [Angstrom^3]�̋�Ԃ�He�K�X���[�U�����ꍇ�̃V�~�����[�V����
-  �Ō�ɏo�͂����f�[�^�ilog.lammps�ɂ����l�ł��j
-  �ŏ���3��̓X�e�b�v���A���x[K]�A����[bar]�ł��B
-  �Ō��4��͍����珇��N2���q�̐��A���x�ƂȂ��Ă��܂��B
-  �� ���̓��͗�ł͖�180/120^3 [N2���q�̐�/Angstrom^3] = ��360/120^3 [N���q�̐�/Angstrom^3]�̒l�ɂȂ�܂����B
+□ tutorial_7_gcmc_N2_only
+  120^3 [Angstrom^3]の空間にHeガスを充填した場合のシミュレーション
+  最後に出力されるデータ（log.lammpsにも同様です）
+  最初の3列はステップ数、温度[K]、圧力[bar]です。
+  最後の4列は左から順にN2分子の数、温度となっています。
+  ※ この入力例では約180/120^3 [N2分子の数/Angstrom^3] = 約360/120^3 [N原子の数/Angstrom^3]の値になりました。
 
 
-�� tutorial_7_gcmc_H2_only
-  110^3 [Angstrom^3]�̋�Ԃ�He�K�X���[�U�����ꍇ�̃V�~�����[�V����
-  �Ō�ɏo�͂����f�[�^�ilog.lammps�ɂ����l�ł��j
-  �ŏ���3��̓X�e�b�v���A���x[K]�A����[bar]�ł��B
-  �Ō��4��͍����珇��H2���q�̐��A���x�ƂȂ��Ă��܂��B
-  �� ���̓��͗�ł͖�120/110^3 [H2���q�̐�/Angstrom^3] = ��240/120^3 [H���q�̐�/Angstrom^3]�̒l�ɂȂ�܂����B
+□ tutorial_7_gcmc_H2_only
+  110^3 [Angstrom^3]の空間にHeガスを充填した場合のシミュレーション
+  最後に出力されるデータ（log.lammpsにも同様です）
+  最初の3列はステップ数、温度[K]、圧力[bar]です。
+  最後の4列は左から順にH2分子の数、温度となっています。
+  ※ この入力例では約120/110^3 [H2分子の数/Angstrom^3] = 約240/120^3 [H原子の数/Angstrom^3]の値になりました。
 
 
-�� �ߏ�z���ʂ̌v�Z��
-  ��̗�Ŏ�����ZTC�ł�He���q�̐�΋z���ʂ�He���q�Ŗ�22�ƂȂ��Ă����̂ŁA22/90*100^3 = 244444.444 [Angstrom^3]�̑̐ςƂȂ�܂��B��������H2���q��"tutorial_7_gcmc_H2_only"�̗Ⴉ��120/110^3*244444.444=22.039�ƂȂ�܂��B��΋z���ʂ̌v�Z�ł�H2���q�͖�75�ł�������A�ߏ�z���ʂł�H2���q��55-22=33�ƂȂ�܂��B�����ZTC�̗�ł��ƁA�ߏ�z���ʂ�33*2/(288*12+72+33*2)*100=1.83 wt%�ƌv�Z�ł��܂��B��΋z���ʂ�55*2/(288*12+72+55*2)*100=3.02 wt%�ƂȂ�܂��B�_���ł́APeng-Robinson���������瓾����He�̃o���N�C���̃������x�Ƒ�2�r���A���W�����瓾����׍E�e�ς��|���i�������x*�׍E�e�ρj�����̂��΋z���ʂ��獷���������l���ߏ�z���ʂƂ���i https://people.bath.ac.uk/td222/research/excess/index.html �j���@���̗p���ꂽ�肵�܂��i���̕��@�̕����G���K���g�ȋ��ߕ��ł���Ƃ͎v���Ă��܂��j�B���̂Ȃ�΁A�����ɏ��������@�ł��ƁA�덷���傫���i�����Č덷�`���������Ȃ�j�A���͂�ς����ꍇ�ɖړI�̉��x�Ɏ�������悤�ɍŒ�ȃp�����[�^�𒲐����Ȃ���΂Ȃ�Ȃ����߂ł��B�_���ɂ���ꍇ�͘_���ŏ�����Ă�����@�ɂ��邩�܂��͍���̕��@���܂߂������̌��ʂ������Ă����Ɨǂ��Ǝv���܂��i�G���[�o�[��ǉ�����̂���؂ł��j�B�����ihttps://thesis.library.caltech.edu/7198/59/Stadie_N_2013_Chapter4.pdf�j�ɂ��ƁA77 K��0.1 MPa�ɂ�����ZTC�̉ߏ�z���ʂ�2.2 wt%�ƂȂ��Ă��܂��B
+□ 過剰吸着量の計算例
+  上の例で示したZTCでのHe原子の絶対吸着量はHe原子で約22個となっていたので、22/90*100^3 = 244444.444 [Angstrom^3]の体積となります。差し引くH2分子は"tutorial_7_gcmc_H2_only"の例から120/110^3*244444.444=22.039となります。絶対吸着量の計算ではH2分子は約75個でしたから、過剰吸着量でのH2分子は55-22=33個となります。今回のZTCの例ですと、過剰吸着量は33*2/(288*12+72+33*2)*100=1.83 wt%と計算できます。絶対吸着量は55*2/(288*12+72+55*2)*100=3.02 wt%となります。論文では、Peng-Robinson方程式から得られるHeのバルク気相のモル密度と第2ビリアル係数から得られる細孔容積を掛け（モル密度*細孔容積）たものを絶対吸着量から差し引いた値を過剰吸着量とする（ https://people.bath.ac.uk/td222/research/excess/index.html ）方法が採用されたりします（その方法の方がエレガントな求め方であるとは思っています）。何故ならば、ここに書いた方法ですと、誤差が大きく（加えて誤差伝搬も多くなる）、圧力を変えた場合に目的の温度に収束するように最低なパラメータを調整しなければならないためです。論文にする場合は論文で書かれている方法にするかまたは今回の方法も含めた両方の結果を示しておくと良いと思います（エラーバーを追加するのも大切です）。文献（https://thesis.library.caltech.edu/7198/59/Stadie_N_2013_Chapter4.pdf）によると、77 Kで0.1 MPaにおけるZTCの過剰吸着量は2.2 wt%となっています。
 
 
-�� ����̗�ł́A��ʂɋz���ނƋ������ݍ�p���ɂ����ƍl������He�K�X��p���č׍E�e�ς����߂Ă��܂��B
+※ 今回の例では、一般に吸着材と強く相互作用しにくいと考えられるHeガスを用いて細孔容積を求めています。
 
 
-�� ����́A��Ԃ̑傫���Ə����ɔz�u���錴�q���̐��𒲐����āA�ړI�̉��x�Ŏ������₷���Ȃ�悤�ɂ��Ă��܂��B�}�j���A���i https://lammps.sandia.gov/doc/fix_gcmc.html �j�ɂ�in.lmp�ł�tfac_insert �̌�̐��l��ς���Ƃ̋L�q������܂��i https://lammps.sandia.gov/threads/msg64926.html �Ȃǂ��Q�l�ɂȂ�j�B
+※ 今回は、空間の大きさと初期に配置する原子数の数を調整して、目的の温度で収束しやすくなるようにしています。マニュアル（ https://lammps.sandia.gov/doc/fix_gcmc.html ）にはin.lmpでのtfac_insert の後の数値を変えるとの記述があります（ https://lammps.sandia.gov/threads/msg64926.html なども参考になる）。
 
 
-�� ��A��GCMC�̓��̓t�@�C���̐ݒ�ɂ��ẮA���ꂪ�œK�Ƃ����킯�ł͂���܂���B���̂��߁A����ɗǂ����̓t�@�C���ƂȂ�悤�ɕ׋���i�߂Ă��������B��낵�����肢�v���܂��B
+※ 一連のGCMCの入力ファイルの設定については、これが最適というわけではありません。そのため、さらに良い入力ファイルとなるように勉強を進めてください。よろしくお願い致します。
 
 
-�� �ړI�̉��x�∳�͂Ɏ��������邽�߂̏��
-  ���x�∳�͂̏�����ς����Ƃ��ɏ�肭�ړI�̉��x�Ɏ������Ȃ����Ƃ�����܂��B�ȉ��ɗD��I�ɒl��ς���Ƃ悢�p�����[�^�������܂��B
-�Evariable   temp2 index 77.0 # GCMC�Ƃ��̑O�����̒i�K�Őݒ肵�Ă��鉷�x�B�z������K�X����z���ނ̔M������Ă���̂ł��傫�Ȓl�ɂ����肷�邱�Ƃł��ł���B
-�Evariable   pres index 1.0 # 0.1 MPa (bar units)
-�Evariable   tfac index 1.0  # ���x��������ꍇ�͑傫�Ȓl�ɂ���
-�Evariable   fs   index 0.0005 # 1�X�e�b�v�̎��ԁB�r���ŃG���[���o��ꍇ�ɂ͂�菬���Ȓl�ɂ���
-�Evariable   ps   index 20 # �e�����i�����̌v�Z�Ȃǁj�ł̌v�Z���ԁB�܂��������Ȃ��ꍇ�͂��傫�Ȓl�ɂ���
-�Evariable   ps_gcmc index 30 # �e�����iGCMC�̌v�Z�j�ł̌v�Z���ԁB�܂��������Ȃ��ꍇ�͂��傫�Ȓl�ɂ���
-�E${tdamp} # ���x�̎�������肭�����Ȃ��ꍇ�͂��̒l��${fs}*100����ς���i����GCMC�̂Ƃ���j
-  fs�̒l��"variable   fs   index 0.0005"�Œ�`���Ă���B
-�Evariable   pdamp equal ${fs}*1000 # ���͂̎�������肭�����Ȃ��ꍇ�͂��̒l��ς���
-  ��������"run ${nstep}"�ł�${nstep}�𐔒l�ɂ��Ă��悢�B��̗�ł�${ps}/${fs}=20/0.0005�ȂǂƂȂ�悤�ɂ��Ă���B
-�Efix f3 gas gcmc ${nfreq} ${natom} ${nmove} 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
-  �ł�${nfreq} ${natom} ${nmove}�͂��ꂼ�ꉺ�ɋL�ڂ̍��ڂ̕����Őݒ肵�Ă��܂��B
+□ 目的の温度や圧力に収束させるための情報
+  温度や圧力の条件を変えたときに上手く目的の温度に収束しないことがあります。以下に優先的に値を変えるとよいパラメータを示します。
+・variable   temp2 index 77.0 # GCMCとその前処理の段階で設定している温度。吸着するガスから吸着材の熱が取られているのでより大きな値にしたりすることでもできる。
+・variable   pres index 1.0 # 0.1 MPa (bar units)
+・variable   tfac index 1.0  # 温度が下がる場合は大きな値にする
+・variable   fs   index 0.0005 # 1ステップの時間。途中でエラーが出る場合にはより小さな値にする
+・variable   ps   index 20 # 各処理（昇圧の計算など）での計算時間。まだ収束しない場合はより大きな値にする
+・variable   ps_gcmc index 30 # 各処理（GCMCの計算）での計算時間。まだ収束しない場合はより大きな値にする
+・${tdamp} # 温度の収束が上手くいかない場合はこの値を${fs}*100から変える（特にGCMCのところ）
+  fsの値は"variable   fs   index 0.0005"で定義している。
+・variable   pdamp equal ${fs}*1000 # 圧力の収束が上手くいかない場合はこの値を変える
+  複数ある"run ${nstep}"での${nstep}を数値にしてもよい。上の例では${ps}/${fs}=20/0.0005などとなるようにしている。
+・fix f3 gas gcmc ${nfreq} ${natom} ${nmove} 3 761341 ${temp2} ${mu} ${disp} pressure ${pres} tfac_insert ${tfac}
+  での${nfreq} ${natom} ${nmove}はそれぞれ下に記載の項目の部分で設定しています。
   variable   nfreq index 100
   variable   natom index 10
   variable   nmove index 10
-  natom�ł̐��l�̕�����ς���Ƒ}�����ꂽ��폜���ꂽ�肷�錴�q�╪�q�̍X�V�p�x���ς��B�l�������������X�V���錴�q�̐������Ȃ��Ȃ�̂Œl���ӂ���悤�ł���Ώ����Ȓl�ɂ��܂����A�����܂ł̎��Ԃ͒����Ȃ�܂��B�������Ȃ������ꍇ��ps_gcmc�̒l��傫�����Ă��������i�ڍׂ̓}�j���A�����Q�Ƃ��������j
+  natomでの数値の部分を変えると挿入されたり削除されたりする原子や分子の更新頻度が変わる。値が小さい方が更新する原子の数が少なくなるので値がふらつくようであれば小さな値にしますが、収束までの時間は長くなります。収束しなかった場合はps_gcmcの値を大きくしてください（詳細はマニュアルを参照ください）
 
 
-�� MPa(input), number of Gas, (spacing)
-���L���v�Z���Ȃ��������̂� H2_and_He.xlsx �ɂ���܂��B
+□ MPa(input), number of Gas, (spacing)
+下記を計算しなおしたものが H2_and_He.xlsx にあります。
 ----------
 He (77 K)
 
-	0.1 MPa,   ��90/100^3 [He���q�̐�/Angstrom^3], 30.0
-	0.2 MPa,  ��176/100^3 [He���q�̐�/Angstrom^3], 24.2
-	0.3 MPa,  ��250/100^3 [He���q�̐�/Angstrom^3], 22.0
-	0.5 MPa,  ��390/100^3 [He���q�̐�/Angstrom^3], 18.2
-	0.7 MPa,  ��500/100^3 [He���q�̐�/Angstrom^3], 16.3
-	1.0 MPa,  ��660/100^3 [He���q�̐�/Angstrom^3], 15.0
-	3.0 MPa, ��1270/100^3 [He���q�̐�/Angstrom^3], 11.8
-	5.0 MPa, ��1620/100^3 [He���q�̐�/Angstrom^3], 10.9
+	0.1 MPa,   約90/100^3 [He原子の数/Angstrom^3], 30.0
+	0.2 MPa,  約176/100^3 [He原子の数/Angstrom^3], 24.2
+	0.3 MPa,  約250/100^3 [He原子の数/Angstrom^3], 22.0
+	0.5 MPa,  約390/100^3 [He原子の数/Angstrom^3], 18.2
+	0.7 MPa,  約500/100^3 [He原子の数/Angstrom^3], 16.3
+	1.0 MPa,  約660/100^3 [He原子の数/Angstrom^3], 15.0
+	3.0 MPa, 約1270/100^3 [He原子の数/Angstrom^3], 11.8
+	5.0 MPa, 約1620/100^3 [He原子の数/Angstrom^3], 10.9
 	
-	10.0 MPa, ��2050/100^3 [He���q�̐�/Angstrom^3], 10.0
-	35.0 MPa, ��2740/100^3 [He���q�̐�/Angstrom^3],  9.1
-	70.0 MPa, ��3115/100^3 [He���q�̐�/Angstrom^3],  8.6
+	10.0 MPa, 約2050/100^3 [He原子の数/Angstrom^3], 10.0
+	35.0 MPa, 約2740/100^3 [He原子の数/Angstrom^3],  9.1
+	70.0 MPa, 約3115/100^3 [He原子の数/Angstrom^3],  8.6
 
 
 H2 (77 K)
 
-	0.1 MPa,  ��120/110^3 [H2���q�̐�/Angstrom^3], 29.0
-	0.2 MPa,  ��250/110^3 [H2���q�̐�/Angstrom^3], 23.0
-	0.3 MPa,  ��410/110^3 [H2���q�̐�/Angstrom^3], 19.8
-	0.5 MPa,  ��665/110^3 [H2���q�̐�/Angstrom^3], 16.4
-	0.7 MPa,  ��900/110^3 [H2���q�̐�/Angstrom^3], 14.5
-	1.0 MPa, ��1340/110^3 [H2���q�̐�/Angstrom^3], 12.95
-	3.0 MPa, ��4410/110^3 [H2���q�̐�/Angstrom^3],  8.6
-	5.0 MPa, ��8140/110^3 [H2���q�̐�/Angstrom^3],  7.0
+	0.1 MPa,  約120/110^3 [H2分子の数/Angstrom^3], 29.0
+	0.2 MPa,  約250/110^3 [H2分子の数/Angstrom^3], 23.0
+	0.3 MPa,  約410/110^3 [H2分子の数/Angstrom^3], 19.8
+	0.5 MPa,  約665/110^3 [H2分子の数/Angstrom^3], 16.4
+	0.7 MPa,  約900/110^3 [H2分子の数/Angstrom^3], 14.5
+	1.0 MPa, 約1340/110^3 [H2分子の数/Angstrom^3], 12.95
+	3.0 MPa, 約4410/110^3 [H2分子の数/Angstrom^3],  8.6
+	5.0 MPa, 約8140/110^3 [H2分子の数/Angstrom^3],  7.0
 ----------
 He (298 K)
 
-	1.0 MPa,  ��240/100^3 [He���q�̐�/Angstrom^3], 22.0
-	5.0 MPa,  ��690/100^3 [He���q�̐�/Angstrom^3], 14.3
-	10.0 MPa, ��1200/100^3 [He���q�̐�/Angstrom^3], 12.1
-	15.0 MPa, ��1450/100^3 [He���q�̐�/Angstrom^3], 11.2
-	30.0 MPa, ��1950/100^3 [He���q�̐�/Angstrom^3], 10.2
-	50.0 MPa, ��2280/100^3 [He���q�̐�/Angstrom^3],  9.8
-	70.0 MPa, ��2520/100^3 [He���q�̐�/Angstrom^3],  9.2
+	1.0 MPa,  約240/100^3 [He原子の数/Angstrom^3], 22.0
+	5.0 MPa,  約690/100^3 [He原子の数/Angstrom^3], 14.3
+	10.0 MPa, 約1200/100^3 [He原子の数/Angstrom^3], 12.1
+	15.0 MPa, 約1450/100^3 [He原子の数/Angstrom^3], 11.2
+	30.0 MPa, 約1950/100^3 [He原子の数/Angstrom^3], 10.2
+	50.0 MPa, 約2280/100^3 [He原子の数/Angstrom^3],  9.8
+	70.0 MPa, 約2520/100^3 [He原子の数/Angstrom^3],  9.2
 
 
 H2 (298 K)
 
-	1.0 MPa,  ��320/110^3 [H2���q�̐�/Angstrom^3], 21.7
-	5.0 MPa, ��1525/110^3 [H2���q�̐�/Angstrom^3], 12.4
-	10.0 MPa, ��3000/110^3 [H2���q�̐�/Angstrom^3],  9.8
-	15.0 MPa, ��4200/110^3 [H2���q�̐�/Angstrom^3],  8.6
-	30.0 MPa, ��7350/110^3 [H2���q�̐�/Angstrom^3],  7.2
-	50.0 MPa,��10500/110^3 [H2���q�̐�/Angstrom^3],  6.5
-	70.0 MPa,��12700/110^3 [H2���q�̐�/Angstrom^3],  6.0
+	1.0 MPa,  約320/110^3 [H2分子の数/Angstrom^3], 21.7
+	5.0 MPa, 約1525/110^3 [H2分子の数/Angstrom^3], 12.4
+	10.0 MPa, 約3000/110^3 [H2分子の数/Angstrom^3],  9.8
+	15.0 MPa, 約4200/110^3 [H2分子の数/Angstrom^3],  8.6
+	30.0 MPa, 約7350/110^3 [H2分子の数/Angstrom^3],  7.2
+	50.0 MPa,約10500/110^3 [H2分子の数/Angstrom^3],  6.5
+	70.0 MPa,約12700/110^3 [H2分子の数/Angstrom^3],  6.0
 	
 ----------
-He�͌��q�̌��AH2�͕��q�̌��Ƃ��ċL��
+Heは原子の個数、H2は分子の個数として記載
 
-	ZTC ( 0.1 MPa,  77 K): He 22��, H2  55��, excess 1.83 wt.%, absolute 3.02 wt.%
-	ZTC ( 0.5 MPa,  77 K): He 22��, H2  77��, excess 2.69 wt.%, absolute 4.18 wt.%
-	ZTC ( 3.0 MPa,  77 K): He 23��, H2 116��, excess 3.07 wt.%, absolute 6.17 wt.%
-	ZTC ( 5.0 MPa,  77 K): He 25��, H2 127��, excess 4.23 wt.%, absolute 6.72 wt.%
+	ZTC ( 0.1 MPa,  77 K): He 22個, H2  55個, excess 1.83 wt.%, absolute 3.02 wt.%
+	ZTC ( 0.5 MPa,  77 K): He 22個, H2  77個, excess 2.69 wt.%, absolute 4.18 wt.%
+	ZTC ( 3.0 MPa,  77 K): He 23個, H2 116個, excess 3.07 wt.%, absolute 6.17 wt.%
+	ZTC ( 5.0 MPa,  77 K): He 25個, H2 127個, excess 4.23 wt.%, absolute 6.72 wt.%
 	
-	ZTC ( 5.0 MPa, 298 K): He  8��, H2  17��, excess 0.21 wt.%, absolute 0.95 wt.%
-	ZTC (15.0 MPa, 298 K): He 12��, H2  35��, excess 0.50 wt.%, absolute 1.95 wt.%
-	ZTC (30.0 MPa, 298 K): He 15��, H2  50��, excess 0.42 wt.%, absolute 2.77 wt.%
-	ZTC (50.0 MPa, 298 K): He 17��, H2  65��, excess 0.35 wt.%, absolute 3.55 wt.%
-	ZTC (70.0 MPa, 298 K): He 18��, H2  75��, excess 0.38 wt.%, absolute 4.10 wt.%
+	ZTC ( 5.0 MPa, 298 K): He  8個, H2  17個, excess 0.21 wt.%, absolute 0.95 wt.%
+	ZTC (15.0 MPa, 298 K): He 12個, H2  35個, excess 0.50 wt.%, absolute 1.95 wt.%
+	ZTC (30.0 MPa, 298 K): He 15個, H2  50個, excess 0.42 wt.%, absolute 2.77 wt.%
+	ZTC (50.0 MPa, 298 K): He 17個, H2  65個, excess 0.35 wt.%, absolute 3.55 wt.%
+	ZTC (70.0 MPa, 298 K): He 18個, H2  75個, excess 0.38 wt.%, absolute 4.10 wt.%
 	
 --------------------------------------------------
-�� ���q����̋��Ƌߎ����Ȃ��ꍇ
+■ 分子を一つの球と近似しない場合
 
 
-�� tutorial_7_gcmc_CO2_v2
-  �g�����͂���܂łƓ��l�ł��B
+□ tutorial_7_gcmc_CO2_v2
+  使い方はこれまでと同様です。
 
 
-�� tutorial_7_gcmc_H2O_v2
-  �g�����͂���܂łƓ��l�ł��B
+□ tutorial_7_gcmc_H2O_v2
+  使い方はこれまでと同様です。
 
 
-�� tutorial_7_gcmc_N2_v2
-  �g�����͂���܂łƓ��l�ł��B
+□ tutorial_7_gcmc_N2_v2
+  使い方はこれまでと同様です。
 
 
-�� tutorial_7_gcmc_H2_v2
-  �g�����͂���܂łƓ��l�ł��B
+□ tutorial_7_gcmc_H2_v2
+  使い方はこれまでと同様です。
 
 
-�� �����܂ł����݂̎��̎��͂ō쐬����Ȃ�΂Ƃ��������ł̎Q�l��ł��B�p�����[�^���œK�����Ă��܂���B���ꂪ�œK�Ƃ����킯�ł͂���܂���̂ŁA���ǂ����̓t�@�C���ƂȂ�悤�Ƀp�����[�^�𒲐߂����肵�ĕ׋���i�߂Ă��������B��낵�����肢�v���܂��B
+※ あくまでも現在の私の実力で作成するならばという条件での参考例です。パラメータも最適化していません。これが最適というわけではありませんので、より良い入力ファイルとなるようにパラメータを調節したりして勉強を進めてください。よろしくお願い致します。
 
 ------------------------------------------------------------------------------
-�� COMB (Charge-Optimized Many-Body) potential
+■ COMB (Charge-Optimized Many-Body) potential
 
 
-�� tutorial_8_comb3
+□ tutorial_8_comb3
 
 
-�� tutorial_8_comb3_gcmc_He
+□ tutorial_8_comb3_gcmc_He
 
 
-�� tutorial_8_comb3_gcmc_He_cho
+□ tutorial_8_comb3_gcmc_He_cho
 
 
-�� �F�X�Ǝ����Ă݂܂������A���܂̎��̎��́i2019�N���j�ł́Areaxff��lj�̃|�e���V�����������ŗp����gcmc�̓��̓t�@�C������邱�Ƃ��ł��܂���ł����B���̂��߁AC-H-O�p�̂��߂�COMB�|�e���V������p�������̓t�@�C���̗���쐬���Ă݂܂����B
+※ 色々と試してみましたが、いまの私の実力（2019年時）では、reaxffとljのポテンシャルを混合で用いたgcmcの入力ファイルを作ることができませんでした。そのため、C-H-O用のためにCOMBポテンシャルを用いた入力ファイルの例を作成してみました。
 
 ------------------------------------------------------------------------------
 
@@ -511,6 +511,18 @@ ZZZZZ is simulation time [ps] for GCMC part. (type integer)
 - H. Zhong et al., Angew. Chem. Int. Ed. 53 (2014) 14235-14239.: https://doi.org/10.1002/anie.201408990
 - Z. Lin et al., Phys. Chem. Chem. Phys., 14 (2012) 3381-3387.: DOI: 10.1039/C2CP00032F 
 - H. Kim et al., Phys. Chem. Chem. Phys., 13 (2011) 17505-17510.
+
+
+## hybrid (https://docs.lammps.org/pair_tersoff.html)
+```
+pair_style  hybrid/overlay rebo tersoff shift -0.00407 ilp/graphene/hbn 16.0 coul/shield 16.0
+pair_coeff  * * rebo              CH.rebo     NULL NULL C
+pair_coeff  * * tersoff           BNC.tersoff B    N    NULL
+pair_coeff  * * ilp/graphene/hbn  BNCH.ILP    B    N    C
+pair_coeff  1 1 coul/shield 0.70
+pair_coeff  1 2 coul/shield 0.695
+pair_coeff  2 2 coul/shield 0.69
+```
 
 
 ## Activation energy (TS - Reactant)
