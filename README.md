@@ -523,7 +523,8 @@ pair_coeff  1 1 coul/shield 0.70
 pair_coeff  1 2 coul/shield 0.695
 pair_coeff  2 2 coul/shield 0.69
 ```
-
+- (Mandelli_1) D. Mandelli, W. Ouyang, M. Urbakh, and O. Hod, ACS Nano 13(7), 7603-7609 (2019).
+- (Ouyang_1) W. Ouyang et al., J. Chem. Theory Comput. 16(1), 666-676 (2020).
 
 ## Activation energy (TS - Reactant)
 - About 10 kcal/mol: Reacts at room temperature
