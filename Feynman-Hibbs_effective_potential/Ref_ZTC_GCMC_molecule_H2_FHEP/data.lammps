@@ -1,7 +1,7 @@
 # LAMMPS data file written by OVITO Basic 3.8.4
 
 360 atoms
-3 atom types
+3 atom types # Add + 1 for H2.txt
 
 0.0 24.07 xlo xhi
 0.0 24.07 ylo yhi
@@ -11,9 +11,9 @@ Masses
 
 1 12.0107  # C
 2 1.00794  # H
-3 1.00794  # H
+3 1.00794  # H for H2.txt
 
-Atoms  # full
+Atoms  # full for GCMC
 
 1 1 1 0.0 17.766067 14.461256 21.22974
 2 1 1 0.0 15.626244 11.748567 3.17724

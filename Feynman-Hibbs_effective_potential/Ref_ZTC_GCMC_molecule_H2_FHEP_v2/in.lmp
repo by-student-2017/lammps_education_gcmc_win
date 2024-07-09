@@ -24,7 +24,7 @@ variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans) for molecular (2 at
 # vib = about 0.0 at R.T. for molecular (2 atoms)
 
 #-------------------- Atom & Lattice description ----------------------------------------
-read_data       data.lammps
+read_data       data.lammps 
 
 replicate 1 1 1
 
@@ -73,13 +73,7 @@ pair_coeff * 3 coul/cut
 # Common settings (for case 1 or case 2)
 
 bond_style      morse # bond for N2 molecules
-bond_coeff      1       0       1.0       1.0    # dummy
-bond_coeff      2       0       1.0       1.0    # dummy
-bond_coeff      3   4.750162    1.93      0.741  # H2
-
-delete_bonds all bond  1*2 remove
-delete_bonds all angle 1*2 remove
-delete_bonds all dihedral 1*3 remove
+bond_coeff      1   4.750162    1.93      0.74   # H2
 #-------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------
@@ -104,7 +98,7 @@ delete_bonds all dihedral 1*3 remove
 #-------------------- Settings -----------------------------------------------------------
 reset_timestep 0
 
-timestep 0.0005  # 0.5 [fs] (Recommend 0.1-1.0 [fs]), sets the timestep for subsequent simulations
+timestep 0.0001  # 0.1 [fs] (Recommend 0.1-1.0 [fs]), sets the timestep for subsequent simulations
 
 variable        ngas equal count(gas)/${atoms_of_gas} # The number of molecules (e.g., H2, N2, CO2, H2O, He, Ar, Kr, etc)
 
@@ -143,6 +137,6 @@ fix_modify f1 temp mdtemp
 # GCMC
 fix f3 gas gcmc ${Nout} ${natom} ${nmove} 0 12345 ${Tfin} ${mu} ${disp} mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
 
-run             20000 # 10 ps
+run             100000 # 10 ps
 
 #-------------------- End ----------------------------------------------------------------
