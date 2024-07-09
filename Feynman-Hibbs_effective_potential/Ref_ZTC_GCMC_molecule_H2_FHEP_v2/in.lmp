@@ -1,0 +1,148 @@
+#-------------------- Initialization -----------------------------------------------------
+clear
+echo            both    # echoes each input script command to both log file and screen
+#-----------------------------------------------------------------------------------------
+units           metal   # determines units of all quantities used in the input file 
+atom_style      full
+boundary        p p p   # periodic boundary condition
+#-----------------------------------------------------------------------------------------
+variable Tini equal 273+30   # [K] (Initial temperature)
+variable Tfin equal 273+30   # [K] (Annealing temperature)
+
+variable Pfin index   13.0   # [bar] (Note 1.0 bar = 0.1 MPa)
+
+variable Nout equal    100   # every 100 time steps to the specified file
+
+variable   natom index 5
+variable   nmove index 5
+variable   mu    index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
+variable   disp  index 0.01
+
+variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans) for molecular (2 atoms)
+# trans = 3, rot = 2 (line), rot = 3 (non-line), vib = 3n-5 (line), vib = 3n-6 (non-line)
+# total = 3n = 3+2+3n-5 = 3+3+3n-6
+# vib = about 0.0 at R.T. for molecular (2 atoms)
+
+#-------------------- Atom & Lattice description ----------------------------------------
+read_data       data.lammps
+
+replicate 1 1 1
+
+#mass 1 12.0107  # C
+#mass 2 1.00794  # H
+#mass 3 1.00794  # H
+
+molecule        my_one_gas ./molecular_files/H2.txt
+group           gas type 3
+variable        atoms_of_gas equal 2 # The number of atoms per gas molecule
+
+variable elem string "C H H2" # specifies the potential file used
+
+# set overlap_cutoff
+variable overlap_cutoff_value equal 1.0
+
+#-------------------- Force field --------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# case 1, Lennard-Jones (LJ) potential + Coulomb interaction (in this case, 0 charges)
+#pair_style hybrid airebo 3.0 1 0 lj/cut/coul/long 14
+#pair_coeff * * airebo CH.airebo C H NULL
+
+# H2 case
+#pair_coeff 1 3 lj/cut/coul/long 0.001981 3.075 # C-H (H2)
+#pair_coeff 2 3 lj/cut/coul/long 0.000862 2.720 # H-H (H2)
+#pair_coeff 3 3 lj/cut/coul/long 0.000862 2.720 # H-H (H2)
+
+#kspace_style    ewald 1.0e-5
+#-------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# case 2, Feynman-Hibbs effective (FHE) potential + Coulomb interaction (in this case, 0 charges)
+pair_style hybrid/overlay airebo 3.0 1 0 table linear 1000 ewald coul/cut 14
+pair_coeff * * airebo ./potentials/CH.airebo C H NULL
+
+# H2 case
+pair_coeff 1 3 table  ./potentials/fhe_C-H_303K.txt ENTRY # C-H (H2)
+pair_coeff 2 3 table  ./potentials/fhe_H-H_303K.txt ENTRY # H-H (H2)
+pair_coeff 3 3 table  ./potentials/fhe_H-H_303K.txt ENTRY # H-H (H2)
+
+pair_coeff * 3 coul/cut
+#-------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# Common settings (for case 1 or case 2)
+
+bond_style      morse # bond for N2 molecules
+bond_coeff      1       0       1.0       1.0    # dummy
+bond_coeff      2       0       1.0       1.0    # dummy
+bond_coeff      3   4.750162    1.93      0.741  # H2
+
+delete_bonds all bond  1*2 remove
+delete_bonds all angle 1*2 remove
+delete_bonds all dihedral 1*3 remove
+#-------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# QEq method (Not recommend in this condition)
+#fix fq all qeq/slater 5 10 1.0e-6 100 qfile # alpha 0.2
+#fix fq all qeq/point 1 10 1.0e-6 200 qfile
+#fix fq all qeq/dynamic 1 12 1.0e-3 100 qfile
+#-------------------------------------------------------------------------
+
+#-------------------- Energy Minimization (failed) ---------------------------------------
+# Note: ERROR: Fix gcmc region extends outside simulation box (../fix_gcmc.cpp:486)
+# 0 [K], structure optimization
+#fix             emin all box/relax x 0.0 y 0.0 z 0.0
+#fix             emin all box/relax aniso 0.0
+#fix             emin all box/relax iso ${Pfin}
+#min_style       cg
+#min_modify      dmax 0.2
+#min_modify      line quadratic
+#minimize        1.0e-4 1.0e-6 100 1000
+#unfix           emin
+
+#-------------------- Settings -----------------------------------------------------------
+reset_timestep 0
+
+timestep 0.0005  # 0.5 [fs] (Recommend 0.1-1.0 [fs]), sets the timestep for subsequent simulations
+
+variable        ngas equal count(gas)/${atoms_of_gas} # The number of molecules (e.g., H2, N2, CO2, H2O, He, Ar, Kr, etc)
+
+variable        wtp  equal mass(gas)/mass(all)*100 # Mass Percent Concentration, wt.% [dimensionless] (Absolute, Not excess)
+
+#variable        molc equal (v_ngas/6.022e23)/(vol*1e-30) # molar concentration [mol/m^3] (Absolute, Not excess)
+variable        molL equal (v_ngas/6.022e23)/(vol*1e-27) # molar concentration [mol/L] = [mol/dm^3] (Absolute, Not excess)
+
+variable        mc   equal (mass(gas)/6.022e23/1000)/(vol*1e-30) # Mass Concentration [kg/m^3] (Absolute, Not excess)
+
+thermo ${Nout}   # computes and prints thermodynamic 
+thermo_style custom step temp vol press etotal v_ngas v_wtp v_molL v_mc # specifies content of thermodynamic data to be printed in screen
+
+#---------- output file settings --------------------------------------
+dump            d1 all cfg ${Nout} cfg/run.*.cfg mass type xs ys zs id type vx vy vz fx fy fz
+dump_modify     d1 element ${elem}
+#dump_modify     d1 sort id
+#----------------------------------------------------------------------
+
+velocity all create ${Tini} 12345 mom yes rot no # sets the velocity of a group of atoms
+
+#-------------------- Run the simulation -------------------------------------------------
+compute mdtemp all temp
+compute_modify mdtemp dynamic/dof yes
+
+## Equilibrium system, calculation settings
+#fix f1 all nvt temp ${Tini} ${Tfin} $(20*dt)
+fix f1 all npt temp ${Tini} ${Tfin} $(20*dt) iso 0.0 ${Pfin} $(200*dt)
+fix_modify f1 temp mdtemp
+
+# non-equilibrium system, calculation settings
+#fix f1 all nve
+#fix f2 all langevin ${Tini} ${Tfin} $(20*dt) 12345
+#fix_modify f2 temp mdtemp
+
+# GCMC
+fix f3 gas gcmc ${Nout} ${natom} ${nmove} 0 12345 ${Tfin} ${mu} ${disp} mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+
+run             20000 # 10 ps
+
+#-------------------- End ----------------------------------------------------------------

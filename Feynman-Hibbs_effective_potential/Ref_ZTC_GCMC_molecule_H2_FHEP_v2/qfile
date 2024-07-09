@@ -1,0 +1,18 @@
+#
+# Lammps qfile data base from OpenBabel (https://github.com/openbabel/openbabel/blob/master/data/qeq.txt)
+#
+# Parameters:
+#
+#   Elt: Element symbol
+#   chi = Eneg: Atomic electronegativity (Volts) * 2 (Note: Actually, chi = electronegativity in energy units = Eneg)
+#   eta = Hard: Atomic (chemical) hardness (Volts/e) (Note: Actually, eta = self-Coulomb potential in energy units = Hard/2)
+#   gamma = shielded Coulomb constant defined by ReaxFF force field in distance units
+#     Radius: screening radius (Angstrom)
+#   zeta = Slater type orbital exponent defined by the Streitz-Mintmire potential in reverse distance units
+#     Parameters: (Slater exponent in Bohr as 0.4913(2n+1)/2R)
+#   qcore = charge of the nucleus defined by the Streitz-Mintmire potential potential in charge units
+# Elt	chi(Xi*2)	eta(Hardness)	gamma(Radius)	zeta(SlaterExp)	qcore(n)	GaussianExp
+# Elt  chi      eta   gamma  zeta  qcore
+1	10.686	10.126	1.1346	0.85634	2	# C
+2	9.056	13.8904	0.8271	1.05115	1	# H
+3	9.056	13.8904	0.8271	1.05115	1	# H

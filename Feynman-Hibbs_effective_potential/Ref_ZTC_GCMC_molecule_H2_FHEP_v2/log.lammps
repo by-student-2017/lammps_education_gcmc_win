@@ -1,0 +1,409 @@
+LAMMPS (22 Dec 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 23Jun2022\plugins
+Loaded 0 plugins from C:\Program Files\LAMMPS 64-bit 23Jun2022-MPI\plugins
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 22Dec2022-MSMPI\plugins
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 28Mar2023-MPI\plugins
+#-------------------- Initialization -----------------------------------------------------
+clear
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 23Jun2022\plugins
+Loaded 0 plugins from C:\Program Files\LAMMPS 64-bit 23Jun2022-MPI\plugins
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 22Dec2022-MSMPI\plugins
+Loaded 1 plugins from C:\Program Files\LAMMPS 64-bit 28Mar2023-MPI\plugins
+echo            both    # echoes each input script command to both log file and screen
+#-----------------------------------------------------------------------------------------
+units           metal   # determines units of all quantities used in the input file
+atom_style      full
+boundary        p p p   # periodic boundary condition
+#-----------------------------------------------------------------------------------------
+variable Tini equal 273+30   # [K] (Initial temperature)
+variable Tfin equal 273+30   # [K] (Annealing temperature)
+
+variable Pfin index   13.0   # [bar] (Note 1.0 bar = 0.1 MPa)
+
+variable Nout equal    100   # every 100 time steps to the specified file
+
+variable   natom index 5
+variable   nmove index 5
+variable   mu    index -5.46 # Fermi Energy (eV) from MOPAC2016 PM7
+variable   disp  index 0.01
+
+variable   tfac  equal 5.0/3.0 # (3 trans + 2 rot)/(3 trans) for molecular (2 atoms)
+# trans = 3, rot = 2 (line), rot = 3 (non-line), vib = 3n-5 (line), vib = 3n-6 (non-line)
+# total = 3n = 3+2+3n-5 = 3+3+3n-6
+# vib = about 0.0 at R.T. for molecular (2 atoms)
+
+#-------------------- Atom & Lattice description ----------------------------------------
+read_data       data.lammps
+Reading data file ...
+  orthogonal box = (0 0 0) to (24.07 24.07 24.07)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  360 atoms
+  scanning bonds ...
+  3 = max bonds/atom
+  scanning angles ...
+  3 = max angles/atom
+  scanning dihedrals ...
+  8 = max dihedrals/atom
+  reading bonds ...
+  432 bonds
+  reading angles ...
+  741 angles
+  reading dihedrals ...
+  1272 dihedrals
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0       
+  special bond factors coul:  0        0        0       
+     3 = max # of 1-2 neighbors
+     6 = max # of 1-3 neighbors
+    18 = max # of 1-4 neighbors
+    18 = max # of special neighbors
+  special bonds CPU = 0.000 seconds
+  read_data CPU = 0.008 seconds
+
+replicate 1 1 1
+Replication is creating a 1x1x1 = 1 times larger system...
+  orthogonal box = (0 0 0) to (24.07 24.07 24.07)
+  1 by 1 by 1 MPI processor grid
+  360 atoms
+  432 bonds
+  741 angles
+  1272 dihedrals
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0       
+  special bond factors coul:  0        0        0       
+     3 = max # of 1-2 neighbors
+     6 = max # of 1-3 neighbors
+    18 = max # of 1-4 neighbors
+    18 = max # of special neighbors
+  special bonds CPU = 0.000 seconds
+  replicate CPU = 0.001 seconds
+
+#mass 1 12.0107  # C
+#mass 2 1.00794  # H
+#mass 3 1.00794  # H
+
+molecule        my_one_gas ./molecular_files/H2.txt
+Read molecule template my_one_gas:
+  1 molecules
+  0 fragments
+  2 atoms with max type 3
+  1 bonds with max type 3
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+group           gas type 3
+0 atoms in group gas
+variable        atoms_of_gas equal 2 # The number of atoms per gas molecule
+
+variable elem string "C H H2" # specifies the potential file used
+
+# set overlap_cutoff
+variable overlap_cutoff_value equal 1.0
+
+#-------------------- Force field --------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# case 1, Lennard-Jones (LJ) potential + Coulomb interaction (in this case, 0 charges)
+#pair_style hybrid airebo 3.0 1 0 lj/cut/coul/long 14
+#pair_coeff * * airebo CH.airebo C H NULL
+
+# H2 case
+#pair_coeff 1 3 lj/cut/coul/long 0.001981 3.075 # C-H (H2)
+#pair_coeff 2 3 lj/cut/coul/long 0.000862 2.720 # H-H (H2)
+#pair_coeff 3 3 lj/cut/coul/long 0.000862 2.720 # H-H (H2)
+
+#kspace_style    ewald 1.0e-5
+#-------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# case 2, Feynman-Hibbs effective (FHE) potential + Coulomb interaction (in this case, 0 charges)
+pair_style hybrid/overlay airebo 3.0 1 0 table linear 1000 ewald coul/cut 14
+pair_coeff * * airebo ./potentials/CH.airebo C H NULL
+Reading airebo potential file ./potentials/CH.airebo with DATE: 2011-10-25
+
+# H2 case
+pair_coeff 1 3 table  ./potentials/fhe_C-H_303K.txt ENTRY # C-H (H2)
+Reading pair table potential file ./potentials/fhe_C-H_303K.txt with DATE: 2024-07-07
+WARNING: 1162 of 1200 force values in table ENTRY are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
+pair_coeff 2 3 table  ./potentials/fhe_H-H_303K.txt ENTRY # H-H (H2)
+Reading pair table potential file ./potentials/fhe_H-H_303K.txt with DATE: 2024-07-07
+WARNING: 1148 of 1200 force values in table ENTRY are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
+pair_coeff 3 3 table  ./potentials/fhe_H-H_303K.txt ENTRY # H-H (H2)
+Reading pair table potential file ./potentials/fhe_H-H_303K.txt with DATE: 2024-07-07
+WARNING: 1148 of 1200 force values in table ENTRY are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
+
+pair_coeff * 3 coul/cut
+#-------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# Common settings (for case 1 or case 2)
+
+bond_style      morse # bond for N2 molecules
+bond_coeff      1       0       1.0       1.0    # dummy
+bond_coeff      2       0       1.0       1.0    # dummy
+bond_coeff      3   4.750162    1.93      0.741  # H2
+
+delete_bonds all bond  1*2 remove
+System init for delete_bonds ...
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:245)
+WARNING: Angles are defined but no angle style is set (src/force.cpp:198)
+WARNING: Likewise 1-3 special neighbor interactions != 1.0 (src/force.cpp:200)
+WARNING: Dihedrals are defined but no dihedral style is set (src/force.cpp:203)
+WARNING: Likewise 1-4 special neighbor interactions != 1.0 (src/force.cpp:205)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 4 4
+  6 neighbor lists, perpetual/occasional/extra = 6 0 0
+  (1) pair airebo, perpetual, skip from (4)
+      attributes: full, newton on, ghost, cut 12.2
+      pair build: skip/ghost
+      stencil: none
+      bin: none
+  (2) pair table, perpetual, trim from (3)
+      attributes: half, newton on, cut 14.99
+      pair build: trim
+      stencil: none
+      bin: none
+  (3) pair coul/cut, perpetual, skip from (6)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (4) neighbor class addition, perpetual
+      attributes: full, newton on, ghost, cut 12.2
+      pair build: full/bin/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+  (5) neighbor class addition, perpetual, trim from (6)
+      attributes: half, newton on, cut 14.99
+      pair build: trim
+      stencil: none
+      bin: none
+  (6) neighbor class addition, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Deleting bonds ...
+  0 total bonds, 0 turned on, 0 turned off
+  741 total angles, 741 turned on, 0 turned off
+  1272 total dihedrals, 1272 turned on, 0 turned off
+  0 total impropers, 0 turned on, 0 turned off
+delete_bonds all angle 1*2 remove
+System init for delete_bonds ...
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:245)
+WARNING: Angles are defined but no angle style is set (src/force.cpp:198)
+WARNING: Likewise 1-3 special neighbor interactions != 1.0 (src/force.cpp:200)
+WARNING: Dihedrals are defined but no dihedral style is set (src/force.cpp:203)
+WARNING: Likewise 1-4 special neighbor interactions != 1.0 (src/force.cpp:205)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 4 4
+  5 neighbor lists, perpetual/occasional/extra = 5 0 0
+  (1) pair airebo, perpetual, skip from (4)
+      attributes: full, newton on, ghost
+      pair build: skip/ghost
+      stencil: none
+      bin: none
+  (2) pair table, perpetual, skip from (5)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) pair coul/cut, perpetual, copy from (2)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+  (4) neighbor class addition, perpetual
+      attributes: full, newton on, ghost
+      pair build: full/bin/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+  (5) neighbor class addition, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Deleting bonds ...
+  0 total bonds, 0 turned on, 0 turned off
+  0 total angles, 0 turned on, 0 turned off
+  1272 total dihedrals, 1272 turned on, 0 turned off
+  0 total impropers, 0 turned on, 0 turned off
+delete_bonds all dihedral 1*3 remove
+System init for delete_bonds ...
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:245)
+WARNING: Dihedrals are defined but no dihedral style is set (src/force.cpp:203)
+WARNING: Likewise 1-4 special neighbor interactions != 1.0 (src/force.cpp:205)
+Deleting bonds ...
+  0 total bonds, 0 turned on, 0 turned off
+  0 total angles, 0 turned on, 0 turned off
+  0 total dihedrals, 0 turned on, 0 turned off
+  0 total impropers, 0 turned on, 0 turned off
+#-------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# QEq method (Not recommend in this condition)
+#fix fq all qeq/slater 5 10 1.0e-6 100 qfile # alpha 0.2
+#fix fq all qeq/point 1 10 1.0e-6 200 qfile
+#fix fq all qeq/dynamic 1 12 1.0e-3 100 qfile
+#-------------------------------------------------------------------------
+
+#-------------------- Energy Minimization (failed) ---------------------------------------
+# Note: ERROR: Fix gcmc region extends outside simulation box (../fix_gcmc.cpp:486)
+# 0 [K], structure optimization
+#fix             emin all box/relax x 0.0 y 0.0 z 0.0
+#fix             emin all box/relax aniso 0.0
+#fix             emin all box/relax iso ${Pfin}
+#min_style       cg
+#min_modify      dmax 0.2
+#min_modify      line quadratic
+#minimize        1.0e-4 1.0e-6 100 1000
+#unfix           emin
+
+#-------------------- Settings -----------------------------------------------------------
+reset_timestep 0
+
+timestep 0.0005  # 0.5 [fs] (Recommend 0.1-1.0 [fs]), sets the timestep for subsequent simulations
+
+variable        ngas equal count(gas)/${atoms_of_gas} # The number of molecules (e.g., H2, N2, CO2, H2O, He, Ar, Kr, etc)
+variable        ngas equal count(gas)/2 
+
+variable        wtp  equal mass(gas)/mass(all)*100 # Mass Percent Concentration, wt.% [dimensionless] (Absolute, Not excess)
+
+#variable        molc equal (v_ngas/6.022e23)/(vol*1e-30) # molar concentration [mol/m^3] (Absolute, Not excess)
+variable        molL equal (v_ngas/6.022e23)/(vol*1e-27) # molar concentration [mol/L] = [mol/dm^3] (Absolute, Not excess)
+
+variable        mc   equal (mass(gas)/6.022e23/1000)/(vol*1e-30) # Mass Concentration [kg/m^3] (Absolute, Not excess)
+
+thermo ${Nout}   # computes and prints thermodynamic
+thermo 100   
+thermo_style custom step temp vol press etotal v_ngas v_wtp v_molL v_mc # specifies content of thermodynamic data to be printed in screen
+
+#---------- output file settings --------------------------------------
+dump            d1 all cfg ${Nout} cfg/run.*.cfg mass type xs ys zs id type vx vy vz fx fy fz
+dump            d1 all cfg 100 cfg/run.*.cfg mass type xs ys zs id type vx vy vz fx fy fz
+dump_modify     d1 element ${elem}
+dump_modify     d1 element C H H2
+#dump_modify     d1 sort id
+#----------------------------------------------------------------------
+
+velocity all create ${Tini} 12345 mom yes rot no # sets the velocity of a group of atoms
+velocity all create 303 12345 mom yes rot no 
+
+#-------------------- Run the simulation -------------------------------------------------
+compute mdtemp all temp
+compute_modify mdtemp dynamic/dof yes
+
+## Equilibrium system, calculation settings
+#fix f1 all nvt temp ${Tini} ${Tfin} $(20*dt)
+fix f1 all npt temp ${Tini} ${Tfin} $(20*dt) iso 0.0 ${Pfin} $(200*dt)
+fix f1 all npt temp 303 ${Tfin} $(20*dt) iso 0.0 ${Pfin} $(200*dt)
+fix f1 all npt temp 303 303 $(20*dt) iso 0.0 ${Pfin} $(200*dt)
+fix f1 all npt temp 303 303 0.010000000000000000208 iso 0.0 ${Pfin} $(200*dt)
+fix f1 all npt temp 303 303 0.010000000000000000208 iso 0.0 13.0 $(200*dt)
+fix f1 all npt temp 303 303 0.010000000000000000208 iso 0.0 13.0 0.10000000000000000555
+fix_modify f1 temp mdtemp
+
+# non-equilibrium system, calculation settings
+#fix f1 all nve
+#fix f2 all langevin ${Tini} ${Tfin} $(20*dt) 12345
+#fix_modify f2 temp mdtemp
+
+# GCMC
+fix f3 gas gcmc ${Nout} ${natom} ${nmove} 0 12345 ${Tfin} ${mu} ${disp} mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 ${natom} ${nmove} 0 12345 ${Tfin} ${mu} ${disp} mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 5 ${nmove} 0 12345 ${Tfin} ${mu} ${disp} mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 5 5 0 12345 ${Tfin} ${mu} ${disp} mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 5 5 0 12345 303 ${mu} ${disp} mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 5 5 0 12345 303 -5.46 ${disp} mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 5 5 0 12345 303 -5.46 0.01 mol my_one_gas pressure ${Pfin} tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 5 5 0 12345 303 -5.46 0.01 mol my_one_gas pressure 13.0 tfac_insert ${tfac} full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 5 5 0 12345 303 -5.46 0.01 mol my_one_gas pressure 13.0 tfac_insert 1.66666666666667 full_energy overlap_cutoff ${overlap_cutoff_value}
+fix f3 gas gcmc 100 5 5 0 12345 303 -5.46 0.01 mol my_one_gas pressure 13.0 tfac_insert 1.66666666666667 full_energy overlap_cutoff 1
+
+run             20000 # 10 ps
+0 atoms in group FixGCMC:gcmc_exclusion_group:f3
+0 atoms in group FixGCMC:rotation_gas_atoms:f3
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+   Step          Temp          Volume         Press          TotEng         v_ngas         v_wtp          v_molL          v_mc     
+         0   303            13945.313     -4664.7643     -2288.3745      0              0              0              0            
+       100   325.33986      13971.43      -2382.1443     -2288.5322      0              0              0              0            
+       200   287.85327      14265.403     -2807.8141     -2290.0227      0              0              0              0            
+       300   306.92386      14056.28       254.62408     -2289.2395      3              0.17094831     0.35441336     0.71445481   
+       400   319.37812      14026.034     -114.51917     -2289.1461      1              0.057047785    0.11839255     0.23866517   
+       500   284.10094      13511.802      681.51963     -2290.0182      3              0.17094831     0.368695       0.74324487   
+       600   324.58911      13390.964      183.59943     -2291.0195      2              0.11403052     0.24801469     0.49996785   
+       700   269.87084      12917.877      513.96357     -2291.2949      3              0.17094831     0.38564647     0.777417     
+       800   314.73329      12738.735      1422.7841     -2290.1275      2              0.11403052     0.26071315     0.52556642   
+       900   295.69329      12426.831      114.54155     -2291.8125      3              0.17094831     0.40088527     0.8081366    
+      1000   331.14175      12400.689      1276.9546     -2290.2718      2              0.11403052     0.26782025     0.53989349   
+      1100   316.63251      12236.186     -701.53481     -2290.4385      3              0.17094831     0.40713123     0.82072771   
+      1200   305.11433      11807.588     -347.45473     -2292.1043      2              0.11403052     0.281273       0.56701261   
+      1300   328.55913      11282.961     -249.48744     -2292.6933      3              0.17094831     0.44152715     0.89006575   
+      1400   300.51104      10740.861     -428.80538     -2293.7581      0              0              0              0            
+      1500   315.47896      10356.445      45.666915     -2293.8502      1              0.057047785    0.16034246     0.32323116   
+      1600   296.17039      9915.1606      248.77915     -2295.7503      4              0.22780127     0.66991467     1.3504676    
+      1700   305.80614      9654.9447      621.12323     -2295.9495      4              0.22780127     0.68796992     1.3868648    
+      1800   291.77282      9477.5699     -1720.5498     -2294.4524      4              0.22780127     0.70084543     1.4128203    
+      1900   304.7256       9565.587       901.2315      -2292.2111      6              0.34131315     1.041595       2.0997305    
+      2000   308.13835      9549.8288     -469.21116     -2290.1447      5              0.28458952     0.86942809     1.7526627    
+      2100   309.96537      9418.7292      2123.2511     -2290.4192      4              0.22780127     0.70522375     1.4216464    
+      2200   307.23192      9362.2215      1779.6434     -2292.8839      5              0.28458952     0.88685034     1.7877839    
+      2300   301.83281      9509.2898      3589.7208     -2294.1765      7              0.39797229     1.2223884      2.4641882    
+      2400   315.97622      9816.4892      3839.5902     -2294.9632      4              0.22780127     0.67664838     1.3640419    
+      2500   321.82389      9979.1532      2721.7125     -2295.151       3              0.17094831     0.49921407     1.0063557    
+      2600   313.87957      10182.301      1179.5498     -2293.6645      4              0.22780127     0.65233898     1.3150371    
+      2700   327.36901      10503.955     -1503.0901     -2292.7378      4              0.22780127     0.63236292     1.2747678    
+      2800   307.44647      10938.555     -1174.5835     -2293.0836      4              0.22780127     0.60723847     1.2241199    
+      2900   296.11315      11416.628     -1967.1131     -2291.6747      3              0.17094831     0.43635771     0.87964479   
+      3000   312.79389      11744.335     -1627.1112     -2291.195       2              0.11403052     0.28278788     0.57006644   
+      3100   297.26492      11904.347     -433.32407     -2291.6791      3              0.17094831     0.4184802      0.84360587   
+      3200   293.16849      11847.402      534.18845     -2292.3497      2              0.11403052     0.28032777     0.56510715   
+      3300   325.71819      11745.357      1546.8733     -2288.9312      1              0.057047785    0.14138164     0.28500842   
+      3400   303.51432      11792.922      924.24166     -2290.2902      2              0.11403052     0.28162279     0.56771776   
+      3500   323.64459      11852.027      1548.4567     -2289.4825      4              0.22780127     0.56043675     1.1297732    
+      3600   313.1186       12074.402     -970.61871     -2290.8469      4              0.22780127     0.55011516     1.1089662    
+      3700   313.84025      12187.299     -466.13153     -2290.2386      6              0.34131315     0.81752878     1.6480399    
+      3800   317.44988      12071.581     -1364.6522     -2289.4494      10             0.56756381     1.3756092      2.7730631    
+      3900   322.56714      11865.063     -111.75431     -2288.9679      9              0.51109751     1.2595972      2.5391968    
+      4000   319.15783      11534.019      80.076548     -2291.3937      8              0.45456704     1.1517775      2.3218452    
+      4100   300.86008      11237.485      2000.0297     -2292.1318      6              0.34131315     0.88662785     1.7873353    
+      4200   306.38824      10973.761      1915.1687     -2291.4927      6              0.34131315     0.9079355      1.830289     
+      4300   323.8607       10806.109      2184.5738     -2292.7294      5              0.28458952     0.76835145     1.5489043    
+      4400   322.25243      10548.116      3207.4626     -2293.3844      5              0.28458952     0.78714427     1.5867884    
+      4500   336.25683      10398.801      353.76375     -2292.9551      5              0.28458952     0.79844677     1.6095729    
+      4600   313.05734      10007.7       -195.44892     -2293.9218      3              0.17094831     0.49779007     1.003485     
+      4700   300.50027      9617.7008     -642.63132     -2294.6878      3              0.17094831     0.51797553     1.0441765    
+      4800   298.33997      9382.9516      594.88243     -2293.0636      3              0.17094831     0.5309346      1.0703004    
+      4900   295.38099      9511.2893      153.49162     -2292.5243      2              0.11403052     0.34918039     0.70390577   
+      5000   314.25325      9724.8524     -9.4220096     -2291.0319      3              0.17094831     0.5122683      1.0326714    
+      5100   292.19476      9609.7519      42.637163     -2292.9741      2              0.11403052     0.34560265     0.69669348   
+      5200   303.36143      9520.2062      221.9381      -2293.0572      2              0.11403052     0.34885334     0.70324648   
+      5300   306.31484      9483.2736     -250.38442     -2293.7288      2              0.11403052     0.35021195     0.70598527   
+      5400   325.24744      9851.1637     -1111.4131     -2293.4015      3              0.17094831     0.50570002     1.0194305    
+      5500   317.11464      10082.452     -2172.0899     -2293.5403      4              0.22780127     0.65879922     1.3280602    
+      5600   314.89442      10462.204     -1264.0296     -2292.8004      4              0.22780127     0.63488644     1.2798549    
+      5700   325.22732      10615.41      -2125.8951     -2292.023       4              0.22780127     0.62572353     1.2613835    
+      5800   330.39227      10820.623      709.88769     -2291.2531      5              0.28458952     0.76732082     1.5468267    
+      5900   296.0544       10829.131      1902.1688     -2292.8676      6              0.34131315     0.92006161     1.8547338    
+      6000   314.39443      10965.995      1009.7487     -2291.1005      9              0.51109751     1.3628677      2.7473777    
+      6100   311.6772       10906.029      2414.9805     -2290.6538      7              0.39797229     1.0658366      2.1485988    
+      6200   309.89838      10985.109      1997.5151     -2290.8196      5              0.28458952     0.75583134     1.5236653    
+      6300   317.23526      11099.505      744.6186      -2291.696       6              0.34131315     0.8976497      1.8095541    
+      6400   327.08774      10999.373      840.98682     -2290.4552      6              0.34131315     0.90582139     1.8260272    
+      6500   306.76922      10861.076      454.92567     -2292.7146      5              0.28458952     0.76446287     1

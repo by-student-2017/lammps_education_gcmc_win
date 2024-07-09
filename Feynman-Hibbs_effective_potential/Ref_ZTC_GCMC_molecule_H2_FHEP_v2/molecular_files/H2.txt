@@ -1,0 +1,48 @@
+# molecule (H2)
+
+2 atoms
+1 bonds
+
+Coords
+
+1      0.00000   0.00000   0.00000
+2      0.74000   0.00000   0.00000 
+
+Types
+
+1 3  # H
+2 3  # H
+
+Charges
+
+1 0.0
+2 0.0
+
+Bonds
+
+1 3 1 2
+
+Special Bond Counts
+
+1 1 0 0
+2 1 0 0
+
+Special Bonds
+
+1 2
+2 1
+
+Shake Flags
+
+1 2
+2 2
+
+Shake Atoms
+
+1 1 2
+2 1 2
+
+Shake Bond Types
+
+1 1
+2 1

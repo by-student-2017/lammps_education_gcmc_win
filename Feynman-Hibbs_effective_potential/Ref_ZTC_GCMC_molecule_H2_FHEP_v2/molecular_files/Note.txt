@@ -1,0 +1,75 @@
+#---------------------------------------------------------------------
+https://doi.org/10.1021/acs.jpca.3c03212
+Lennard-Jones 12-6 potential, gmq(http://www.lmops.univ-smb.fr/brown/gmq.html)
+#---------------------------------------------------------------------
+#---------------------------------------------------------------------
+# LJ-1S (model HCB LJ-1S)
+sigma = 2.928 [Angstrom]
+epsilon/kB = 37.0 [K]
+#---------------------------------------------------------------------
+# LJ-1S (model Ma LJ-1S) (H2 solubility in amorphous polymers)
+sigma = 2.95 [Angstrom]
+epsilon/kB = 37.0 [K]
+#---------------------------------------------------------------------
+# LJ-1S (model Ko LJ-1S) (the speed of sound and the pVT data of H2 over the 50–250 K temperature range)
+sigma = 3.0366 [Angstrom]
+epsilon/kB = 25.84 [K]
+#---------------------------------------------------------------------
+# LJ-1S (model Bu LJ-1S) (orientational effects in hydrogen at low temperatures) <= very well (for gas tank)
+sigma = 2.96 [Angstrom]
+epsilon/kB = 34.2 [K]
+#---------------------------------------------------------------------
+#---------------------------------------------------------------------
+# LJ-2S (model YZ LJ-2S) (experimental pVT curve and the self-diffusion coefficients of H2 over the 80–300 K range at pressures up to 600 bar) <= very well (for gas tank)
+sigma = 2.72 [Angstrom]
+epsilon/kB = 10.00 [K]
+H–H bond length = 0.74 [Angstrom]
+#---------------------------------------------------------------------
+# LJ-2S-q+/-
+sigma = 2.958 [Angstrom]
+epsilon/kB = 36.7 [K]
+H–H bond length = 0.74 [Angstrom]
+various partial charges: q = 0.615e-26 [esu], q/e = 0.120746, q/e = 0.468
+Note: [+q](H) - [-2q](COM) - [+q](H)
+Note: they were very close to those of a LJ-1S model
+Note: quadrupole moment of Q/(4*PI()*epsilon*kB)^(1/2) = 54.2 [(K*Angstrom^5)^(1/2)]
+#---------------------------------------------------------------------
+# LJ-2S-q+/-  (model Bo3 LJ-2S-q+/-) (experimental second-virial coefficients over the 98–773 K range)
+sigma = 2.68259 [Angstrom]
+epsilon/kB = 11.2544 [K]
+H–H bond length = 0.7508 [Angstrom]
+partial charges q/e = 0.1108 (on the H atoms)
+charge of −2q on the COM
+Note: [+q](H) - [-2q](COM) - [+q](H)
+#---------------------------------------------------------------------
+# LJ-2S-q+/- (TraPPE force-field) (model Si3 LJ-2S-q+/-) (experimental vapor–liquid coexistence curve of H2 in its near-critical region, i.e., around 33 K, in order to account for nuclear quantum effects)
+sigma = 3.03 [Angstrom]
+epsilon/kB = 8.06 [K]
+H–H bond length = 0.741 [Angstrom]
+partial charges q/e = 0.47 (on the H atoms)
+charge of −2q = −0.94 on the COM
+Note: [+q](H) - [-2q](COM) - [+q](H)
+Note: The Si3 LJ-2S-q+/- model has been used to address adsorption and diffusion of H2 in nanoporous materials.
+#---------------------------------------------------------------------
+#---------------------------------------------------------------------
+# LJ-3S-q+/- (second virial coefficients over the 50–500 K range as well as the pressure–density curves at 77 K (for a p range of 0–200 atm) and 298.15 K (for a p range of 0–2000 atm))
+sigma = 3.2293 [Angstrom](H)
+epsilon/kB = 8.8516 [K](H)
+H–H bond length = 0.742 [Angstrom]
+sigma = 2.3406 [Angstrom](COM)
+epsilon/kB = 4.0659  [K](COM)
+COM–H bond length = 0.329 [Angstrom]
+partial charges q/e = 0.3732 (on the H atoms)
+charge of −2q on the COM
+Note: [+q](H) - [-2q](COM) - [+q](H)
+Note: one LJ site on COM, two massless LJ sites
+#---------------------------------------------------------------------
+#---------------------------------------------------------------------
+C1. cubic periodic simulation boxes containing typically 512 molecules.
+C2. dt = 1 [fs]
+C3. As is customary for gas-based systems, the van der Waals cutoff was set to half the MD box length and long-range corrections to energy and pressure were implemented. 
+C4. The long-range nature of the Coulombic interactions was accounted for by the Ewald summation technique
+C5. NVT, Berendsen, relaxation time 0.1 ps
+C6. The temperature was maintained close to its required value using the Berendsen loose-coupling technique with a relaxation time of 0.1 ps.
+C7. Simulations were run for at least 1000 ps with the configurations being stored every 5 ps and the thermodynamic data every 1 ps.
+#---------------------------------------------------------------------
