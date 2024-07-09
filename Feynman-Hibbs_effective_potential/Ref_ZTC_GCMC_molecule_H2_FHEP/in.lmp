@@ -30,7 +30,7 @@ replicate 1 1 1
 
 molecule        my_one_gas ./molecular_files/H2_one.txt
 group           gas type 3
-variable        atoms_of_gas equal 0.5 # The number of atoms per gas molecule
+variable        atoms_of_gas equal 1 # The number of atoms per gas molecule
 
 #mass 1 12.0107 # C
 #mass 2 1.00794 # H
