@@ -112,6 +112,15 @@ variable        mc   equal (mass(gas)/6.022e23/1000)/(vol*1e-30) # Mass Concentr
 thermo ${Nout}   # computes and prints thermodynamic 
 thermo_style custom step temp vol press etotal v_ngas v_wtp v_molL v_mc # specifies content of thermodynamic data to be printed in screen
 
+# ----- averaging -----
+variable        rho equal density
+variable        p equal press
+variable        t equal temp
+variable        nugget equal 1.0e-8
+variable        lambda equal 1.0
+variable        muex equal ${mu}-temp*ln(density*${lambda}+${nugget})
+fix             ave all ave/time ${Nout} ${Nout} $(v_Nout*v_Nout) v_rho v_p v_t v_muex v_ngas v_wtp v_molL v_mc ave one file results.txt
+
 #---------- output file settings --------------------------------------
 dump            d1 all cfg ${Nout} cfg/run.*.cfg mass type xs ys zs id type vx vy vz fx fy fz
 dump_modify     d1 element ${elem}
