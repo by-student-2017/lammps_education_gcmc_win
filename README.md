@@ -572,5 +572,4 @@ pair_coeff  2 2 coul/shield 0.69
 
 ## Acknowledgment ######################################
 - This project (modified version) is/was partially supported by the following :
-  + meguREnergy Co., Ltd.
   + ATSUMITEC Co., Ltd.
