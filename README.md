@@ -569,7 +569,3 @@ pair_coeff  2 2 coul/shield 0.69
 - see Installation_lammps_linux.txt
 - use "csh" script for run.
 
-
-## Acknowledgment ######################################
-- This project (modified version) is/was partially supported by the following :
-  + ATSUMITEC Co., Ltd.
